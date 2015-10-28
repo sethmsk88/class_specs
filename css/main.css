@@ -1,0 +1,84 @@
+.tab_title{
+	font-weight:bold;
+}
+
+.myTabs .tab-pane{
+	border: solid 1px #DDDDDD;
+	border-top: 0;	
+	background-color:#FCFCFC;
+	padding:15px 0 5px 0;
+}
+
+#myTabs li a{
+	background-color: #CCCCCC;
+}
+
+#myTabs li.active a{
+	border-bottom-color: transparent;
+	background-color: #FCFCFC;
+}
+
+.dataTables_filter{
+	margin-right:5px;
+}
+
+.dataTables_length{
+	margin-left:5px;
+}
+
+tr.clickable{
+	cursor:pointer;
+}
+
+table.highlighted-rows > tbody > tr:hover{
+	background-color: rgba(255,136,0,.3);
+}
+
+.icon-btn{
+	background-color:transparent;
+	background-repeat:no-repeat;
+	border:none;
+	cursor:pointer;
+	overflow:hidden;
+}
+
+.icon-btn > span{
+	font-size:1.2em;
+}
+
+.icon-btn > span.icon-remove{
+	color:#dd0000;
+}
+
+.modalForm{
+	border:1px solid #AAAAAA;
+	border-radius:5px;
+	padding:10px 10px 8px 10px;
+	background-color:#EFEFEF;
+	line-height:3em;
+	position:absolute;
+	display:none;
+	z-index:2;
+}
+
+.modalForm > .form-group{
+	margin-bottom:0;
+}
+
+#overlay{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	opacity:0.5;
+	filter:alpha(opacity=50); /* IE7 and earlier */
+	z-index:1;
+}
+
+#ajax_response_submit{
+	margin-top:10px;
+	font-size:1.4em;
+	color:green;
+}
