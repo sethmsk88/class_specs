@@ -8,8 +8,6 @@
 
 <div id="overlay" style="display:none;"></div>
 
-<br />
-
 <div class="container">
 
 <!-- Testing textillate triggers --><!--
@@ -44,6 +42,34 @@
 		</div>
 	</div>
 -->
+
+	<?php
+		/*
+			If $_GET['jc'] exists, query jobcode from pay_levels table, and
+			populate fields with information.
+
+			Then display a message telling the user, "This Job Code has not yet
+			been entered into the database. Please fill out the remaining
+			required fields below, and then click 'Submit'."
+		*/
+		if (isset($_GET['jc'])) {
+	?>
+	<script>
+		// Get Job Code info and populate fields
+		getPayLevelInfo('<?php echo $_GET['jc']; ?>');
+	</script>
+	<div class="row">
+		<div class="col-lg-6">
+			<span class="notice">
+				Job Code <b><?php echo $_GET['jc']; ?></b> has not yet been entered into the database.<br />
+				Please fill in the remaining fields below. Then click the <i>Submit</i> button.
+			</span>
+		</div>
+	</div>
+	<br />
+	<?php
+		}
+	?>
 
 	<form
 		name="addJobSpec-form"

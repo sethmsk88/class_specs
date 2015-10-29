@@ -5,3 +5,9 @@
 #eduExp{
 	height:10em;
 }
+
+.notice{
+	color:red;
+	font-style:italic;
+	font-size:1.2em;
+}

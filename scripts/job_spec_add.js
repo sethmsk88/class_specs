@@ -15,12 +15,48 @@ function updateCompetencies(compID, compDescr) {
 	$lastCompSelectBox.val(compID);
 }
 
+
+/*
+	Query PayLevels tabl to see if there is a record for the specified Job Code.
+	If there is a record, get the columns of information that
+	appear as input fields on the Edit Page, and insert the information
+	into their respective input fields.
+*/
+function getPayLevelInfo(jobCode) {
+	$.ajax({
+		type: 'post',
+		url: './content/selectJobCode_act.php',
+		data: {
+			'jobCode': jobCode
+		},
+		dataType: 'json', // data type for response
+		success: function(response) {
+
+			// If Job Code returned information from pay_levels table
+			if (response !== null) {
+				/*
+					Populate fields with queried information
+				*/
+				$('input[id="jobCode"]').val(jobCode);
+				$('input[id="jobTitle"]').val(response['JobTitle']);
+				$('select[id="jobFamily"] option[value="' + response['JobFamilyID'] + '"]').prop('selected', true);
+				$('select[id="payPlan"] option[value="' + response['PayPlan'] + '"]').prop('selected', true);
+				$('select[id="payLevel"] option[value="' + response['PayLevel'] + '"]').prop('selected', true);
+				$('input[id="ipedsCode"]').val(response['IPEDS_SOCs']);
+				$('select[id="flsa"] option[value="' + response['FLSA'] + '"]').prop('selected', true);
+			}
+		}
+	});
+}
+
+
 /*********************************
 	When page finishes loading
 **********************************/
-$(document).ready(function(){
+$(document).ready(function() {
 
 	// Activate Textillate
+	/* TESTING: 
 	var $animated = $('.animatedText').textillate({
 		autoStart: false,
 		loop:false,
@@ -28,7 +64,7 @@ $(document).ready(function(){
 			effect: 'bounceInLeft',
 			sync: true
 		}
-	});
+	});*/
 
 	// Prepare overlay for modals
 	$overlay = $('<div id="overlay"></div>');
@@ -47,7 +83,7 @@ $(document).ready(function(){
 			data: $('#addJobSpec-form').serialize(),
 			success: function(response){
 				$('#ajax_response_submit').html(response);
-				$animated.textillate('in', index);
+				// TESTING: $animated.textillate('in', index);
 			}
 		});
 	});

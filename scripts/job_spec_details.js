@@ -45,8 +45,7 @@ $(document).ready(function() {
 
 	/*
 		Attach event handler to the JobCode input field.
-		Query PayLevels table to see if there is a record for the specified
-		Job Code.
+		Query PayLevels table to see if there is a record for the specified Job Code.
 		If there is a record, get the columns of information that
 		appear as input fields on the Edit Page, and insert the information
 		into their respective input fields.

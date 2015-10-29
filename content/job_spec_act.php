@@ -46,12 +46,6 @@
 	else {
 		$param_int_CBU_Code_ID = NULL;
 	}
-	/*if (trim($_POST['ipedsCode']) != '') {
-		$param_int_IPEDS_Code = trim($_POST['ipedsCode']);
-	}
-	else {
-		$param_int_IPEDS_Code = NULL;
-	}*/
 	if ($_POST['flsa'] != '') {
 		$param_int_FLSA = $_POST['flsa'];
 	}
