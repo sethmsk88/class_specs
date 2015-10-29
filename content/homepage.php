@@ -21,7 +21,17 @@
 
 				// For each row in query result
 				while ($row = $qry_result->fetch_assoc()){
-					$jobSpecURL = '?page=job_spec_details&jc=' . $row['JobCode'];
+					
+					/*
+						If JobCode has an entry in the class_specs table,
+						link to details page, otherwise, link to add page
+					*/
+					if ($row['classID'] == null) {
+						$jobSpecURL = '?page=job_spec_add&jc=' . $row['JobCode'];
+					}
+					else {
+						$jobSpecURL = '?page=job_spec_details&jc=' . $row['JobCode'];
+					}
 
 					echo "<tr class='clickable' onclick='window.location.assign(\"" . $jobSpecURL . "\");'>";
 						echo '<td>' . $row['JobCode'] . '</td>';
