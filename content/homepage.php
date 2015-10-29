@@ -5,7 +5,7 @@
 	/*    in qry_result. qry_result is the result of a  */
 	/*    query on the pay_levels table.                */
 	/****************************************************/
-	function outputJobCodeTable($qry_result, $tableId, $jobFamily_array)
+	function outputJobCodeTable($qry_result, $tableId)
 	{
 		echo '<table id="' . $tableId . '" class="table table-striped highlighted-rows">';
 			echo '<thead>';
@@ -26,7 +26,7 @@
 					echo "<tr class='clickable' onclick='window.location.assign(\"" . $jobSpecURL . "\");'>";
 						echo '<td>' . $row['JobCode'] . '</td>';
 						echo '<td>' . $row['JobTitle'] . '</td>';
-						echo '<td>' . $jobFamily_array[$row['JobFamily']] . '</td>';
+						echo '<td>' . $row['JobFamily_long'] . '</td>';
 					echo '</tr>';
 				}
 			echo '</tbody>';
@@ -42,10 +42,14 @@
 
 	// Get A&P jobs
 	$sql = "
-		SELECT *
-		FROM pay_levels
-		WHERE PayPlan = 'A&P'
-		ORDER BY JobCode ASC";
+		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		FROM pay_levels p
+		INNER JOIN job_families j
+		ON p.JobFamily = j.JobFamily_short
+		LEFT JOIN class_specs c
+		ON p.JobCode = c.JobCode
+		WHERE p.PayPlan = 'A&P'
+		ORDER BY p.JobCode ASC";
 
 	// Run Query for A&P
 	if (!($qry_ap = $conn->query($sql))){
@@ -55,10 +59,14 @@
 
 	// Get USPS jobs
 	$sql = "
-		SELECT *
-		FROM pay_levels
-		WHERE PayPlan = 'USPS'
-		ORDER BY JobCode ASC";
+		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		FROM pay_levels p
+		INNER JOIN job_families j
+		ON p.JobFamily = j.JobFamily_short
+		LEFT JOIN class_specs c
+		ON p.JobCode = c.JobCode
+		WHERE p.PayPlan = 'USPS'
+		ORDER BY p.JobCode ASC";
 
 	// Run Query for USPS
 	if (!($qry_usps = $conn->query($sql))){
@@ -68,10 +76,14 @@
 
 	// Get Exec jobs
 	$sql = "
-		SELECT *
-		FROM pay_levels
-		WHERE PayPlan = 'EXC'
-		ORDER BY JobCode ASC";
+		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		FROM pay_levels p
+		INNER JOIN job_families j
+		ON p.JobFamily = j.JobFamily_short
+		LEFT JOIN class_specs c
+		ON p.JobCode = c.JobCode
+		WHERE p.PayPlan = 'EXC'
+		ORDER BY p.JobCode ASC";
 
 	// Run Query for Exec
 	if (!($qry_exec = $conn->query($sql))){
@@ -103,7 +115,7 @@
 				<div id="ap" class="tab-pane fade in active">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_ap, 'classSpecs_ap', $jobFamily_array);?>
+							<?php outputJobCodeTable($qry_ap, 'classSpecs_ap');?>
 						</div>
 					</div>
 				</div>
@@ -114,7 +126,7 @@
 				<div id="usps" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_usps, 'classSpecs_usps', $jobFamily_array);?>
+							<?php outputJobCodeTable($qry_usps, 'classSpecs_usps');?>
 						</div>
 					</div>
 				</div>
@@ -125,7 +137,7 @@
 				<div id="exec" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_exec, 'classSpecs_exec', $jobFamily_array);?>
+							<?php outputJobCodeTable($qry_exec, 'classSpecs_exec');?>
 						</div>
 					</div>
 				</div>

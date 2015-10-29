@@ -147,12 +147,14 @@
 		echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 	}
 
+	/*
 	$param_str_JobCode
 	$param_str_JobTitle
 	$param_int_FLSA // needs to be converted to varchar representation for pay_levels table
 	$param_int_OldPayGrade // this is a varchar(8) in pay_levels table
 	$param_int_JobFamilyID // need to use the ID to get JobFamily_short from job_families table and insert that value
 	$param_str_PayPlan
+	*/
 
 
 

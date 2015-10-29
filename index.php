@@ -54,24 +54,9 @@
     <script src="/bootstrap/js/jquery.textillate.js"></script>
 
     <?php
-        // The key represents the jobFamily abbreviations used the Paylevels table
-        $jobFamily_array = array(
-            "AA"    => "Academic Affairs",
-            "ABS"   => "Administrative &amp; Business Services",
-            ""      => "Athletics",
-            "BFS"   => "Budget &amp; Financial Services",
-            "CAPRM" => "Communications, Advancement, PR, &amp; Marketing",
-            "FGS"   => "Facilities &amp; Grounds Services",
-            "SS"    => "Safety &amp; Security",
-            "STS"   => "Student Services",
-            "TS"    => "Technology Services"
-        );
-
         // Include FAMU logo header
         include "../templates/header_3.php";
     ?>
-
-    
 
     <!-- Nav Bar -->
     <nav
