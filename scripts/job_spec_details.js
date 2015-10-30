@@ -44,40 +44,6 @@ $(document).ready(function() {
 	});
 
 	/*
-		Attach event handler to the JobCode input field.
-		Query PayLevels table to see if there is a record for the specified Job Code.
-		If there is a record, get the columns of information that
-		appear as input fields on the Edit Page, and insert the information
-		into their respective input fields.
-	*/
-	$('input#jobCode').on('change', function() {
-		$.ajax({
-			type: 'post',
-			url: './content/selectJobCode_act.php',
-			data: {
-				'jobCode': $(this).val()
-			},
-			dataType: 'json', // data type for response
-			success: function(response) {
-
-				// If Job Code returned information from pay_levels table
-				if (response !== null) {
-
-					/*
-						Populate fields with queried information
-					*/
-					$('input[id="jobTitle"]').val(response['JobTitle']);
-					$('select[id="jobFamily"] option[value="' + response['JobFamilyID'] + '"]').prop('selected', true);
-					$('select[id="payPlan"] option[value="' + response['PayPlan'] + '"]').prop('selected', true);
-					$('select[id="payLevel"] option[value="' + response['PayLevel'] + '"]').prop('selected', true);
-					$('input[id="ipedsCode"]').val(response['IPEDS_SOCs']);
-					$('select[id="flsa"] option[value="' + response['FLSA'] + '"]').prop('selected', true);
-				}
-			}
-		});
-	});
-
-	/*
 		Attach event handlers to all competency delete buttons
 	*/
 	$('.del-comp').on('click', function() {
