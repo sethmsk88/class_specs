@@ -31,6 +31,22 @@
 					break;
 			}
 		}
+		else if ($format == 'long') {
+			switch ($payPlan) {
+				case 'usps':
+					$convertedPayPlan = 'USPS';
+					break;
+				case 'ap':
+					$convertedPayPlan = 'A&amp;P';
+					break;
+				case 'exec':
+					$convertedPayPlan = 'Executive';
+					break;
+				case 'fac':
+					$convertedPayPlan = 'Faculty';
+					break;
+			}
+		}
 		return $convertedPayPlan;
 	}
 
@@ -77,6 +93,19 @@
 					break;
 				case 2:
 					$convertedFLSA = 'both';
+					break;
+			}
+		}
+		else if ($format == 'string') {
+			switch ($flsa) {
+				case 0:
+					$convertedFLSA = 'Non-Exempt';
+					break;
+				case 1:
+					$convertedFLSA = 'Exempt';
+					break;
+				case 2:
+					$convertedFLSA = 'Both';
 					break;
 			}
 		}

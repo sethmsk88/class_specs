@@ -751,23 +751,14 @@
 				echo '</div>';
 			echo '</div>';
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Pay Plan:</span>';
-					if ($classSpec_row['PayPlan'] == 'usps')
-						echo 'USPS';
-					else if ($classSpec_row['PayPlan'] == 'ap') {
-						echo 'A&amp;P';
-					}
-					else if ($classSpec_row['PayPlan'] == 'exec') {
-						echo 'Executive';
-					}
-					else if ($classSpec_row['PayPlan'] == 'fac') {
-						echo 'Faculty';
-					}
-				echo '</div>';
-			echo '</div>';
-
+?>
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Pay Plan:</span>
+					<?php echo convertPayPlan($classSpec_row['PayPlan'], 'long'); ?>
+				</div>
+			</div>
+<?php
 			echo '<div class="row">';
 				echo '<div class="col-lg-12">';
 					echo '<span class="myLabel">Recommended Job Code Pay Range (from pay levels table):</span>';
@@ -828,19 +819,14 @@
 					echo $classSpec_row['CUPA_HR'];
 				echo '</div>';
 			echo '</div>';
-
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">This position is FLSA:</span>';
-					if ($classSpec_row['FLSA'] == 0)
-						echo 'Non-Exempt';
-					else if ($classSpec_row['FLSA'] == 1)
-						echo 'Exempt';
-					else if ($classSpec_row['FLSA'] == 2)
-						echo 'Both';
-				echo '</div>';
-			echo '</div>';
-
+?>
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">This position is FLSA:</span>
+					<?php echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
+				</div>
+			</div>
+<?php
 			echo '<div class="row">';
 				echo '<div class="col-lg-12">';
 					echo '<span class="myLabel">CBU Code:</span>';
