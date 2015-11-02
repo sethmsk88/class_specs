@@ -72,36 +72,10 @@
 		$payLevel_row['JobFamilyID'] = $jobFamily_row['JobFamilyID'];
 
 		// Convert PayPlan to format used in job_spec_details.php
-		switch ($payLevel_row['PayPlan']) {
-			case 'USPS':
-				$payLevel_row['PayPlan'] = 'usps';
-				break;
-			case 'A&P':
-				$payLevel_row['PayPlan'] = 'ap';
-				break;
-			case 'Faculty':
-				$payLevel_row['PayPlan'] = 'fac';
-				break;
-			case 'EXC':
-				$payLevel_row['PayPlan'] = 'exec';
-				break;
-		}
-
+		$payLevel_row['PayPlan'] = convertPayPlan($payLevel_row['PayPlan'], 'class_specs');
+		
 		// Convert FLSA Status to format used in job_spec_details.php
-		switch ($payLevel_row['FLSA']) {
-			case 'N':
-			case 'NE':
-				$payLevel_row['FLSA'] = 0;
-				break;
-			case 'X':
-			case 'E':
-				$payLevel_row['FLSA'] = 1;
-				break;
-			case '1X N':
-			case 'both':
-				$payLevel_row['FLSA'] = 2;
-				break;
-		}
+		$payLevel_row['FLSA'] = convertFLSA($payLevel_row['FLSA'], 'numeric');
 
 		// Convert payLevel_row associative array to json object
 		echo json_encode($payLevel_row);
