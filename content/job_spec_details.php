@@ -19,10 +19,14 @@
 	}
 
 	$select_classSpec_sql = "
-		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code
+		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
 		JOIN pay_levels AS p
 		ON c.JobCode = p.JobCode
+		JOIN eeo_codes AS eeo
+		ON c.EEO_Code_ID = eeo.EEO_Code_ID
+		JOIN cbu_codes AS cbu
+		ON c.CBU_Code_ID = cbu.CBU_Code_ID
 		WHERE c.JobCode = ?
 	";
 
@@ -167,7 +171,6 @@
 		ORDER BY EEO_Code_Descr
 	";
 	$qry_eeoCodes = $conn->query($select_eeoCodes_sql);
-
 
 	/***********************/
 	/** Get all CBU codes **/
@@ -808,7 +811,7 @@
 			echo '<div class="row">';
 				echo '<div class="col-lg-12">';
 					echo '<span class="myLabel">EEO Code:</span>';
-					echo $classSpec_row['EEO_Code_ID'];
+					echo $classSpec_row['EEO_Code_Descr'];
 				echo '</div>';
 			echo '</div>';
 
@@ -841,7 +844,7 @@
 			echo '<div class="row">';
 				echo '<div class="col-lg-12">';
 					echo '<span class="myLabel">CBU Code:</span>';
-					echo $classSpec_row['CBU_Code_ID'];
+					echo $classSpec_row['CBU_Code_Descr'];
 				echo '</div>';
 			echo '</div>';
 
@@ -940,284 +943,9 @@
 				echo '</div>';
 			echo '</div>';
 			
-
-
-
-
-
-
-
-
-
-
-
-
 		echo '</div>'; // End container
 	}
 ?>
-
-<?php /**********************************************************************
-/*****************************************************************************
-	<!-- <div class="row">
-		<div class="col-lg-4">
-			<label for="">Job Code:</label>
-				<span id="jobCode" class="readOnly">
-					<?php $classSpec_row['JobCode']; ?>
-				</span>
-		</div>
-		<div class="col-lg-6">
-			<label for="jobTitle">Title:</label>
-			<span id="jobTitle" class="readOnly">
-				<?php echo stripslashes($classSpec_row['JobTitle']); ?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="jobFamily">Job Family:</label>
-			<span id="jobFamily" class="readOnly">
-				<?php echo $jobFamily_row['JobFamily_long']; ?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="payPlan">Pay Plan:</label>
-			<span id="payPlan" class="readOnly">
-				<?php
-					if ($classSpec_row['PayPlan'] == 'usps')
-						echo 'USPS';
-					else
-						echo $classSpec_row['PayPlan'];
-				?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="recPayRange">Recommended Job Code Pay Range (from pay levels table):</label>
-			<span id="recPayRange">
-				<?php
-					echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ' .
-						'$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
-				?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="payLevel">Pay Level:</label>
-			<span id="payLevel">
-				<?php echo $payLevel_row['PayLevel'] ?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-4">
-			<label for="oldPayGrade">Old Paygrade:</label>
-			<span id="oldPayGrade" class="readOnly">
-				<?php echo $classSpec_row['OldPayGrade']; ?>
-			</span>
-		</div>
-		<div class="col-lg-8">
-			<label for="actualPayRange">Paygrade Range (from TMS):</label>
-			<span id="actualPayRange">
-				<?php
-					echo '$' . number_format($actual_minSal, 2, '.', ',') . ' - ' .
-						'$' . number_format($actual_maxSal, 2, '.', ',');
-				?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="numEmps">Approximate Number of People in Classification:</label>
-			<span id="numEmps">
-				<?php echo $emps_result->num_rows; ?>
-			</span>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="eeoCode">EEO Code:</label>
-			<span id="eeoCode" class="readOnly">
-				<?php echo $classSpec_row['EEO_Code_ID']; ?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="ipedsCode">IPEDS Code:</label>
-			<span id="ipedsCode" class="readOnly">
-				<?php echo $classSpec_row['IPEDS_Code']; ?>
-			</span>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="cupaHR">CUPA-HR #:</label>
-			<span id="cupaHR" class="readOnly">
-				<?php echo $classSpec_row['CUPA_HR']; ?>
-			</span>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="flsa">This position is FLSA:</label>
-			<span id="flsa" class="readOnly">
-				<?php
-					if ($classSpec_row['FLSA'])
-						echo 'Exempt';
-					else
-						echo 'Non-Exempt';
-				?>
-			</span>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12">
-			<label for="cbuCode">CBU Code:</label>
-			<span id="cbuCode" class="readOnly">
-				<?php echo $classSpec_row['CBU_Code_ID']; ?>
-			</span>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="posDescr" class="box-title">Description:</label>
-			<div id="posDescr" class="box readOnly">
-				<?php echo stripslashes($classSpec_row['PositionDescr']); ?>
-			</div>
-		</div>
-	</div>
-	<br />
-	<div class="row">
-		<div class="col-lg-12">
-			<span class="note">Please Note: Examples listed are not an all-inclusive list of duties and tasks.</span>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="eduExp" class="box-title">Education/Experience:</label>
-			<div id="eduExp" class="box readOnly">
-				<?php echo stripslashes($classSpec_row['EducationExp']); ?>
-			</div>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<label for="recCompetencies" class="box-title">Recommended Competencies:</label>
-			<div id="recCompetencies" class="box readOnly">
-				<ul class="list-competencies">
-				<?php
-					// Create list item for each competency
-					while($row = $competencies_result->fetch_assoc()){
-						echo '<li>' . stripslashes($row['Descr']) . '</li>';
-					}
-				?>
-				</ul>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-lg-12" style="text-decoration:underline;">
-			Other Specific Requirements
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<label for="backgroundCheck">Police Background Check:</label>
-		</div>
-		<div class="col-lg-9">
-			<div id="backgroundCheck" class="readOnly">
-				<?php
-					if ($classSpec_row['BackgroundCheck'])
-						echo 'Yes';
-					else
-						echo 'No';
-				?>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<label for="financialDisclosure">Financial Disclosure:</label>
-		</div>
-		<div class="col-lg-9">
-			<div id="financialDisclosure" class="readOnly">
-				<?php
-					if ($classSpec_row['FinancialDisclosure'])
-						echo 'Yes';
-					else
-						echo 'No';
-				?>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<label for="physical">Pre/Post Offer Physical:</label>
-		</div>
-		<div class="col-lg-9">
-			<div id="physical" class="readOnly">
-				<?php
-					if ($classSpec_row['Physical'])
-						echo 'Yes';
-					else
-						echo 'No';
-				?>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<label for="confidentialityStmt">Confidentiality Statement:</label>
-		</div>
-		<div class="col-lg-9">
-			<div id="confidentialityStmt" class="readOnly">
-				<?php
-					if ($classSpec_row['ConfidentialityStmt'])
-						echo 'Yes';
-					else
-						echo 'No';
-				?>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-3">
-			<label for="childCareSecurityCheck">Child Care Security Check:</label>
-		</div>
-		<div class="col-lg-9">
-			<div id="childCareSecurityCheck" class="readOnly">
-				<?php
-					if ($classSpec_row['ChildCareSecurityCheck'])
-						echo 'Yes';
-					else
-						echo 'No';
-				?>
-			</div>
-		</div>
-	</div> -->
-
-</div>
-************************************************************************
-************************************************************************/?>
 
 <?php
 	mysqli_close($conn);
