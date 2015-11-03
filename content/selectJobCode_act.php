@@ -10,6 +10,9 @@
 	// Include my database info
     include "../../shared/dbInfo.php";
 
+    // Include UDFs
+    include "./class_spec_UDFs.php";
+
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
 	if (mysqli_connect_error()){
