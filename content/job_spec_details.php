@@ -737,14 +737,17 @@
 					?>
 				</div>
 			</div>
-<?php
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Recommended Job Code Pay Range (from pay levels table):</span>';
-					echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ' . '$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
-				echo '</div>';
-			echo '</div>';
-?>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
+					$ <?php echo number_format($payLevel_row['MinSal'], 2, '.', ','); ?> - $ <?php echo number_format($payLevel_row['MaxSal'], 2, '.', ','); ?>
+				</div>
+				<div class="col-lg-12 note">
+					(Range estimated from internal and external benchmarks and does not represent the definitive minimum and maximum of the classification, please see Pay Level range for the recommended minimum and maximum of classifications in this level of responsibility)
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-lg-3">
 					<span class="myLabel">Pay Level:</span>
