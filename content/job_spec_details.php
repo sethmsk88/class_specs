@@ -22,13 +22,19 @@
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
 		JOIN pay_levels AS p
-		ON c.JobCode = p.JobCode
-		JOIN eeo_codes AS eeo
-		ON c.EEO_Code_ID = eeo.EEO_Code_ID
-		JOIN cbu_codes AS cbu
-		ON c.CBU_Code_ID = cbu.CBU_Code_ID
+			ON c.JobCode = p.JobCode
+		LEFT JOIN eeo_codes AS eeo
+			ON c.EEO_Code_ID = eeo.EEO_Code_ID
+		LEFT JOIN cbu_codes AS cbu
+			ON c.CBU_Code_ID = cbu.CBU_Code_ID
 		WHERE c.JobCode = ?
 	";
+	/*
+	$select_classSpec_sql = "
+		SELECT *
+		FROM class_specs
+		WHERE JobCode = ?
+	";*/
 
 	// Prepare SQL statement
 	if (!$stmt = $conn->prepare($select_classSpec_sql)){
@@ -48,11 +54,15 @@
 	// Get query result
 	$classSpecs_result = $stmt->get_result();
 
+	dumpQuery($classSpecs_result);
+
 	// Close statement
 	$stmt->close();
 
 	// Get first row from result
 	$classSpec_row = $classSpecs_result->fetch_assoc();
+
+
 
 
 	/********************/
