@@ -22,11 +22,11 @@
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
 		JOIN pay_levels AS p
-		ON c.JobCode = p.JobCode
-		JOIN eeo_codes AS eeo
-		ON c.EEO_Code_ID = eeo.EEO_Code_ID
-		JOIN cbu_codes AS cbu
-		ON c.CBU_Code_ID = cbu.CBU_Code_ID
+			ON c.JobCode = p.JobCode
+		LEFT JOIN eeo_codes AS eeo
+			ON c.EEO_Code_ID = eeo.EEO_Code_ID
+		LEFT JOIN cbu_codes AS cbu
+			ON c.CBU_Code_ID = cbu.CBU_Code_ID
 		WHERE c.JobCode = ?
 	";
 
@@ -53,7 +53,6 @@
 
 	// Get first row from result
 	$classSpec_row = $classSpecs_result->fetch_assoc();
-
 
 	/********************/
 	/** Get Job Family **/
@@ -210,6 +209,7 @@
 		WHERE PayLevel = " . $payLevel_row['PayLevel'];
 	$qry_payLevelRange = $conn->query($select_payLevelRange_sql);
 	$payLevelRange_row = $qry_payLevelRange->fetch_assoc();
+
 ?>
 
 <div id="overlay" style="display:none;"></div>
@@ -325,35 +325,35 @@
 						echo '</div>';
 					echo '</div>';
 				echo '</div>';
+?>
+				<!-- Pay Level -->
+				<div class="row">
+					<div class="form-group">
+						<label for="payLevel" class="control-label col-lg-2">Pay Level:</label>
+						<div class="col-lg-4">
+							<select
+								id="payLevel"
+								name="payLevel"
+								class="form-control"
+								>
+								<option value=""></option>
+								<?php
+									while ($row = $qry_payLevelNums->fetch_assoc()) {
+										if ($row['PayLevel'] == $payLevel_row['PayLevel']) {
+											$optionSelected = 'selected="selected"';
+										}
+										else {
+											$optionSelected = '';
+										}
 
-				/* Pay Level */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="payLevel" class="control-label col-lg-2">Pay Level:</label>';
-						echo '<div class="col-lg-4">';
-						/*
-							echo '<input ' .
-									'id="payLevel" ' .
-									'name="payLevel" ' .
-									'type="text" ' .
-									'class="form-control" ' .
-									'value="' . $payLevel_row['PayLevel'] . '"' .
-									'>';
-									*/
-							echo '<select ' .
-									'id="payLevel" ' .
-									'name="payLevel" ' .
-									'class="form-control" ' .
-									'>';
-								echo '<option value="" selected="selected"></option>';
-								while ($row = $qry_payLevelNums->fetch_assoc()) {
-									echo '<option value="' . $row['PayLevel'] . '">' . $row['PayLevel'] . '</option>';
-								}
-							echo '</select>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
+										echo '<option value="' . $row['PayLevel'] . '" ' . $optionSelected . '>' . $row['PayLevel'] . '</option>';
+									}
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
+<?php
 				/* Old Paygrade */
 				echo '<div class="row">';
 					echo '<div class="form-group">';
@@ -369,34 +369,37 @@
 						echo '</div>';
 					echo '</div>';
 				echo '</div>';
+?>
+				<!-- EEO Code -->
+				<div class="row">
+					<div class="form-group">
+						<label for="eeoCode" class="control-label col-lg-2">EEO Code:</label>
+						<div class="col-lg-4">
+							<select
+								name="eeoCode"
+								id="eeoCode"
+								class="form-control"
+								>
+								<option value=""></option>
+								<?php
+									while ($row = $qry_eeoCodes->fetch_assoc()) {
 
-				/* EEO Code */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="eeoCode" class="control-label col-lg-2">EEO Code:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<select ' .
-									'name="eeoCode" ' .
-									'id="eeoCode" ' .
-									'class="form-control" ' .
-									'>';
-								echo '<option value=""></option>';
-
-								while ($row = $qry_eeoCodes->fetch_assoc()) {
-
-									if ($row['EEO_Code_ID'] == $classSpec_row['EEO_Code_ID']) {
-										$optionSelected = 'selected="selected"';
+										if ($row['EEO_Code_ID'] == $classSpec_row['EEO_Code_ID']) {
+											$optionSelected = 'selected="selected"';
+										}
+										else {
+											$optionSelected = '';
+										}
+								
+										echo '<option value="' . $row['EEO_Code_ID'] . '" ' . $optionSelected . '>' . $row['EEO_Code_Descr'] . '</option>';
+								
 									}
-									else {
-										$optionSelected = '';
-									}
-									echo '<option value="' . $row['EEO_Code_ID'] . '" ' . $optionSelected . '>' . $row['EEO_Code_Descr'] . '</option>;';
-								}
-							echo '</select>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
+<?php
 				/* IPEDS Code */
 				echo '<div class="row">';
 					echo '<div class="form-group">';

@@ -57,7 +57,20 @@
 								}
 							?>
 						</td>
-						<td><?php echo $row['JobFamily_long']; ?></td>
+						<td>
+							<?php
+								/*
+								 *	Use the Job Family that was entered through
+								 *	the Class Specs Manager if one exists.
+								 */
+								if ($row['JobFamilyID'] !== NULL) {
+									echo $row['JobFamily_long_alt'];
+								}
+								else {
+									echo $row['JobFamily_long'];
+								}
+							?>
+						</td>
 					</tr>
 					<?php
 				}
@@ -79,15 +92,19 @@
 	function getClassSpecs($payPlan, &$conn) {
 		$sel_classSpecs_sql = "
 			SELECT p.JobCode,
-			p.JobTitle,
-			c.ID classID,
-			j.JobFamily_long,
-			c.JobTitle AS JobTitle_alt
+				p.JobTitle,
+				c.ID classID,
+				j1.JobFamily_long,
+				c.JobTitle JobTitle_alt,
+				c.JobFamilyID,
+				j2.JobFamily_long JobFamily_long_alt
 			FROM pay_levels p
-			INNER JOIN job_families j
-			ON p.JobFamily = j.JobFamily_short
+			JOIN job_families j1
+				ON p.JobFamily = j1.JobFamily_short
 			LEFT JOIN class_specs c
-			ON p.JobCode = c.JobCode
+				ON p.JobCode = c.JobCode
+			LEFT JOIN job_families j2
+				ON c.JobFamilyID = j2.ID
 			WHERE p.PayPlan = '$payPlan'
 			ORDER BY p.JobCode ASC
 		";
