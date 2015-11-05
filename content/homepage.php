@@ -5,8 +5,7 @@
 	/*    in qry_result. qry_result is the result of a  */
 	/*    query on the pay_levels table.                */
 	/****************************************************/
-	function outputJobCodeTable($qry_result, $tableId)
-	{
+	function outputJobCodeTable($qry_result, $tableId) {
 		echo '<table id="' . $tableId . '" class="table table-striped highlighted-rows">';
 			echo '<thead>';
 				echo '<tr>';
@@ -67,74 +66,51 @@
 	}
 
 
+	/******************************************************/
+	/* Function: getClassSpecs                            */
+	/* Description: Run a query to get to get all class   */
+	/*    specs in a particular pay plan.                 */
+	/* Params:                                            */
+	/*	  payPlan is a string representing the Pay        */
+	/*    Plan for which you would like to run the query. */
+	/*	  conn is a reference to a DB connection.         */
+	/* Return: Query object containing query result       */
+	/************************************************&*****/
+	function getClassSpecs($payPlan, &$conn) {
+		$sel_classSpecs_sql = "
+			SELECT p.JobCode,
+			p.JobTitle,
+			c.ID classID,
+			j.JobFamily_long,
+			c.JobTitle AS JobTitle_alt
+			FROM pay_levels p
+			INNER JOIN job_families j
+			ON p.JobFamily = j.JobFamily_short
+			LEFT JOIN class_specs c
+			ON p.JobCode = c.JobCode
+			WHERE p.PayPlan = '$payPlan'
+			ORDER BY p.JobCode ASC
+		";
+
+		if (!($sel_classSpecs_result = $conn->query($sel_classSpecs_sql))){
+			echo "Query failed: (" . $conn->errno . ") " . $conn->error;
+			echo "<br />" . $sql;
+		}
+
+		return $sel_classSpecs_result;
+	}
+
+
 	// Connect to DB
 	$conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
 	if ($conn->connect_errno){
 		echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
 	}
 
-	// Get A&P jobs
-	$sql = "
-		SELECT p.JobCode,
-			p.JobTitle,
-			c.ID classID,
-			j.JobFamily_long,
-			c.JobTitle AS JobTitle_alt
-		FROM pay_levels p
-		INNER JOIN job_families j
-		ON p.JobFamily = j.JobFamily_short
-		LEFT JOIN class_specs c
-		ON p.JobCode = c.JobCode
-		WHERE p.PayPlan = 'A&P'
-		ORDER BY p.JobCode ASC";
-
-	// Run Query for A&P
-	if (!($qry_ap = $conn->query($sql))){
-		echo "Query failed: (" . $conn->errno . ") " . $conn->error;
-		echo "<br />" . $sql;
-	}
-
-	// Get USPS jobs
-	$sql = "
-		SELECT p.JobCode,
-			p.JobTitle,
-			c.ID classID,
-			j.JobFamily_long,
-			c.JobTitle AS JobTitle_alt
-		FROM pay_levels p
-		INNER JOIN job_families j
-		ON p.JobFamily = j.JobFamily_short
-		LEFT JOIN class_specs c
-		ON p.JobCode = c.JobCode
-		WHERE p.PayPlan = 'USPS'
-		ORDER BY p.JobCode ASC";
-
-	// Run Query for USPS
-	if (!($qry_usps = $conn->query($sql))){
-		echo "Query failed: (" . $conn->errno . ") " . $conn->error;
-		echo "<br />" . $sql;
-	}
-
-	// Get Exec jobs
-	$sql = "
-		SELECT p.JobCode,
-			p.JobTitle,
-			c.ID classID,
-			j.JobFamily_long,
-			c.JobTitle AS JobTitle_alt
-		FROM pay_levels p
-		INNER JOIN job_families j
-		ON p.JobFamily = j.JobFamily_short
-		LEFT JOIN class_specs c
-		ON p.JobCode = c.JobCode
-		WHERE p.PayPlan = 'EXC'
-		ORDER BY p.JobCode ASC";
-
-	// Run Query for Exec
-	if (!($qry_exec = $conn->query($sql))){
-		echo "Query failed: (" . $conn->errno . ") " . $conn->error;
-		echo "<br />" . $sql;
-	}
+	$sel_classSpec_ap_result = getClassSpecs('A&P', $conn);
+	$sel_classSpec_usps_result = getClassSpecs('USPS', $conn);
+	$sel_classSpec_exec_result = getClassSpecs('EXC', $conn);
+	$sel_classSpec_fac_result = getClassSpecs('Faculty', $conn);
 
 	// Close DB connection
 	mysqli_close($conn);
@@ -160,7 +136,7 @@
 				<div id="ap" class="tab-pane fade in active">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_ap, 'classSpecs_ap');?>
+							<?php outputJobCodeTable($sel_classSpec_ap_result, 'classSpecs_ap'); ?>
 						</div>
 					</div>
 				</div>
@@ -171,7 +147,7 @@
 				<div id="usps" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_usps, 'classSpecs_usps');?>
+							<?php outputJobCodeTable($sel_classSpec_usps_result, 'classSpecs_usps'); ?>
 						</div>
 					</div>
 				</div>
@@ -182,7 +158,7 @@
 				<div id="exec" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($qry_exec, 'classSpecs_exec');?>
+							<?php outputJobCodeTable($sel_classSpec_exec_result, 'classSpecs_exec'); ?>
 						</div>
 					</div>
 				</div>
@@ -193,22 +169,7 @@
 				<div id="fac" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<table id="classSpecs_fac" class="table table-striped">
-								<thead>
-									<tr>
-										<th>Job Code</th>
-										<th>Job Title</th>
-										<th>Salary Range</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									</tr>
-								</tbody>
-							</table>
+							<?php outputJobCodeTable($sel_classSpec_fac_result, 'classSpecs_fac'); ?>
 						</div>
 					</div>
 				</div>
