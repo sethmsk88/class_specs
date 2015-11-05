@@ -741,7 +741,15 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
-					$ <?php echo number_format($payLevel_row['MinSal'], 2, '.', ','); ?> - $ <?php echo number_format($payLevel_row['MaxSal'], 2, '.', ','); ?>
+					<?php
+						echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ';
+						if ($payLevel_row['MaxSal'] >= 0) {
+							echo '$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
+						}
+						else {
+							echo 'No Max';
+						}
+					?>
 				</div>
 				<div class="col-lg-12 note">
 					(Range estimated from internal and external benchmarks and does not represent the definitive minimum and maximum of the classification, please see Pay Level range for the recommended minimum and maximum of classifications in this level of responsibility)
@@ -755,7 +763,15 @@
 				</div>
 				<div class="col-lg-9">
 					<span class="myLabel">Pay Level Range:</span>
-					<?php echo '$' . number_format($payLevelRange_row['PayLevelMin'], 2, '.', ',') . ' - ' . number_format($payLevelRange_row['PayLevelMax'], 2, '.', ','); ?>
+					<?php
+						echo '$' . number_format($payLevelRange_row['PayLevelMin'], 2, '.', ',') . ' - ';
+						if ($payLevelRange_row['PayLevelMax'] >= 0) {
+							echo '$' . number_format($payLevelRange_row['PayLevelMax'], 2, '.', ',');
+						}
+						else {
+							echo 'No Max';
+						}
+					?>
 				</div>
 			</div>
 
