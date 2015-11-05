@@ -32,12 +32,35 @@
 					else {
 						$jobSpecURL = '?page=job_spec_details&jc=' . $row['JobCode'];
 					}
+					?>
 
-					echo "<tr class='clickable' onclick='window.location.assign(\"" . $jobSpecURL . "\");'>";
-						echo '<td>' . $row['JobCode'] . '</td>';
-						echo '<td>' . $row['JobTitle'] . '</td>';
-						echo '<td>' . $row['JobFamily_long'] . '</td>';
-					echo '</tr>';
+					<!--
+						Using an inline onclick attribute instead of an event handler,
+						because the event handlers were not working properly with
+						the use of datatables.
+					-->
+					<tr
+						class='clickable'
+						onclick='window.location.assign("<?php echo $jobSpecURL; ?>");'
+						>
+						<td><?php echo $row['JobCode']; ?></td>
+						<td>
+							<?php
+								/*
+								 *	Use the Job Title that was entered through
+								 *	the Class Specs Manager if one exists.
+								 */
+								if ($row['JobTitle_alt'] != '') {
+									echo $row['JobTitle_alt'];
+								}
+								else {
+									echo $row['JobTitle'];
+								}
+							?>
+						</td>
+						<td><?php echo $row['JobFamily_long']; ?></td>
+					</tr>
+					<?php
 				}
 			echo '</tbody>';
 		echo '</table>';
@@ -52,7 +75,11 @@
 
 	// Get A&P jobs
 	$sql = "
-		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		SELECT p.JobCode,
+			p.JobTitle,
+			c.ID classID,
+			j.JobFamily_long,
+			c.JobTitle AS JobTitle_alt
 		FROM pay_levels p
 		INNER JOIN job_families j
 		ON p.JobFamily = j.JobFamily_short
@@ -69,7 +96,11 @@
 
 	// Get USPS jobs
 	$sql = "
-		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		SELECT p.JobCode,
+			p.JobTitle,
+			c.ID classID,
+			j.JobFamily_long,
+			c.JobTitle AS JobTitle_alt
 		FROM pay_levels p
 		INNER JOIN job_families j
 		ON p.JobFamily = j.JobFamily_short
@@ -86,7 +117,11 @@
 
 	// Get Exec jobs
 	$sql = "
-		SELECT p.JobCode, p.JobTitle, c.ID classID, j.JobFamily_long
+		SELECT p.JobCode,
+			p.JobTitle,
+			c.ID classID,
+			j.JobFamily_long,
+			c.JobTitle AS JobTitle_alt
 		FROM pay_levels p
 		INNER JOIN job_families j
 		ON p.JobFamily = j.JobFamily_short
