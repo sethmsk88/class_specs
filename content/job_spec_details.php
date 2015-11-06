@@ -54,8 +54,6 @@
 	// Get query result
 	$classSpecs_result = $stmt->get_result();
 
-	dumpQuery($classSpecs_result);
-
 	// Close statement
 	$stmt->close();
 
