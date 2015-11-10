@@ -259,73 +259,76 @@
 					</div>
 				</div>
 
-<?php
-				/* Job Title */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="jobTitle" class="control-label col-lg-2">Job Title:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<input ' .
-									'id="jobTitle" ' .
-									'name="jobTitle" ' .
-									'type="text" ' .
-									'class="form-control editable" ' .
-									'value="' . $classSpec_row['JobTitle'] . '"' .
-									'>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
 
-				/* Job Family */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="jobFamily" class="control-label col-lg-2">Job Family:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<select ' .
-									'name="jobFamily" ' .
-									'id="jobFamily" ' .
-									'class="form-control" ' .
-									'>';
-								echo '<option value=""></option>';
+				<!-- Job Title -->
+				<div class="row">
+					<div class="form-group">
+						<label for="jobTitle" class="control-label col-lg-2">Job Title:</label>
+						<div class="col-lg-4">
+							<input
+								id="jobTitle"
+								name="jobTitle"
+								type="text"
+								class="form-control editable"
+								value="<?php echo $classSpec_row['JobTitle']; ?>"
+								>
+						</div>
+					</div>
+				</div>
 
-								while ($row = $qry_jobFamilies->fetch_assoc()){
-
-									if ($row['ID'] == $jobFamily_row['ID']) {
-										$optionSelected = 'selected="selected"';
+				<!-- Job Family -->
+				<div class="row">
+					<div class="form-group">
+						<label for="jobFamily" class="control-label col-lg-2">Job Family:</label>
+						<div class="col-lg-4">
+							<select
+								name="jobFamily"
+								id="jobFamily"
+								class="form-control"
+								>
+								<option value=""></option>
+								<?php							
+									while ($row = $qry_jobFamilies->fetch_assoc()){
+																	
+										if ($row['ID'] == $jobFamily_row['ID']) {
+											$optionSelected = 'selected="selected"';
+										}
+										else {
+											$optionSelected = '';
+										}
+										echo '<option value="' . $row['ID'] . '" ' . $optionSelected . '>' . $row['JobFamily_long'] . '</option>;';
 									}
-									else {
-										$optionSelected = '';
-									}
-									echo '<option value="' . $row['ID'] . '" ' . $optionSelected . '>' . $row['JobFamily_long'] . '</option>;';
-								}
-							echo '</select>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
 
-				/* Pay Plan */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="payPlan" class="control-label col-lg-2">Pay Plan:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<select ' .
-									'name="payPlan" ' .
-									'id="payPlan" ' .
-									'class="form-control" ' .
-									'>';
-								echo '<option value=""></option>';
-								echo '<option name="usps" value="usps">USPS</option>';
-								echo '<option name="ap" value="ap">A&amp;P</option>';
-								echo '<option name="exec" value="exec">Executive</option>';
-								echo '<option name="fac" value="fac">Faculty</option>';
-							echo '</select>';
+				<!-- Pay Plan -->
+				<div class="row">
+					<div class="form-group">
+						<label for="payPlan" class="control-label col-lg-2">Pay Plan:</label>
+						<div class="col-lg-4">
+							<select
+								name="payPlan"
+								id="payPlan"
+								class="form-control"
+								>
+								<option value=""></option>
+								<option name="usps" value="usps">USPS</option>
+								<option name="ap" value="ap">A&amp;P</option>
+								<option name="exec" value="exec">Executive</option>
+								<option name="fac" value="fac">Faculty</option>
+							</select>
 
-							// Create JS to set the correct option
-							echo "<script>document.getElementById('payPlan').value = '" . $classSpec_row['PayPlan'] . "';</script>";
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-?>
+							<!-- Create JS to set the correct option -->
+							<script>
+								$('#payPlan').val('<?php echo $classSpec_row['PayPlan']; ?>');
+							</script>
+						</div>
+					</div>
+				</div>
+
 				<!-- Pay Level -->
 				<div class="row">
 					<div class="form-group">
@@ -353,23 +356,23 @@
 						</div>
 					</div>
 				</div>
-<?php
-				/* Old Paygrade */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="oldPaygrade" class="control-label col-lg-2">Old Paygrade:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<input ' .
-									'id="" ' .
-									'name="oldPaygrade" ' .
-									'type="text" ' .
-									'class="form-control" ' .
-									'value="' . $payLevel_row['OldPayGrade'] . '"' .
-									'>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-?>
+
+				<!-- Old Paygrade -->
+				<div class="row">
+					<div class="form-group">
+						<label for="oldPaygrade" class="control-label col-lg-2">Old Paygrade:</label>
+						<div class="col-lg-4">
+							<input
+								id=""
+								name="oldPaygrade"
+								type="text"
+								class="form-control"
+								value="<?php echo $payLevel_row['OldPayGrade']; ?>"
+								>
+						</div>
+					</div>
+				</div>
+
 				<!-- EEO Code -->
 				<div class="row">
 					<div class="form-group">
@@ -399,39 +402,39 @@
 						</div>
 					</div>
 				</div>
-<?php
-				/* IPEDS Code */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="jobTitle" class="control-label col-lg-2">IPEDS Code:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<input ' .
-									'id="ipedsCode" ' .
-									'name="ipedsCode" ' .
-									'type="text" ' .
-									'class="form-control" ' .
-									'value="' . $classSpec_row['IPEDS_Code'] . '"' .
-									'>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
 
-				/* CUPA-HR Code */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="cupaHR" class="control-label col-lg-2">CUPA-HR #:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<input ' .
-									'id="cupaHR" ' .
-									'name="cupaHR" ' .
-									'type="text" ' .
-									'class="form-control" ' .
-									'value="' . $classSpec_row['CUPA_HR'] . '"' .
-									'>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-?>
+				<!-- IPEDS Code -->
+				<div class="row">
+					<div class="form-group">
+						<label for="jobTitle" class="control-label col-lg-2">IPEDS Code:</label>
+						<div class="col-lg-4">
+							<input
+								id="ipedsCode"
+								name="ipedsCode"
+								type="text"
+								class="form-control"
+								value="<?php echo $classSpec_row['IPEDS_Code']; ?>"
+								>
+						</div>
+					</div>
+				</div>
+
+				<!-- CUPA-HR Code -->
+				<div class="row">
+					<div class="form-group">
+						<label for="cupaHR" class="control-label col-lg-2">CUPA-HR #:</label>
+						<div class="col-lg-4">
+							<input
+								id="cupaHR"
+								name="cupaHR"
+								type="text"
+								class="form-control"
+								value="<?php echo $classSpec_row['CUPA_HR']; ?>"
+								>
+						</div>
+					</div>
+				</div>
+
 				<!-- FLSA Status -->
 				<div class="row">
 					<div class="form-group">
@@ -456,65 +459,66 @@
 						</div>
 					</div>
 				</div>
-<?php
 
-				/* CBU Code */
-				 echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="cbuCode" class="control-label col-lg-2">CBU Code:</label>';
-						echo '<div class="col-lg-4">';
-							echo '<select ' .
-									'name="cbuCode" ' .
-									'id="cbuCode" ' .
-									'class="form-control" ' .
-									'>';
-								echo '<option value=""></option>';
 
-								while ($row = $qry_cbuCodes->fetch_assoc()) {
+				<!-- CBU Code -->
+				 <div class="row">
+					<div class="form-group">
+						<label for="cbuCode" class="control-label col-lg-2">CBU Code:</label>
+						<div class="col-lg-4">
+							<select
+								name="cbuCode"
+								id="cbuCode"
+								class="form-control"
+								>
+								<option value=""></option>
+								<?php
+									while ($row = $qry_cbuCodes->fetch_assoc()) {
 
-									if ($row['CBU_Code_ID'] == $classSpec_row['CBU_Code_ID']) {
-										$optionSelected = 'selected="selected"';
+										if ($row['CBU_Code_ID'] == $classSpec_row['CBU_Code_ID']) {
+											$optionSelected = 'selected="selected"';
+										}
+										else {
+											$optionSelected = '';
+										}
+										echo '<option value="' . $row['CBU_Code_ID'] . '" ' . $optionSelected . '>' . $row['CBU_Code_Descr'] . '</option>;';
 									}
-									else {
-										$optionSelected = '';
-									}
-									echo '<option value="' . $row['CBU_Code_ID'] . '" ' . $optionSelected . '>' . $row['CBU_Code_Descr'] . '</option>;';
-								}
-							echo '</select>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
+								?>
+							</select>
+						</div>
+					</div>
+				</div>
 
-				/* Description */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="posDescr" class="control-label col-lg-2">Description:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<textarea ' .
-									'name="posDescr" ' .
-									'id="posDescr" ' .
-									'class="form-control" ' .
-									'>' . stripslashes($classSpec_row['PositionDescr']) . '</textarea>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
+				<!-- Description -->
+				<div class="row">
+					<div class="form-group">
+						<label for="posDescr" class="control-label col-lg-2">Description:</label>
+						<div class="col-lg-8">
+							<textarea
+								name="posDescr"
+								id="posDescr"
+								class="form-control"
+								><?php echo stripslashes($classSpec_row['PositionDescr']); ?></textarea>
+						</div>
+					</div>
+				</div>
 
-				/* Education/Experience */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="eduExp" class="control-label col-lg-2">Education/Experience:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<textarea ' .
-									'name="eduExp" ' .
-									'id="eduExp" ' .
-									'class="form-control" ' .
-									'>' . stripslashes($classSpec_row['EducationExp']) . '</textarea>';
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
+				<!-- Education/Experience -->
+				<div class="row">
+					<div class="form-group">
+						<label for="eduExp" class="control-label col-lg-2">Education/Experience:</label>
+						<div class="col-lg-8">
+							<textarea
+								name="eduExp"
+								id="eduExp"
+								class="form-control"
+								><?php echo stripslashes($classSpec_row['EducationExp']); ?></textarea>
+						</div>
+					</div>
+				</div>
 
 
-?>
+
 				<!-- Recommended Competencies -->
 				<div class="row" style="padding-bottom:0;">
 					<div class="form-group" style="margin-bottom:0;">
@@ -564,169 +568,167 @@
 									<!-- Loop through competencies to create options -->
 									<?php
 										while ($row = $qry_competencies->fetch_assoc()) {
-									?>
-									<option value="<?php echo $row['ID']; ?>">
-										<?php echo $row['Descr']; ?>
-									</option>
-									<?php
+											echo '<option value="' . $row['ID'] . '">';
+												echo $row['Descr'];
+											echo '</option>';
 										}
 									?>
 								</select>
-
 							</div>
-							
-							<!-- When a new comp is selected, duplicate the select box. -->
-
 						</div>
 					</div>
 				</div>
+
+
+
+				<!-- Police Background Check -->
+				<div class="row">
+					<div class="form-group">
+						<label for="" class="control-label col-lg-2">Police Background Check:</label>
+						<div class="col-lg-8">
+							<label class="radio-inline">
+								<input type="radio" name="backgroundCheck" value="0">No
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="backgroundCheck" value="1">Yes
+							</label>
+
+							<!-- Create JS to set the radio button -->
+							<script>
+								$('input:radio[name=backgroundCheck][value="<?php echo $classSpec_row['BackgroundCheck']; ?>"]').prop('checked', true);
+							</script>
+						</div>
+					</div>
+				</div>
+
+				<!-- Financial Disclosure -->
+				<div class="row">
+					<div class="form-group">
+						<label for="" class="control-label col-lg-2">Financial Disclosure:</label>
+						<div class="col-lg-8">
+							<label class="radio-inline">
+								<input type="radio" name="financialDisclosure" value="0">No
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="financialDisclosure" value="1">Yes
+							</label>
+
+							<!-- Create JS to set the radio button -->
+							<script>
+								$('input:radio[name=financialDisclosure][value="<?php echo $classSpec_row['FinancialDisclosure']; ?>"]').prop('checked', true);
+							</script>
+						</div>
+					</div>
+				</div>
+
+				<!-- Pre/Post Offer Physical -->
+				<div class="row">
+					<div class="form-group">
+						<label for="" class="control-label col-lg-2">Pre/Post Offer Physical:</label>
+						<div class="col-lg-8">
+							<label class="radio-inline">
+								<input type="radio" name="physical" value="0">No
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="physical" value="1">Yes
+							</label>
+
+							<!-- Create JS to set the radio button -->
+							<script>
+								$('input:radio[name=physical][value="<?php echo $classSpec_row['Physical']; ?>"]').prop('checked', true);
+							</script>
+						</div>
+					</div>
+				</div>
+
+				<!-- Confidentiality Statement -->
+				<div class="row">
+					<div class="form-group">
+						<label for="" class="control-label col-lg-2">Confidentiality Statement:</label>
+						<div class="col-lg-8">
+							<label class="radio-inline">
+								<input type="radio" name="confidentialityStmt" value="0">No
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="confidentialityStmt" value="1">Yes
+							</label>
+
+							<!-- Create JS to set the radio button -->
+							<script>
+								$('input:radio[name=confidentialityStmt][value="<?php echo $classSpec_row['ConfidentialityStmt']; ?>"]').prop('checked', true);
+							</script>
+						</div>
+					</div>
+				</div>
+
+				<!-- Child Care Security Check -->
+				<div class="row">
+					<div class="form-group">
+						<label for="" class="control-label col-lg-2">Child Care Security Check:</label>
+						<div class="col-lg-8">
+							<label class="radio-inline">
+								<input type="radio" name="childCareSecurityCheck" value="0">No
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="childCareSecurityCheck" value="1">Yes
+							</label>
+
+							<!-- Create JS to set the radio button -->
+							<script>
+								$('input:radio[name=childCareSecurityCheck][value="<?php echo $classSpec_row['ChildCareSecurityCheck']; ?>"]').prop('checked', true);
+							</script>
+						</div>
+					</div>
+				</div>
+
+				<!-- Submit Changes Button -->
+				<div class="row">
+					<div class="col-lg-offset-1 col-lg-2">
+						<input
+							type="submit"
+							name="submitButton"
+							id="submitButton"
+							class="btn btn-md btn-success"
+							value="Submit Changes"
+							style="width:100%;"
+							>
+					</div>
+				</div>
+
+				<!-- AJAX Response -->
+				<div class="row">
+					<div class="col-lg-6">
+						<div id="ajax_response_submit"></div>
+					</div>
+				</div>
+
+			</form>
+		</div>
 <?php
-
-
-				/* Police Background Check */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="" class="control-label col-lg-2">Police Background Check:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="backgroundCheck" value="0">No';
-							echo '</label>';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="backgroundCheck" value="1">Yes';
-							echo '</label>';
-
-							// Create JS to set the radio button
-							echo "<script>$('input:radio[name=backgroundCheck][value=" . $classSpec_row['BackgroundCheck'] . "]').prop('checked', true);</script>";
-
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
-				/* Financial Disclosure */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="" class="control-label col-lg-2">Financial Disclosure:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="financialDisclosure" value="0">No';
-							echo '</label>';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="financialDisclosure" value="1">Yes';
-							echo '</label>';
-
-							// Create JS to set the radio button
-							echo "<script>$('input:radio[name=financialDisclosure][value=" . $classSpec_row['FinancialDisclosure'] . "]').prop('checked', true);</script>";
-
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
-				/* Pre/Post Offer Physical */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="" class="control-label col-lg-2">Pre/Post Offer Physical:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="physical" value="0">No';
-							echo '</label>';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="physical" value="1">Yes';
-							echo '</label>';
-
-							// Create JS to set the radio button
-							echo "<script>$('input:radio[name=physical][value=" . $classSpec_row['Physical'] . "]').prop('checked', true);</script>";
-
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
-				/* Confidentiality Statement */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="" class="control-label col-lg-2">Confidentiality Statement:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="confidentialityStmt" value="0">No';
-							echo '</label>';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="confidentialityStmt" value="1">Yes';
-							echo '</label>';
-
-							// Create JS to set the radio button
-							echo "<script>$('input:radio[name=confidentialityStmt][value=" . $classSpec_row['ConfidentialityStmt'] . "]').prop('checked', true);</script>";
-
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
-				/* Child Care Security Check */
-				echo '<div class="row">';
-					echo '<div class="form-group">';
-						echo '<label for="" class="control-label col-lg-2">Child Care Security Check:</label>';
-						echo '<div class="col-lg-8">';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="childCareSecurityCheck" value="0">No';
-							echo '</label>';
-							echo '<label class="radio-inline">';
-								echo '<input type="radio" name="childCareSecurityCheck" value="1">Yes';
-							echo '</label>';
-
-							// Create JS to set the radio button
-							echo "<script>$('input:radio[name=childCareSecurityCheck][value=" . $classSpec_row['ChildCareSecurityCheck'] . "]').prop('checked', true);</script>";
-
-						echo '</div>';
-					echo '</div>';
-				echo '</div>';
-
-				/* Submit Changes Button */
-				echo '<div class="row">';	
-					echo '<div class="col-lg-offset-1 col-lg-2">';
-						echo '<input ' .
-								'type="submit" ' .
-								'name="submitButton" ' .
-								'id="submitButton" ' .
-								'class="btn btn-md btn-success" ' .
-								'value="Submit Changes" ' .
-								'style="width:100%;"' .
-								'>';
-					echo '</div>';
-				echo '</div>';
-
-
-				/* AJAX Response */
-				echo '<div class="row">';
-					echo '<div class="col-lg-6">';
-						echo '<div id="ajax_response_submit"></div>';
-					echo '</div>';
-				echo '</div>';
-
-			echo '</form>';
-		echo '</div>';
-
 	}
 	else { // If not logged in
-		echo '<div class="container default-style">';
-
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Job Code:</span>';
-					echo $classSpec_row['JobCode'];
-				echo '</div>';
-				
-				echo '<div class="col-lg-9">';
-					echo '<span class="myLabel">Job Title:</span>';
-					echo stripslashes($classSpec_row['JobTitle']);
-				echo '</div>';
-			echo '</div>';
-
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Job Family:</span>';
-					echo $jobFamily_row['JobFamily_long'];
-				echo '</div>';
-			echo '</div>';
-
 ?>
+		<div class="container default-style">
+
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Job Code:</span>
+					<?php echo $classSpec_row['JobCode']; ?>
+				</div>
+				
+				<div class="col-lg-9">
+					<span class="myLabel">Job Title:</span>
+					<?php echo stripslashes($classSpec_row['JobTitle']); ?>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Job Family:</span>
+					<?php echo $jobFamily_row['JobFamily_long']; ?>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-lg-12">
 					<span class="myLabel">Pay Plan:</span>
@@ -783,158 +785,161 @@
 					<span class="myLabel">Old Paygrade:</span>
 					<?php echo $classSpec_row['OldPayGrade']; ?>
 				</div>
+			</div>				
+
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Approximate Number of People in Classification:</span>
+					<?php echo $emps_result->num_rows; ?>
+				</div>
 			</div>
-			<?php
-				/* HIDDEN TEMPORARILY at Mark's request
-				echo '<div class="col-lg-9">';
-					echo '<span class="myLabel">Paygrade Range (from TMS):</span>';
-					echo '$' . number_format($actual_minSal, 2, '.', ',') . ' - ' .
-							'$' . number_format($actual_maxSal, 2, '.', ',');
-				echo '</div>';
-				*/
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Approximate Number of People in Classification:</span>';
-					echo $emps_result->num_rows;
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">EEO Code:</span>
+					<?php echo $classSpec_row['EEO_Code_Descr']; ?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">EEO Code:</span>';
-					echo $classSpec_row['EEO_Code_Descr'];
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">IPEDS Code:</span>
+					<?php echo $classSpec_row['IPEDS_Code']; ?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">IPEDS Code:</span>';
-					echo $classSpec_row['IPEDS_Code'];
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">CUPA-HR #:</span>
+					<?php echo $classSpec_row['CUPA_HR']; ?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">CUPA-HR #:</span>';
-					echo $classSpec_row['CUPA_HR'];
-				echo '</div>';
-			echo '</div>';
-?>
 			<div class="row">
 				<div class="col-lg-12">
 					<span class="myLabel">This position is FLSA:</span>
 					<?php echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
 				</div>
 			</div>
-<?php
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">CBU Code:</span>';
-					echo $classSpec_row['CBU_Code_Descr'];
-				echo '</div>';
-			echo '</div>';
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Description:</span>';
-					echo '<div class="box">';
-						echo stripslashes($classSpec_row['PositionDescr']);
-					echo '</div>';
-				echo '</div>';
-			echo '</div>';
-			echo '<br />';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">CBU Code:</span>
+					<?php echo $classSpec_row['CBU_Code_Descr']; ?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12 note">';
-					echo 'Please Note: Examples listed are not an all-inclusive list of duties and tasks.';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Description:</span>
+					<div class="box">
+						<?php echo stripslashes($classSpec_row['PositionDescr']); ?>
+					</div>
+				</div>
+			</div>
+			<br />
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Education/Experience:</span>';
-					echo '<div class="box">';
-						echo stripslashes($classSpec_row['EducationExp']);
-					echo '</div>';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12 note">
+					Please Note: Examples listed are not an all-inclusive list of duties and tasks.
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12">';
-					echo '<span class="myLabel">Recommended Competencies:</span>';
-					echo '<div id="recCompetencies" class="box">';
-						echo '<ul class="list-competencies">';
-							// Create list item for each competency
-							while($row = $competencies_result->fetch_assoc()){
-								echo '<li>' . stripslashes($row['Descr']) . '</li>';
-							}
-						echo '</ul>';
-					echo '</div>';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Education/Experience:</span>
+					<div class="box">
+						<?php echo stripslashes($classSpec_row['EducationExp']); ?>
+					</div>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-12" style="text-decoration:underline;">';
-					echo 'Other Specific Requirements';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="myLabel">Recommended Competencies:</span>
+					<div id="recCompetencies" class="box">
+						<ul class="list-competencies">
+							<?php
+								// Create list item for each competency
+								while($row = $competencies_result->fetch_assoc()){
+									echo '<li>' . stripslashes($row['Descr']) . '</li>';
+								}
+							?>
+						</ul>
+					</div>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Police Background Check:</span>';
-					if ($classSpec_row['BackgroundCheck'])
-						echo 'Yes';
-					else
-						echo 'No';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-12" style="text-decoration:underline;">
+					Other Specific Requirements
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Financial Disclosure:</span>';
-					if ($classSpec_row['FinancialDisclosure'])
-						echo 'Yes';
-					else
-						echo 'No';
-				echo '</div>';
-			echo '</div>';
-
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Pre/Post Offer Physical:</span>';
-					if ($classSpec_row['Physical'])
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Police Background Check:</span>
+					<?php
+						if ($classSpec_row['BackgroundCheck'])
 							echo 'Yes';
 						else
 							echo 'No';
-				echo '</div>';
-			echo '</div>';
+					?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Confidentiality Statement:</span>';
-					if ($classSpec_row['ConfidentialityStmt'])
-						echo 'Yes';
-					else
-						echo 'No';
-				echo '</div>';
-			echo '</div>';
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Financial Disclosure:</span>
+					<?php
+						if ($classSpec_row['FinancialDisclosure'])
+							echo 'Yes';
+						else
+							echo 'No';
+					?>
+				</div>
+			</div>
 
-			echo '<div class="row">';
-				echo '<div class="col-lg-3">';
-					echo '<span class="myLabel">Child Care Security Check:</span>';
-					if ($classSpec_row['ChildCareSecurityCheck'])
-						echo 'Yes';
-					else
-						echo 'No';
-				echo '</div>';
-			echo '</div>';
-			
-		echo '</div>'; // End container
-	}
-?>
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Pre/Post Offer Physical:</span>
+					<?php
+						if ($classSpec_row['Physical'])
+							echo 'Yes';
+						else
+							echo 'No';
+					?>
+				</div>
+			</div>
 
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Confidentiality Statement:</span>
+					<?php
+						if ($classSpec_row['ConfidentialityStmt'])
+							echo 'Yes';
+						else
+							echo 'No';
+					?>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3">
+					<span class="myLabel">Child Care Security Check:</span>
+					<?php
+						if ($classSpec_row['ChildCareSecurityCheck'])
+							echo 'Yes';
+						else
+							echo 'No';
+					?>
+				</div>
+			</div>
+		</div> 
+		<!-- End container -->
 <?php
+	}
+
 	mysqli_close($conn);
 
 	/** Spacing for bottom of page **/
