@@ -56,7 +56,7 @@
 		if (!$stmt = $conn->prepare($del_classSpec_sql)){
 			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 		}
-		if (!$stmt->bind_param("i", $param_str_jobCode)) {
+		if (!$stmt->bind_param("i", $param_int_ID)) {
 			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
 		if (!$stmt->execute()){
