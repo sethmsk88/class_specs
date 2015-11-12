@@ -26,7 +26,8 @@
 		$sel_classSpec_sql = "
 			SELECT ID
 			FROM class_specs
-			WHERE JobCode = ?
+			WHERE JobCode = ? AND
+			Active = 1
 			ORDER BY ID ASC
 		";
 		if (!$stmt = $conn->prepare($sel_classSpec_sql)) {

@@ -103,7 +103,10 @@
 			FROM pay_levels p
 			JOIN job_families j1
 				ON p.JobFamily = j1.JobFamily_short
-			LEFT JOIN class_specs c
+			LEFT JOIN (
+				SELECT *
+				FROM class_specs
+				WHERE Active = 1) c
 				ON p.JobCode = c.JobCode
 			LEFT JOIN job_families j2
 				ON c.JobFamilyID = j2.ID

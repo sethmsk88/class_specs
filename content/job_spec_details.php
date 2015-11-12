@@ -27,7 +27,8 @@
 			ON c.EEO_Code_ID = eeo.EEO_Code_ID
 		LEFT JOIN cbu_codes AS cbu
 			ON c.CBU_Code_ID = cbu.CBU_Code_ID
-		WHERE c.JobCode = ?
+		WHERE c.JobCode = ? AND
+			c.Active = 1
 	";
 
 	// Prepare SQL statement
