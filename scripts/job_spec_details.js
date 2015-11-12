@@ -1,3 +1,45 @@
+function confirmDeleteClassSpec() {
+	var jobCode = $(this).attr('jobCode');
+
+	$('<div></div>').appendTo('body')
+		.html('<div>Are you sure you want to delete this Class Spec?<h6></div>')
+		.dialog({
+			modal: true,
+			title: 'Delete Class Spec',
+			zIndex: 10000,
+			autoOpen: true,
+			width: 'auto',
+			resizable: 'false',
+			buttons: {
+				Yes: function() {
+					yesDeleteClassSpec(jobCode);
+					$(this).dialog('close');
+				},
+				No: function() {
+					$(this).dialog('close');
+				}
+			}
+		})
+}
+
+function yesDeleteClassSpec(jobCode) {
+	/*
+		Make AJAX request to delete the oldest class spec
+		entry in the class_specs table with this job code.
+	*/
+		
+	$.ajax({
+		type: 'post',
+		url: './content/job_spec_del.php',
+		data: {
+			'jobCode': jobCode
+		},
+		success: function(response) {
+			// Redirect to Homepage
+			window.location.replace('?page=homepage' + response);
+		}
+	});
+}
 
 $(document).ready(function() {
 
@@ -74,4 +116,6 @@ $(document).ready(function() {
 		});
 	});
 
+	// Attach event handler to delete class spec button
+	$('#deleteClassSpec').on('click', confirmDeleteClassSpec);
 });

@@ -14,6 +14,7 @@
 
     <!-- Linked stylesheets -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
     <link href="/bootstrap/scripts/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
     <link href="../css/master.css" rel="stylesheet">
@@ -52,6 +53,7 @@
     <script src="/bootstrap/js/jquery.simplemodal-1.4.4.js"></script>
     <script src="/bootstrap/js/jquery.lettering.js"></script>
     <script src="/bootstrap/js/jquery.textillate.js"></script>
+    <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 
     <?php
         // Include FAMU logo header
@@ -70,7 +72,7 @@
                     type="button"
                     class="navbar-toggle"
                     data-toggle="collapse"
-                    data-target="navbarCollapse"
+                    data-target="#navbarCollapse"
                     >
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -78,27 +80,28 @@
                 </button>
                 <a class="navbar-brand" href="#"><?php echo $APP_appName; ?></a>
             </div>
-            
-            <!-- Nav links -->
-            <ul class="nav navbar-nav">
-                <li id="homepage-link">
-                    <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
-                </li>
-                <li><a id="navLink-addSpec" href="?page=job_spec_add">Add Job Spec</a></li>
-                <?php
-                    /*
-                        Only show these links when on page "job_spec_details"
-                    */
-                    if (isset($_GET['page'])) {
-                        if (strpos($_GET['page'], "job_spec_details") !== false) {
-                ?>
-                            <li><a id="navLink-details" href="?page=job_spec_details">Job Spec Details</a></li>
-                            <li><a id="navLink-detailsEdit" href="?page=job_spec_details">Edit Job Spec</a></li>
-                <?php
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <!-- Nav links -->
+                <ul class="nav navbar-nav">
+                    <li id="homepage-link">
+                        <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
+                    </li>
+                    <li><a id="navLink-addSpec" href="?page=job_spec_add">Add Job Spec</a></li>
+                    <?php
+                        /*
+                            Only show these links when on page "job_spec_details"
+                        */
+                        if (isset($_GET['page'])) {
+                            if (strpos($_GET['page'], "job_spec_details") !== false) {
+                    ?>
+                                <li><a id="navLink-details" href="?page=job_spec_details">Job Spec Details</a></li>
+                                <li><a id="navLink-detailsEdit" href="?page=job_spec_details">Edit Job Spec</a></li>
+                    <?php
+                            }
                         }
-                    }
-                ?>
-            </ul>
+                    ?>
+                </ul>
+            </div>
 
             <script>
                 // Check to see which page is active by getting url page var (use PHP).
