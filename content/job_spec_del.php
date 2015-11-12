@@ -32,7 +32,7 @@
 		if (!$stmt = $conn->prepare($sel_classSpec_sql)) {
 			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 		}
-		if (!$stmt->bind_param("i", $param_str_jobCode)) {
+		if (!$stmt->bind_param("s", $param_str_jobCode)) {
 			echo 'Binding parameters failed: (' . $stmt->error . ') ' . $stmt->error;
 		}
 		if (!$stmt->execute()) {
