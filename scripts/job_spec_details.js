@@ -36,7 +36,8 @@ function yesDeleteClassSpec(jobCode) {
 		},
 		success: function(response) {
 			// Redirect to Homepage
-			window.location.replace('?page=homepage' + response);
+			//window.location.replace('?page=homepage' + response);
+			console.log(response);
 		}
 	});
 }

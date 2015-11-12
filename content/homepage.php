@@ -1,3 +1,5 @@
+<link href="./css/homepage.css" rel="stylesheet">
+
 <?php
 	/****************************************************/
 	/* Function: outputJobCodeTable                     */
@@ -129,11 +131,58 @@
 	$sel_classSpec_exec_result = getClassSpecs('EXC', $conn);
 	$sel_classSpec_fac_result = getClassSpecs('Faculty', $conn);
 
+	/*
+		If JobCode get variable exists, get the associated job title
+	*/
+	if (isset($_GET['jc'])) {
+		$param_str_jobCode = $_GET['jc'];
+		$sel_jobTitle_sql = "
+			SELECT JobTitle
+			FROM class_specs
+			WHERE JobCode = ?
+		";
+		if (!$stmt = $conn->prepare($sel_jobTitle_sql)) {
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		}
+		if (!$stmt->bind_param("s", $param_str_jobCode)) {
+			echo 'Binding parameters failed: (' . $stmt->error . ') ' . $stmt->error;
+		}
+		if (!$stmt->execute()) {
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		$sel_jobTitle_result = $stmt->get_result();
+		$stmt->close();
+		$sel_jobTitle_row = $sel_jobTitle_result->fetch_assoc();
+	}
+
 	// Close DB connection
 	mysqli_close($conn);
 ?>	
 
 <div class="container">
+
+	<?php
+		/*
+			If Class Spec was just deleted
+		*/
+		if (isset($_GET['jc'])) {
+	?>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="deleted">
+				<p>
+				<?php
+				echo 'Class Spec (' . $_GET['jc'] . ' - ' . $sel_jobTitle_row['JobTitle'] . ') has been deleted';
+				?>
+				</p>
+			</div>
+		</div>
+	</div>
+	<?php
+		}
+	?>
+
+
 	<div class"row">
 		<div class="col-xs-9">
 			<br />

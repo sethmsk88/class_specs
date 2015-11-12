@@ -69,4 +69,14 @@ $(document).ready(function(){
 	$('#classSpecs_exec').DataTable({});
 	$('#classSpecs_fac').DataTable({});
 
+	// Activate Textillate on deleted message
+	var $animated = $('.deleted').textillate({
+		autoStart: true,
+		loop:false,
+		in:{
+			effect: 'bounceInLeft',
+			sync: true
+		}
+	});
+
 });
