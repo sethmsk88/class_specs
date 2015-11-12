@@ -14,6 +14,7 @@
 
     <!-- Linked stylesheets -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
     <link href="/bootstrap/scripts/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
     <link href="../css/master.css" rel="stylesheet">
@@ -52,6 +53,7 @@
     <script src="/bootstrap/js/jquery.simplemodal-1.4.4.js"></script>
     <script src="/bootstrap/js/jquery.lettering.js"></script>
     <script src="/bootstrap/js/jquery.textillate.js"></script>
+    <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 
     <?php
         // Include FAMU logo header
