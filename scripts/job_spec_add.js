@@ -329,4 +329,26 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	/*
+		Attach event handler to JobCode input
+	*/
+	$('#jobCode').on('change', function() {
+		var jobCode = $(this).val();
+
+		$.ajax({
+			type: 'post',
+			url: './content/selectJobCode_act.php',
+			data: {
+				'jobCode': jobCode
+			},
+			dataType: 'json', // Data type for response
+			success: function(response) {
+				// If Job Code returned information from class_specs table
+				if (response !== null) {
+					alert('Job Code (' + jobCode + ') already exists in the table!');
+				}
+			}
+		});
+	});
 });
