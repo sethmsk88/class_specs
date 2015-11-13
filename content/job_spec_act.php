@@ -29,7 +29,7 @@
 	}
 
 	$classSpec_result = $stmt->get_result();
-	$stmt->close();	
+	$stmt->close();
 
 	/*
 		If there is a duplicate job code in class_specs table
