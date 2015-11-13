@@ -1,7 +1,7 @@
 <?php
 	/*
-		This page is accessed via an AJAX request by the
-		input#jobCode event handler in job_spec_details.js.
+		This page is intended to be accessed via an AJAX
+		request.
 
 		It responds with a JSON object containing queried
 		information for a particular Job Code.
@@ -24,7 +24,7 @@
 	$param_str_JobCode = $conn->escape_string(trim($_POST['jobCode']));
 
 	/*
-		Prepeare SQL statement
+		Prepare SQL statement
 	*/
 	$select_payLevel_sql = "
 		SELECT *
