@@ -714,15 +714,27 @@
 <div class="container default-style">
 
 	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Job Code:</span>
-			<?php echo $classSpec_row['JobCode']; ?>
-		</div>
-		<div class="col-lg-7">
-			<span class="myLabel">Job Title:</span>
-			<?php echo stripslashes($classSpec_row['JobTitle']); ?>
-		</div>
 		<div class="col-lg-2">
+		<?php
+			/*
+				If URL var pp exists, create a Back button
+			*/
+			if (isset($_GET['pp'])) {
+		?>
+			<button
+				id="back-btn"
+				type="button"
+				class="btn btn-primary"
+				style="margin-bottom:20px;"
+				payPlan="<?php echo $_GET['pp']; ?>"
+				>
+				<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
+			</button>
+		<?php
+			}
+		?>
+		</div>
+		<div class="col-lg-offset-8 col-lg-2">
 			<button
 				id="deleteClassSpec"
 				jobCode="<?php echo $classSpec_row['JobCode']; ?>"
@@ -731,6 +743,17 @@
 				>
 				Delete Class Spec
 			</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-3">
+			<span class="myLabel">Job Code:</span>
+			<?php echo $classSpec_row['JobCode']; ?>
+		</div>
+		<div class="col-lg-9">
+			<span class="myLabel">Job Title:</span>
+			<?php echo stripslashes($classSpec_row['JobTitle']); ?>
 		</div>
 	</div>
 

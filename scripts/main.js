@@ -1,5 +1,8 @@
 /*
 	Get URL params
+	Example:
+		www.website.com?page=homepage&urlVar=test
+		$.urlParam('urlVar'); // Returns 'test'
 */
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -64,10 +67,18 @@ function addOption(id, val, descr) {
 $(document).ready(function(){
 
 	// Activate data tables
-	$('#classSpecs_ap').DataTable({});
-	$('#classSpecs_usps').DataTable({});
-	$('#classSpecs_exec').DataTable({});
-	$('#classSpecs_fac').DataTable({});
+	$('#classSpecs_ap').DataTable({
+		stateSave: true
+	});
+	$('#classSpecs_usps').DataTable({
+		stateSave: true
+	});
+	$('#classSpecs_exec').DataTable({
+		stateSave: true
+	});
+	$('#classSpecs_fac').DataTable({
+		stateSave: true
+	});
 
 	// Activate Textillate on deleted message
 	var $animated = $('.deleted').textillate({
@@ -78,5 +89,15 @@ $(document).ready(function(){
 			sync: true
 		}
 	});
+
+	
+	/*
+		If GET var pp exists, load the specified
+		tab in the table.
+	*/
+	var payPlan = $.urlParam('pp');
+	if (payPlan !== null) {
+		$('.nav-tabs').find('a[href="#' + payPlan + '"]').trigger('click');
+	}
 
 });

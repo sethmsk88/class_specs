@@ -351,4 +351,12 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	/*
+		Attach event handler to "Go Back to Homepage" button
+	*/
+	$('#back-btn').click(function() {
+		// Redirect to Homepage
+		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
+	});
 });
