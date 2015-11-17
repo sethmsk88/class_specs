@@ -54,19 +54,21 @@
 		*/
 		if (isset($_GET['jc'])) {
 	?>
-	<script>
-		// Get Job Code info and populate fields
-		getPayLevelInfo('<?php echo $_GET['jc']; ?>');
-	</script>
-	<div class="row">
-		<div class="col-lg-6">
-			<span class="notice">
-				Job Code <b><?php echo $_GET['jc']; ?></b> has not yet been entered into the database.<br />
-				Please fill in the remaining fields below. Then click the <i>Submit</i> button.
-			</span>
-		</div>
-	</div>
-	<br />
+			<script>
+				$(document).ready(function() {
+					// Get Job Code info and populate fields
+					getPayLevelInfo('<?php echo $_GET['jc']; ?>');
+				});
+			</script>
+			<div class="row">
+				<div class="col-lg-6">
+					<span class="notice">
+						Job Code <b><?php echo $_GET['jc']; ?></b> has not yet been entered into the database.<br />
+						Please fill in the remaining fields below. Then click the <i>Submit</i> button.
+					</span>
+				</div>
+			</div>
+			<br />
 	<?php
 		}
 	?>

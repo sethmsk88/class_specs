@@ -101,7 +101,7 @@
 				c.JobFamilyID,
 				j2.JobFamily_long JobFamily_long_alt
 			FROM pay_levels p
-			JOIN job_families j1
+			LEFT JOIN job_families j1
 				ON p.JobFamily = j1.JobFamily_short
 			LEFT JOIN (
 				SELECT *
