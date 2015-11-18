@@ -90,6 +90,8 @@ $(document).ready(function(){
 		}
 	});
 
+	// Activate spellchecker
+	$('textarea').spellAsYouType();
 	
 	/*
 		If GET var pp exists, load the specified

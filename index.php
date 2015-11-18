@@ -54,6 +54,7 @@
     <script src="/bootstrap/js/jquery.lettering.js"></script>
     <script src="/bootstrap/js/jquery.textillate.js"></script>
     <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="/bootstrap/js/JavaScriptSpellCheck/include.js"></script>
 
     <?php
         // Include FAMU logo header
