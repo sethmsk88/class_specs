@@ -39,7 +39,7 @@ function getPayLevelInfo(jobCode) {
 				*/
 				$('input[id="jobCode"]').val(jobCode);
 				$('input[id="jobTitle"]').val(response['JobTitle']);
-				$('select[id="jobFamily"] option[value="' + response['JobFamilyID'] + '"]').prop('selected', true);
+				$('select[id="jobFamily"] option[text="' + response['JobFamily'] + '"]').prop('selected', true);
 				$('select[id="payPlan"] option[value="' + response['PayPlan'] + '"]').prop('selected', true);
 				$('select[id="payLevel"] option[value="' + response['PayLevel'] + '"]').prop('selected', true);
 				$('input[id="ipedsCode"]').val(response['IPEDS_SOCs']);
@@ -350,5 +350,13 @@ $(document).ready(function() {
 				}
 			}
 		});
+	});
+
+	/*
+		Attach event handler to "Go Back to Homepage" button
+	*/
+	$('#back-btn').click(function() {
+		// Redirect to Homepage
+		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
 	});
 });

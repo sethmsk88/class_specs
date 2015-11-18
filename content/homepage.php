@@ -7,7 +7,7 @@
 	/*    in qry_result. qry_result is the result of a  */
 	/*    query on the pay_levels table.                */
 	/****************************************************/
-	function outputJobCodeTable($qry_result, $tableId) {
+	function outputJobCodeTable($qry_result, $tableId, $payPlan) {
 		echo '<table id="' . $tableId . '" class="table table-striped highlighted-rows">';
 			echo '<thead>';
 				echo '<tr>';
@@ -22,16 +22,20 @@
 
 				// For each row in query result
 				while ($row = $qry_result->fetch_assoc()){
-					
+
 					/*
 						If JobCode has an entry in the class_specs table,
 						link to details page, otherwise, link to add page
 					*/
 					if ($row['classID'] == null) {
-						$jobSpecURL = '?page=job_spec_add&jc=' . $row['JobCode'];
+						$jobSpecURL = '?page=job_spec_add&jc=' .
+							$row['JobCode'] .
+							'&pp=' . $payPlan;
 					}
 					else {
-						$jobSpecURL = '?page=job_spec_details&jc=' . $row['JobCode'];
+						$jobSpecURL = '?page=job_spec_details&jc=' .
+							$row['JobCode'] .
+							'&pp=' . $payPlan;
 					}
 					?>
 
@@ -101,7 +105,7 @@
 				c.JobFamilyID,
 				j2.JobFamily_long JobFamily_long_alt
 			FROM pay_levels p
-			JOIN job_families j1
+			LEFT JOIN job_families j1
 				ON p.JobFamily = j1.JobFamily_short
 			LEFT JOIN (
 				SELECT *
@@ -185,7 +189,6 @@
 		}
 	?>
 
-
 	<div class"row">
 		<div class="col-xs-9">
 			<br />
@@ -205,7 +208,7 @@
 				<div id="ap" class="tab-pane fade in active">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($sel_classSpec_ap_result, 'classSpecs_ap'); ?>
+							<?php outputJobCodeTable($sel_classSpec_ap_result, 'classSpecs_ap', 'ap'); ?>
 						</div>
 					</div>
 				</div>
@@ -216,7 +219,7 @@
 				<div id="usps" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($sel_classSpec_usps_result, 'classSpecs_usps'); ?>
+							<?php outputJobCodeTable($sel_classSpec_usps_result, 'classSpecs_usps', 'usps'); ?>
 						</div>
 					</div>
 				</div>
@@ -227,7 +230,7 @@
 				<div id="exec" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($sel_classSpec_exec_result, 'classSpecs_exec'); ?>
+							<?php outputJobCodeTable($sel_classSpec_exec_result, 'classSpecs_exec', 'exec'); ?>
 						</div>
 					</div>
 				</div>
@@ -238,7 +241,7 @@
 				<div id="fac" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
-							<?php outputJobCodeTable($sel_classSpec_fac_result, 'classSpecs_fac'); ?>
+							<?php outputJobCodeTable($sel_classSpec_fac_result, 'classSpecs_fac', 'fac'); ?>
 						</div>
 					</div>
 				</div>
