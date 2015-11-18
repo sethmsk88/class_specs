@@ -160,6 +160,22 @@
                     $('#navLink-details').attr('href', '?page=job_spec_details&jc=' + $.urlParam('jc'));
                     $('#navLink-detailsEdit').attr('href', '?page=job_spec_details&jc=' + $.urlParam('jc') + '&edit=1');
                 }
+
+                /*
+                    If URL var pp exists, add it to the "Job Spec Details" and
+                    "Edit Job Spec" links.
+                */
+                if ($.urlParam('pp') !== null) {
+                    $('#navLink-details').attr('href',
+                        $('#navLink-details').attr('href') + 
+                        '&pp=' + $.urlParam('pp')
+                    );
+
+                    $('#navLink-detailsEdit').attr('href',
+                        $('#navLink-detailsEdit').attr('href') + 
+                        '&pp=' + $.urlParam('pp')
+                    );
+                }
             </script>
 
         </div>

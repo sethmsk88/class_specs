@@ -228,6 +228,29 @@
 	if ($loggedIn) {
 ?>
 <div class="container default-style">
+	<?php
+		/*
+			If URL var pp exists, create a Back button
+		*/
+		if (isset($_GET['pp'])) {
+	?>
+	<div class="row">
+		<div class="col-lg-2">
+			<button
+				id="back-btn"
+				type="button"
+				class="btn btn-primary"
+				style="margin-bottom:20px;"
+				payPlan="<?php echo $_GET['pp']; ?>"
+				>
+				<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
+			</button>
+		</div>
+	</div>
+	<?php
+		}
+	?>
+
 	<form
 		name="editJobSpec-form"
 		id="editJobSpec-form"
