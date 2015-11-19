@@ -208,14 +208,22 @@
 	";
 	$qry_payLevelNums = $conn->query($select_payLevelNums_sql);
 
-	/*************************/
-	/** Get Pay Level Range **/
-	$select_payLevelRange_sql = "
-		SELECT *
-		FROM pay_levels_descr
-		WHERE PayLevel = " . $payLevel_row['PayLevel'];
-	$qry_payLevelRange = $conn->query($select_payLevelRange_sql);
-	$payLevelRange_row = $qry_payLevelRange->fetch_assoc();
+
+	/*
+		Make sure class spec has a pay level assigned to it
+		in the pay_levels table before running this query
+	*/
+	if ($payLevel_row['PayLevel'] !== null) {
+
+		/*************************/
+		/** Get Pay Level Range **/
+		$select_payLevelRange_sql = "
+			SELECT *
+			FROM pay_levels_descr
+			WHERE PayLevel = " . $payLevel_row['PayLevel'];
+		$qry_payLevelRange = $conn->query($select_payLevelRange_sql);
+		$payLevelRange_row = $qry_payLevelRange->fetch_assoc();
+	}
 
 ?>
 
@@ -825,6 +833,14 @@
 		</div>
 	</div>
 
+
+	<?php
+		/*
+			Make sure class spec has a pay level assigned to it
+			in the pay_levels table before running this query
+		*/
+		if ($payLevel_row['PayLevel'] !== null) {
+	?>
 	<div class="row">
 		<div class="col-lg-3">
 			<span class="myLabel">Pay Level:</span>
@@ -843,6 +859,10 @@
 			?>
 		</div>
 	</div>
+	<?php
+		}
+	?>
+
 
 	<div class="row">
 		<div class="col-lg-12">
