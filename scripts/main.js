@@ -66,6 +66,9 @@ function addOption(id, val, descr) {
 
 $(document).ready(function(){
 
+	// Activate tooltips
+	$(document).tooltip();
+
 	// Activate data tables
 	$('#classSpecs_ap').DataTable({
 		stateSave: true

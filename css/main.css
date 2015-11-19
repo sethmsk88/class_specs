@@ -50,6 +50,10 @@ table.highlighted-rows > tbody > tr:hover{
 	color:#dd0000;
 }
 
+.icon-btn > span.icon-edit{
+	color:#F0AD4E;
+}
+
 .modalForm{
 	border:1px solid #AAAAAA;
 	border-radius:5px;

@@ -576,7 +576,24 @@
 							<tr>
 								<td><?php echo stripslashes($row['Descr']); ?></td>
 								<td>
-									<button id ="<?php echo $row['Competency_ID']; ?>" type="button" class="icon-btn del-comp"><span class="icon-remove glyphicon glyphicon-remove"</button>
+									<button
+										id="<?php echo $row['Competency_ID']; ?>"
+										type="button"
+										class="icon-btn edit-comp"
+										title="Edit"
+										>
+										<span class="icon-edit glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</td>
+								<td>
+									<button
+										id="<?php echo $row['Competency_ID']; ?>"
+										type="button"
+										class="icon-btn del-comp"
+										title="Delete"
+										>
+										<span class="icon-remove glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
 								</td>
 							</tr>
 							<?php
@@ -1038,3 +1055,47 @@
 		echo '<br />';
 	}
 ?>
+
+<!-- Edit Competency Form (absolutely positioned) -->
+<div
+	id="editComp-container"
+	class="modalForm"
+	>
+	<form
+		name="editComp-form"
+		id="editComp-form"
+		role="form"
+		method="post"
+		action=""
+		>
+		<div class="form-group">
+
+			<!-- Filled with compID of the comp that is being edited -->
+			<input
+				name="_compID"
+				id="_compID"
+				type="hidden"
+				>
+
+			<label for="comp">Edit Competency</label>
+			<textarea
+				name="updatedComp"
+				id="updatedComp"
+				class="form-control"
+				style="width:100%;"
+				></textarea>
+			<input
+				type="submit"
+				name="submitCompChanges"
+				id="submitCompChanges"
+				class="btn btn-md btn-primary"
+				value="Submit Changes"
+				>
+		</div>
+	</form>
+		
+	</form>
+</div>
+
+
+
