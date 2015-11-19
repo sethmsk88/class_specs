@@ -58,7 +58,7 @@
 					style="margin-bottom:20px;"
 					payPlan="<?php echo $_GET['pp']; ?>"
 					>
-					<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
+					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
 				</button>
 			</div>
 		</div>

@@ -40,6 +40,10 @@ ul.list-competencies{
 	font-size:1.2em;
 }
 
+.modalForm label{
+	font-size:1.4em;
+}
+
 
 /* table.job-specs{
 	-webkit-box-shadow: 0px 0px 5px 2px #3b393b; Android 2.3+, iOS 4.0.2-4.2, Safari 3-4

@@ -76,6 +76,11 @@ $(document).ready(function() {
 		// Select all divs with class modal that are currently visible
 		$('.modalForm:visible').each(function(){
 
+			// Clear all inputs in modal
+			$('input[type="hidden"]').val('');
+			$('input[type="text"]').val('');
+			$('textarea').text('');
+
 			// Hide modal
 			$(this).slideUp(function(){
 				// Hide overlay
@@ -118,6 +123,80 @@ $(document).ready(function() {
 
 
 	/*
+		Attach event handlers to all competency edit buttons
+	*/
+	$('.edit-comp').on('click', function() {
+		// Show overlay
+		$('#overlay').show();
+
+		$modal = $('#editComp-container');
+
+		// Set width of modal
+		$modal.width($('#competenciesTable').width());
+
+		// Set position of modal to be the center of the screen
+		var top = $(this).offset().top;
+		var left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+		$modal.css({
+			"top": top,
+			"left":  left
+		});
+
+		// Fill the text area with the text of the comp being edited
+		var compText = $(this).parent().prev().text();
+		$('#updatedComp').text(compText);
+
+		// Store compID in modal form's hidden input field
+		$('#_compID').val($(this).attr('id'));
+
+		// Show the new form using the slideDown function
+		$modal.slideDown();	
+	});
+
+
+	/*
+		Attach event handler to "Submit Changes" button in
+		"Edit Competencies" modal
+	*/
+	$('#editComp-form').on('submit', function(e) {
+		e.preventDefault();
+
+		// AJAX request to update table entry
+		$.ajax({
+			type: 'post',
+			url: './content/editComp_act.php',
+			data: $('#editComp-form').serialize(),
+			success: function(response) {			
+				
+				var updatedCompID = $('#_compID').val();
+
+				// Update the text of the competency that was just updated
+				$('button.edit-comp[id="' + updatedCompID + '"]').parent().prev().text(response);
+
+				// Clear all inputs in editCompForm
+				$('#editCompForm input[type="hidden"]').each(function() {
+					$(this).val('');
+				});
+				$('#editCompForm input[type="text"]').each(function() {
+					$(this).val('');
+				});
+				$('#editCompForm textarea').each(function() {
+					$(this).text('');
+				});
+
+				// Hide form
+				$('#editComp-container').slideUp();
+
+				// Hide overlay
+				$('#overlay').hide();
+				
+			}
+		});
+
+	});
+
+
+	/*
 		Attach event handler to delete class spec button
 	*/
 	$('#deleteClassSpec').on('click', confirmDeleteClassSpec);
@@ -130,4 +209,5 @@ $(document).ready(function() {
 		// Redirect to Homepage
 		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
 	});
+
 });
