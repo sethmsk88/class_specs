@@ -1,7 +1,7 @@
 <?php
 	// Include my database info
     include "../../shared/dbInfo.php";
-    include "../../shared/query_UDFs.php";
+    include "./class_spec_UDFs.php";
 
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
@@ -186,8 +186,7 @@
 			$param_int_ChildCareSecurityCheck,
 			$param_int_FinancialDisclosure,
 			$param_int_ConfidentialityStmt,
-			$param_int_ID
-			)){
+			$param_int_ID)){
 			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
 
@@ -202,10 +201,33 @@
 		$stmt->close();
 
 		/*
+			Update fields that also appear in pay_levels table
+		*/
+		$param_str_PayPlan = convertPayPlan($param_str_PayPlan, 'pay_levels');
+		$param_str_JobFamily = $conn->query("
+			SELECT *
+			FROM job_families
+			WHERE ID = $param_int_JobFamilyID")->fetch_assoc()['JobFamily_short'];
+		$param_str_OldPayGrade = $param_int_OldPayGrade;
+		$param_str_FLSA = convertFLSA($param_int_FLSA, 'symbolic');
+
+		$update_payLevel_sql = "
+			UPDATE pay_levels
+			SET JobTitle = '$param_str_JobTitle',
+				PayPlan = '$param_str_PayPlan',
+				JobFamily = '$param_str_JobFamily',
+				OldPayGrade = '$param_str_OldPayGrade',
+				FLSA = '$param_str_FLSA'
+			WHERE JobCode = '$param_str_JobCode'
+		";
+		$qry_updatePayLevel = $conn->query($update_payLevel_sql);
+
+
+		/*
+			Insert classSpecID and competencyID pair into table
 			Loop through all competencies in form.
 			Add the ID pair to the class_specs_rec_competencies table.
 		*/
-		// Insert classSpecID and competencyID into table
 		$insert_classSpecComp_sql = "
 			INSERT INTO class_specs_rec_competencies (ClassSpec_ID, Competency_ID)
 			VALUES (?,?)
