@@ -31,6 +31,22 @@
 					break;
 			}
 		}
+		else if ($format == 'pay_levels') {
+			switch ($payPlan) {
+				case 'usps':
+					$convertedPayPlan = 'USPS';
+					break;
+				case 'ap':
+					$convertedPayPlan = 'A&P';
+					break;
+				case 'exec':
+					$convertedPayPlan = 'Faculty';
+					break;
+				case 'fac':
+					$convertedPayPlan = 'EXC';
+					break;
+			}
+		}
 		else if ($format == 'long') {
 			switch ($payPlan) {
 				case 'usps':
