@@ -30,13 +30,7 @@
 		WHERE c.JobCode = ? AND
 			c.Active = 1
 	";
-	/*
-	$select_classSpec_sql = "
-		SELECT *
-		FROM class_specs
-		WHERE JobCode = ?
-	";*/
-
+	
 	// Prepare SQL statement
 	if (!$stmt = $conn->prepare($select_classSpec_sql)){
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;

@@ -1,6 +1,7 @@
 <?php
 	// Include my database info
     include "../../shared/dbInfo.php";
+    include "../../shared/query_UDFs.php";
 
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
@@ -108,7 +109,8 @@
 	$select_classSpec_sql = "
 		SELECT *
 		FROM class_specs
-		WHERE JobCode = ?
+		WHERE JobCode = ? AND
+			Active = 1
 	";
 	if (!$stmt = $conn->prepare($select_classSpec_sql)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
