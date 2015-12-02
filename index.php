@@ -1,6 +1,6 @@
 <?php
     $APP_appName = "Class Spec Manager";
-    $APP_appPath = "http://168.223.1.35/bootstrap/apps/class_specs/";
+    $APP_appPath = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/";
     $APP_homepage = "homepage";
 ?>
 
