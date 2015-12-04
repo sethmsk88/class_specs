@@ -16,7 +16,8 @@
 	$select_classSpec_sql = "
 		SELECT *
 		FROM class_specs
-		WHERE JobCode = ?
+		WHERE JobCode = ? AND
+			Active = 1
 	";
 	if (!$stmt = $conn->prepare($select_classSpec_sql)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
