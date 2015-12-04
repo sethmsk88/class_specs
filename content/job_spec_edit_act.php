@@ -213,15 +213,30 @@
 
 		$update_payLevel_sql = "
 			UPDATE pay_levels
-			SET JobTitle = '$param_str_JobTitle',
-				PayPlan = '$param_str_PayPlan',
-				JobFamily = '$param_str_JobFamily',
-				OldPayGrade = '$param_str_OldPayGrade',
-				FLSA = '$param_str_FLSA'
-			WHERE JobCode = '$param_str_JobCode'
+			SET JobTitle = ?,
+				PayPlan = ?,
+				JobFamily = ?,
+				OldPayGrade = ?,
+				FLSA = ?
+			WHERE JobCode = ?
 		";
-		$qry_updatePayLevel = $conn->query($update_payLevel_sql);
 
+		if (!$stmt = $conn->prepare($update_payLevel_sql)) {
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		}
+		if (!$stmt->bind_param("ssssss",
+				$param_str_JobTitle,
+				$param_str_PayPlan,
+				$param_str_JobFamily,
+				$param_str_OldPayGrade,
+				$param_str_FLSA,
+				$param_str_JobCode)) {
+			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		if (!$stmt->execute()){
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		$stmt->close();
 
 		/*
 			Insert classSpecID and competencyID pair into table
