@@ -236,6 +236,7 @@
 		if (!$stmt->execute()){
 			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
+
 		$stmt->close();
 
 		/*

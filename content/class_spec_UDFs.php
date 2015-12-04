@@ -40,10 +40,10 @@
 					$convertedPayPlan = 'A&P';
 					break;
 				case 'exec':
-					$convertedPayPlan = 'Faculty';
+					$convertedPayPlan = 'EXC';
 					break;
 				case 'fac':
-					$convertedPayPlan = 'EXC';
+					$convertedPayPlan = 'Faculty';
 					break;
 			}
 		}
