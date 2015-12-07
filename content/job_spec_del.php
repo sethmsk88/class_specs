@@ -65,6 +65,26 @@
 		}
 
 		$stmt->close();
+
+		/*
+			Mark Job Code as inactive in pay_levels table
+		*/
+		$del_payLevel_sql = "
+			UPDATE pay_levels
+			SET Active = 0
+			WHERE JobCode = ?
+		";
+		if (!$stmt = $conn->prepare($del_payLevel_sql)) {
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		}
+		if (!$stmt->bind_param("s", $param_str_jobCode)) {
+			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		if (!$stmt->execute()){
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		$stmt->close();
+
 		$conn->close();
 
 		// Response

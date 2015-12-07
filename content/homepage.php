@@ -114,7 +114,8 @@
 				ON p.JobCode = c.JobCode
 			LEFT JOIN job_families j2
 				ON c.JobFamilyID = j2.ID
-			WHERE p.PayPlan = '$payPlan'
+			WHERE p.PayPlan = '$payPlan' AND
+				p.Active = 1
 			ORDER BY p.JobCode ASC
 		";
 
