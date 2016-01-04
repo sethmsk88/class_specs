@@ -1,7 +1,7 @@
 <?php
 	// Include my database info
     include "../../shared/dbInfo.php";
-    include "./class_spec_UDFs.php";
+    include "./classSpec_UDFs.php";
 
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);

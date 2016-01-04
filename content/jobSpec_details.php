@@ -1,5 +1,5 @@
-<link href="./css/job_spec_details.css" rel="stylesheet">
-<script src="./scripts/job_spec_details.js"></script>
+<link href="./css/jobSpec_details.css" rel="stylesheet">
+<script src="./scripts/jobSpec_details.js"></script>
 
 <?php
 	// If Job Code GET variable is not set, redirect to homepage.

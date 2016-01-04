@@ -11,7 +11,7 @@
     include "../../shared/dbInfo.php";
 
     // Include UDFs
-    include "./class_spec_UDFs.php";
+    include "./classSpec_UDFs.php";
 
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
@@ -74,10 +74,10 @@
 		// Add JobFamilyID to associative array
 		$payLevel_row['JobFamilyID'] = $jobFamily_row['JobFamilyID'];
 
-		// Convert PayPlan to format used in job_spec_details.php
+		// Convert PayPlan to format used in jobSpec_details.php
 		$payLevel_row['PayPlan'] = convertPayPlan($payLevel_row['PayPlan'], 'class_specs');
 		
-		// Convert FLSA Status to format used in job_spec_details.php
+		// Convert FLSA Status to format used in jobSpec_details.php
 		$payLevel_row['FLSA'] = convertFLSA($payLevel_row['FLSA'], 'numeric');
 
 		// Convert payLevel_row associative array to json object

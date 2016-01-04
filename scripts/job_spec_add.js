@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/job_spec_act.php',
+			url: './content/act_jobSpec.php',
 			data: $('#addJobSpec-form').serialize(),
 			success: function(response){
 				$('#ajax_response_submit').html(response);
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/addNewComp_act.php',
+			url: './content/act_addNewComp.php',
 			data: $('#addNewComp-form').serialize(),
 			success: function(response){
 
@@ -253,7 +253,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/addNewEEO_act.php',
+			url: './content/act_addNewEEO.php',
 			data: $('#addNewEEO-form').serialize(),
 			success: function(response){
 
@@ -309,7 +309,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/addNewCBU_act.php',
+			url: './content/act_addNewCBU.php',
 			data: $('#addNewCBU-form').serialize(),
 			success: function(response){
 

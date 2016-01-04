@@ -30,7 +30,7 @@ function yesDeleteClassSpec(jobCode) {
 		
 	$.ajax({
 		type: 'post',
-		url: './content/job_spec_del.php',
+		url: './content/jobSpec_del.php',
 		data: {
 			'jobCode': jobCode
 		},
@@ -101,7 +101,7 @@ $(document).ready(function() {
 		// AJAX request to delete (competencyID, classSpecID) pair from table
 		$.ajax({
 			type: 'post',
-			url: './content/delComp_act.php',
+			url: './content/act_comp_del.php',
 			data: {
 				'classSpecID': classSpecID,
 				'competencyID': competencyID
@@ -164,7 +164,7 @@ $(document).ready(function() {
 		// AJAX request to update table entry
 		$.ajax({
 			type: 'post',
-			url: './content/editComp_act.php',
+			url: './content/act_comp_edit.php',
 			data: $('#editComp-form').serialize(),
 			success: function(response) {			
 				

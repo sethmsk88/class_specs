@@ -28,12 +28,12 @@
 						link to details page, otherwise, link to add page
 					*/
 					if ($row['classID'] == null) {
-						$jobSpecURL = '?page=job_spec_add&jc=' .
+						$jobSpecURL = '?page=jobSpec_add&jc=' .
 							$row['JobCode'] .
 							'&pp=' . $payPlan;
 					}
 					else {
-						$jobSpecURL = '?page=job_spec_details&jc=' .
+						$jobSpecURL = '?page=jobSpec_details&jc=' .
 							$row['JobCode'] .
 							'&pp=' . $payPlan;
 					}

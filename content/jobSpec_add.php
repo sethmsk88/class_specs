@@ -1,5 +1,5 @@
-<link href="./css/job_spec_add.css" rel="stylesheet">
-<script src="./scripts/job_spec_add.js"></script>
+<link href="./css/jobSpec_add.css" rel="stylesheet">
+<script src="./scripts/jobSpec_add.js"></script>
 
 <?php
 	//Connect to DB

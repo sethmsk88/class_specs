@@ -26,7 +26,7 @@
 
     <!-- Included UDFs -->
     <?php include "../shared/query_UDFs.php"; ?>
-    <?php include "./content/class_spec_UDFs.php"; ?>
+    <?php include "./content/classSpec_UDFs.php"; ?>
 
     <!-- Include my database info -->
     <?php include "../shared/dbInfo.php"; ?>
@@ -87,16 +87,16 @@
                     <li id="homepage-link">
                         <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
                     </li>
-                    <li><a id="navLink-addSpec" href="?page=job_spec_add">Add Job Spec</a></li>
+                    <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
                     <?php
                         /*
-                            Only show these links when on page "job_spec_details"
+                            Only show these links when on page "jobSpec_details"
                         */
                         if (isset($_GET['page'])) {
-                            if (strpos($_GET['page'], "job_spec_details") !== false) {
+                            if (strpos($_GET['page'], "jobSpec_details") !== false) {
                     ?>
-                                <li><a id="navLink-details" href="?page=job_spec_details">Job Spec Details</a></li>
-                                <li><a id="navLink-detailsEdit" href="?page=job_spec_details">Edit Job Spec</a></li>
+                                <li><a id="navLink-details" href="?page=jobSpec_details">Job Spec Details</a></li>
+                                <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Job Spec</a></li>
                     <?php
                             }
                         }
@@ -123,10 +123,10 @@
                                 /*
                                     Distinguish between the details page and the details page with the edit flag when marking the navLinks with the 'active' class.
                                 */
-                                if ($.urlParam('page') == 'job_spec_details' && $.urlParam('edit') == 1) {
+                                if ($.urlParam('page') == 'jobSpec_details' && $.urlParam('edit') == 1) {
                                     $('#navLink-detailsEdit').parent().addClass('active');
                                 }
-                                else if ($.urlParam('page') == 'job_spec_details') {
+                                else if ($.urlParam('page') == 'jobSpec_details') {
                                     $('#navLink-details').parent().addClass('active');
                                 }
                                 else {
@@ -154,12 +154,12 @@
 
             <script>
                 /*
-                    If current page is job_spec_details page,
+                    If current page is jobSpec_details page,
                     modify navbar links to include Job Code.
                 */
-                if ($.urlParam('page') == 'job_spec_details') {
-                    $('#navLink-details').attr('href', '?page=job_spec_details&jc=' + $.urlParam('jc'));
-                    $('#navLink-detailsEdit').attr('href', '?page=job_spec_details&jc=' + $.urlParam('jc') + '&edit=1');
+                if ($.urlParam('page') == 'jobSpec_details') {
+                    $('#navLink-details').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc'));
+                    $('#navLink-detailsEdit').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc') + '&edit=1');
                 }
 
                 /*
