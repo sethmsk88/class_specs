@@ -25,7 +25,7 @@ function updateCompetencies(compID, compDescr) {
 function getPayLevelInfo(jobCode) {
 	$.ajax({
 		type: 'post',
-		url: './content/selectJobCode_act.php',
+		url: './content/act_selectJobCode.php',
 		data: {
 			'jobCode': jobCode
 		},
@@ -338,7 +338,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/selectJobCode_act.php',
+			url: './content/act_selectJobCode.php',
 			data: {
 				'jobCode': jobCode
 			},

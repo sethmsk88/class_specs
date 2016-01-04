@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'post',
-			url: './content/job_spec_edit_act.php',
+			url: './content/act_jobSpec_edit.php',
 			data: $('#editJobSpec-form').serialize(),
 			success: function(response){
 				$('#ajax_response_submit').html(response);
