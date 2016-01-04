@@ -217,19 +217,21 @@
 				PayPlan = ?,
 				JobFamily = ?,
 				OldPayGrade = ?,
-				FLSA = ?
+				FLSA = ?,
+				IPEDS_SOCs = ?
 			WHERE JobCode = ?
 		";
 
 		if (!$stmt = $conn->prepare($update_payLevel_sql)) {
 			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 		}
-		if (!$stmt->bind_param("ssssss",
+		if (!$stmt->bind_param("sssssis",
 				$param_str_JobTitle,
 				$param_str_PayPlan,
 				$param_str_JobFamily,
 				$param_str_OldPayGrade,
 				$param_str_FLSA,
+				$param_int_IPEDS_Code,
 				$param_str_JobCode)) {
 			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
