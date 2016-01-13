@@ -2,6 +2,15 @@
     $APP_appName = "Class Spec Manager";
     $APP_appPath = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/";
     $APP_homepage = "homepage";
+
+    /*
+        Temporary alternative to using a login system
+    */
+    $internal = false;
+    if ($_SERVER['HTTP_HOST'] == "10.123.100.18" ||
+        $_SERVER['HTTP_HOST'] == "localhost:8080") {
+        $internal = true;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +96,15 @@
                     <li id="homepage-link">
                         <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
                     </li>
+
+                    <?php
+                    if ($internal) {
+                    ?>
                     <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
+                    <?php
+                    }
+                    ?>
+
                     <?php
                         /*
                             Only show these links when on page "jobSpec_details"
@@ -96,7 +113,14 @@
                             if (strpos($_GET['page'], "jobSpec_details") !== false) {
                     ?>
                                 <li><a id="navLink-details" href="?page=jobSpec_details">Job Spec Details</a></li>
+
+                                <?php
+                                if ($internal) {
+                                ?>
                                 <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Job Spec</a></li>
+                                <?php
+                                }
+                                ?>
                     <?php
                             }
                         }

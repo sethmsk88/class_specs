@@ -2,6 +2,11 @@
 <script src="./scripts/jobSpec_add.js"></script>
 
 <?php
+	/* If not internal, stop loading page */
+	if (!$internal) {
+		exit();
+	}
+
 	//Connect to DB
 	$conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
 ?>

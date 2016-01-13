@@ -784,6 +784,10 @@
 			}
 		?>
 		</div>
+
+		<?php
+		if ($internal) {
+		?>
 		<div class="col-lg-offset-8 col-lg-2">
 			<button
 				id="deleteClassSpec"
@@ -794,6 +798,9 @@
 				Delete Class Spec
 			</button>
 		</div>
+		<?php
+		}
+		?>
 	</div>
 
 	<div class="row">
@@ -832,6 +839,7 @@
 		<div class="col-lg-12">
 			<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
 			<?php
+			if ($internal) {
 				echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ';
 				if ($payLevel_row['MaxSal'] >= 0) {
 					echo '$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
@@ -839,6 +847,7 @@
 				else {
 					echo 'No Max';
 				}
+			}
 			?>
 		</div>
 		<div class="col-lg-12 note">
@@ -857,11 +866,16 @@
 	<div class="row">
 		<div class="col-lg-3">
 			<span class="myLabel">Pay Level:</span>
-			<?php echo $payLevel_row['PayLevel']; ?>
+			<?php
+			if ($internal) {
+				echo $payLevel_row['PayLevel'];
+			}
+			?>
 		</div>
 		<div class="col-lg-9">
 			<span class="myLabel">Pay Level Range:</span>
 			<?php
+			if ($internal) {
 				echo '$' . number_format($payLevelRange_row['PayLevelMin'], 2, '.', ',') . ' - ';
 				if ($payLevelRange_row['PayLevelMax'] >= 0) {
 					echo '$' . number_format($payLevelRange_row['PayLevelMax'], 2, '.', ',');
@@ -869,6 +883,7 @@
 				else {
 					echo 'No Max';
 				}
+			}
 			?>
 		</div>
 	</div>
