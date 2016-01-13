@@ -44,25 +44,10 @@ ul.list-competencies{
 	font-size:1.4em;
 }
 
-
-/* table.job-specs{
-	-webkit-box-shadow: 0px 0px 5px 2px #3b393b; Android 2.3+, iOS 4.0.2-4.2, Safari 3-4
-	    box-shadow: 0px 0px 3px 2px #BBBBBB; Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+
-	    border-radius:2px;
-	    background-color:#FDFDFD;
+#otherReq-table{
+	width: auto;
 }
 
-table.job-specs > tbody > tr > td{
-	border:0;
+#otherReq-table > tbody > tr > td:first-child{
+	padding-right: 1em;
 }
-
-Select first column of table
-table.job-specs > tbody > tr > td:first-child{
-	text-align:right;
-}
-
-table.job-specs > tbody > tr > td.note{
-	color:#888888;
-	font-style:italic;
-	text-align:left;
-} */

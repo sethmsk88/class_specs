@@ -2,6 +2,8 @@
 <script src="./scripts/jobSpec_details.js"></script>
 
 <?php
+	include_once './functions.php';
+
 	// If Job Code GET variable is not set, redirect to homepage.
 	if (!isset($_GET['jc'])){
 		// Declare Job Code param in case redirect fails
@@ -524,7 +526,7 @@
 		<!-- Description -->
 		<div class="row">
 			<div class="form-group">
-				<label for="posDescr" class="control-label col-lg-2">Description:</label>
+				<label for="posDescr" class="control-label col-lg-2">Position Description:</label>
 				<div class="col-lg-8">
 					<textarea
 						name="posDescr"
@@ -926,10 +928,18 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<span class="myLabel">Description:</span>
-			<div class="box">
-				<?php echo stripslashes($classSpec_row['PositionDescr']); ?>
-			</div>
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>Position Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?php echo stripslashes($classSpec_row['PositionDescr']); ?></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<br />
@@ -942,94 +952,101 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<span class="myLabel">Education/Experience:</span>
-			<div class="box">
-				<?php echo stripslashes($classSpec_row['EducationExp']); ?>
-			</div>
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th>Education/Experience</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?php echo stripslashes($classSpec_row['EducationExp']); ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- <table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table> -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-bordered table-striped table-condensed">
+				<thead>
+					<tr>
+						<th>Recommended Competencies</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					// Create cell for each competency
+					while ($row = $competencies_result->fetch_assoc()) {
+						echo '<tr>';
+						echo '<td>' . stripslashes($row['Descr']) . '</td>';
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
-			<span class="myLabel">Recommended Competencies:</span>
-			<div id="recCompetencies" class="box">
-				<ul class="list-competencies">
-					<?php
-						// Create list item for each competency
-						while($row = $competencies_result->fetch_assoc()){
-							echo '<li>' . stripslashes($row['Descr']) . '</li>';
-						}
-					?>
-				</ul>
-			</div>
+			<table id="otherReq-table" class="table table-bordered table-striped table-condensed">
+				<thead>
+					<tr>
+						<th colspan="2">Other Specific Requirements</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Police Background Check</td>
+						<td>
+							<?php echo convertYesNo($classSpec_row['BackgroundCheck']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td>Financial Disclosure</td>
+						<td>
+							<?php echo convertYesNo($classSpec_row['FinancialDisclosure']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td>Pre/Post Offer Physical</td>
+						<td>
+							<?php echo convertYesNo($classSpec_row['Physical']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td>Confidentiality Statement</td>
+						<td>
+							<?php echo convertYesNo($classSpec_row['ConfidentialityStmt']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td>Child Care Security Check</td>
+						<td>
+							<?php echo convertYesNo($classSpec_row['ChildCareSecurityCheck']); ?>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-lg-12" style="text-decoration:underline;">
-			Other Specific Requirements
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Police Background Check:</span>
-			<?php
-				if ($classSpec_row['BackgroundCheck'])
-					echo 'Yes';
-				else
-					echo 'No';
-			?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Financial Disclosure:</span>
-			<?php
-				if ($classSpec_row['FinancialDisclosure'])
-					echo 'Yes';
-				else
-					echo 'No';
-			?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Pre/Post Offer Physical:</span>
-			<?php
-				if ($classSpec_row['Physical'])
-					echo 'Yes';
-				else
-					echo 'No';
-			?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Confidentiality Statement:</span>
-			<?php
-				if ($classSpec_row['ConfidentialityStmt'])
-					echo 'Yes';
-				else
-					echo 'No';
-			?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-3">
-			<span class="myLabel">Child Care Security Check:</span>
-			<?php
-				if ($classSpec_row['ChildCareSecurityCheck'])
-					echo 'Yes';
-				else
-					echo 'No';
-			?>
-		</div>
-	</div>
+	
 </div><!-- End container -->
 <?php
 	} // Endif
