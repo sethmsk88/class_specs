@@ -2,8 +2,6 @@
 <script src="./scripts/jobSpec_details.js"></script>
 
 <?php
-	include_once './functions.php';
-
 	// If Job Code GET variable is not set, redirect to homepage.
 	if (!isset($_GET['jc'])){
 		// Declare Job Code param in case redirect fails

@@ -8,10 +8,9 @@
 	*/
 
 	// Include my database info
-    include "../../shared/dbInfo.php";
+    require "../../shared/dbInfo.php";
 
-    // Include UDFs
-    include "./classSpec_UDFs.php";
+    require_once '../includes/functions.php';
 
 	// Connect to DB
 	$conn = new mysqli($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
