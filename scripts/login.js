@@ -21,11 +21,13 @@ $(document).ready(function() {
 					$(this).val('');
 				});
 				
-				// Hide form
+				location.reload();
+
+				/*// Hide form
 				$('#login-container').slideUp();
 
 				// Hide overlay
-				$('#overlay').hide();
+				$('#overlay').hide();*/
 
 				// Update nav-link with username and Log out link
 			}

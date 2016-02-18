@@ -138,7 +138,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <?php if ($loggedIn) { ?>
-                        <a id="logout-link" href="#"><?php echo $_SESSION['username']; ?> Log out</a>
+                        <a id="logout-link" href="./content/act_logout.php"><?php echo $_SESSION['username']; ?> Log out</a>
                         <?php } else { ?>
                         <a id="login-link" href="#">Log in</a>
                         <?php } ?>

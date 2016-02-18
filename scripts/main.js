@@ -104,5 +104,4 @@ $(document).ready(function(){
 	if (payPlan !== null) {
 		$('.nav-tabs').find('a[href="#' + payPlan + '"]').trigger('click');
 	}
-
 });
