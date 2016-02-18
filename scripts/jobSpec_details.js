@@ -30,7 +30,7 @@ function yesDeleteClassSpec(jobCode) {
 		
 	$.ajax({
 		type: 'post',
-		url: './content/jobSpec_del.php',
+		url: './content/act_jobSpec_del.php',
 		data: {
 			'jobCode': jobCode
 		},

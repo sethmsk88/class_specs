@@ -784,7 +784,7 @@
 		</div>
 
 		<?php
-		if ($internal) {
+		if ($loggedIn) {
 		?>
 		<div class="col-lg-offset-8 col-lg-2">
 			<button
@@ -837,7 +837,7 @@
 		<div class="col-lg-12">
 			<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
 			<?php
-			if ($internal) {
+			if ($loggedIn) {
 				echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ';
 				if ($payLevel_row['MaxSal'] >= 0) {
 					echo '$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
@@ -865,7 +865,7 @@
 		<div class="col-lg-3">
 			<span class="myLabel">Pay Level:</span>
 			<?php
-			if ($internal) {
+			if ($loggedIn) {
 				echo $payLevel_row['PayLevel'];
 			}
 			?>
@@ -873,7 +873,7 @@
 		<div class="col-lg-9">
 			<span class="myLabel">Pay Level Range:</span>
 			<?php
-			if ($internal) {
+			if ($loggedIn) {
 				echo '$' . number_format($payLevelRange_row['PayLevelMin'], 2, '.', ',') . ' - ';
 				if ($payLevelRange_row['PayLevelMax'] >= 0) {
 					echo '$' . number_format($payLevelRange_row['PayLevelMax'], 2, '.', ',');

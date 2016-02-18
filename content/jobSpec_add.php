@@ -3,7 +3,8 @@
 
 <?php
 	/* If not internal, stop loading page */
-	if (!$internal) {
+	if (!$loggedIn) {
+		header('Location: ../index.php?err=invalid_request')
 		exit();
 	}
 

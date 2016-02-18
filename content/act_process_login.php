@@ -26,7 +26,7 @@ if (isset($_POST['username'], $_POST['p'])) {
 }
 else {
 	// The correct POST variables were not sent to this page
-	header('Location: ../index.php?error=Invalid%20Request');
+	header('Location: ../index.php?err=invalid_request');
 }
 
 ?>

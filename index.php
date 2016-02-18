@@ -72,7 +72,6 @@
   <body>
 
     <?php
-
         // Include FAMU logo header
         include "../templates/header_3.php";
     ?>
