@@ -27,7 +27,7 @@ $(document).ready(function() {
 				$('#login-container').slideUp();
 
 				// Hide overlay
-				$('#overlay').hide();*/
+				$('#overlay').hide();
 
 				// Update nav-link with username and Log out link
 			}

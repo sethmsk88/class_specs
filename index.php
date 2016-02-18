@@ -72,8 +72,6 @@
   <body>
 
     <?php
-        if (isset($_SESSION))
-            echo '<code>' . var_dump($_SESSION) . '</code>'; // DEBUGGING
 
         // Include FAMU logo header
         include "../templates/header_3.php";
