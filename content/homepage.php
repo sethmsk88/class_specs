@@ -163,8 +163,6 @@
 		$sel_jobTitle_row = $sel_jobTitle_result->fetch_assoc();
 	}
 
-	// Close DB connection
-	mysqli_close($conn);
 ?>	
 
 <div class="container">
@@ -251,7 +249,15 @@
 	</div>
 </div>
 
+<?php
+// DEBUGGING
+if (login_check($conn) == true)
+	echo 'Logged in<br>';
+else
+	echo 'Logged out<br>';
+?>
+
 <!-- End of page padding -->
 <div style="clear:both;padding:100px 0;"></div>
 
-
+<?php mysqli_close($conn); ?>

@@ -2,15 +2,6 @@
     $APP_appName = "Class Spec Manager";
     $APP_appPath = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/";
     $APP_homepage = "homepage";
-
-    /*
-        Temporary alternative to using a login system
-    */
-    $internal = false;
-    if ($_SERVER['HTTP_HOST'] == "10.123.100.18" ||
-        $_SERVER['HTTP_HOST'] == "localhost:8080") {
-        $internal = true;
-    }
 ?>
 
 <!DOCTYPE html>
@@ -30,15 +21,20 @@
     <link href="./css/main.css" rel="stylesheet">
     <link href="../css/navbar-custom1.css" rel="stylesheet">
 
-    <!-- Included PHP Libraries -->
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '\bootstrap\libraries-php\stats.php'; ?>
+    <?php
+        // Included PHP Libraries
+        require_once $_SERVER['DOCUMENT_ROOT'] . '\bootstrap\libraries-php\stats.php';
 
-    <!-- Included UDFs -->
-    <?php require_once "../shared/query_UDFs.php"; ?>
-    <?php require_once "./includes/functions.php"; ?>
+        // Include functions
+        require_once "../shared/query_UDFs.php";
+        require_once "./includes/functions.php";
 
-    <!-- Include my database info -->
-    <?php require "../shared/dbInfo.php"; ?>
+        // Include my database info
+        require "../shared/dbInfo.php";
+
+        // Connect to DB
+        require_once $_SERVER['DOCUMENT_ROOT'] . 'bootstrap/apps/shared/db_connect.php';
+    ?>    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,8 +42,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
+
+    <?php
+        sec_session_start();
+
+        $loggedIn = login_check($conn);
+    ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -56,16 +56,25 @@
 
     <!-- Included Scripts -->
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/modal.js"></script>
+    <script src="./scripts/login.js"></script>
     <script src="/bootstrap/js/money_formatting.js"></script>
     <script src="/bootstrap/js/median.js"></script>
     <script src="/bootstrap/scripts/DataTables-1.10.7/media/js/jquery.datatables.js"></script>
+    <script src="/bootstrap/js/sha512.js"></script>
     <script src="/bootstrap/js/jquery.simplemodal-1.4.4.js"></script>
     <script src="/bootstrap/js/jquery.lettering.js"></script>
     <script src="/bootstrap/js/jquery.textillate.js"></script>
     <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/bootstrap/js/JavaScriptSpellCheck/include.js"></script>
 
+  </head>
+  <body>
+
     <?php
+        if (isset($_SESSION))
+            echo '<code>' . var_dump($_SESSION) . '</code>'; // DEBUGGING
+
         // Include FAMU logo header
         include "../templates/header_3.php";
     ?>
@@ -98,7 +107,7 @@
                     </li>
 
                     <?php
-                    if ($internal) {
+                    if ($loggedIn) {
                     ?>
                     <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
                     <?php
@@ -115,7 +124,7 @@
                                 <li><a id="navLink-details" href="?page=jobSpec_details">Job Spec Details</a></li>
 
                                 <?php
-                                if ($internal) {
+                                if ($loggedIn) {
                                 ?>
                                 <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Job Spec</a></li>
                                 <?php
@@ -125,6 +134,15 @@
                             }
                         }
                     ?>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <?php if ($loggedIn) { ?>
+                        <a id="logout-link" href="#"><?php echo $_SESSION['username']; ?> Log out</a>
+                        <?php } else { ?>
+                        <a id="login-link" href="#">Log in</a>
+                        <?php } ?>
+                    </li>
                 </ul>
             </div>
 
@@ -223,10 +241,10 @@
 			echo '<h2>404 Error</h2>Page does not exist';
 		}
 
+
+        // Include login form
+        include_once './includes/inc_login_form.php';
     ?>
-
-
-
 
   </body>
 </html>

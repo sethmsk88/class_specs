@@ -62,11 +62,17 @@ table.highlighted-rows > tbody > tr:hover{
 	line-height:3em;
 	position:absolute;
 	display:none;
-	z-index:2;
+	z-index:1001;
 }
 
 .modalForm > .form-group{
 	margin-bottom:0;
+}
+
+.modalForm .modalLabel{
+	color: #777;	
+	text-align: right;
+	padding-right: 1.25em;
 }
 
 #overlay{
@@ -85,4 +91,13 @@ table.highlighted-rows > tbody > tr:hover{
 	margin-top:10px;
 	font-size:1.4em;
 	color:green;
+}
+
+#login-container input[type=text],
+#login-container input[type=password]{
+	margin-bottom: 10px;
+}
+
+#login-container input[type=submit]{
+	width: 100%;
 }
