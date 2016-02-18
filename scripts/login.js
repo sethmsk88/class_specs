@@ -23,7 +23,7 @@ $(document).ready(function() {
 				
 				location.reload();
 
-				/*// Hide form
+				// Hide form
 				$('#login-container').slideUp();
 
 				// Hide overlay

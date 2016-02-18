@@ -136,13 +136,20 @@
                     ?>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <?php if ($loggedIn) { ?>
-                        <a id="logout-link" href="./content/act_logout.php"><?php echo $_SESSION['username']; ?> Log out</a>
-                        <?php } else { ?>
-                        <a id="login-link" href="#">Log in</a>
-                        <?php } ?>
+                    <?php if ($loggedIn) { ?>
+                    <li class="dropdown" style="cursor:pointer;">
+                        <a herf="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['username']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a id="logout-link" href="./content/act_logout.php"> Log out</a>
+                            </li>
+                        </ul>
                     </li>
+                    <?php } else { ?>
+                    <li>
+                        <a id="login-link" href="#">Log in</a>
+                    </li>
+                    <?php } ?>
                 </ul>
             </div>
 
