@@ -4,7 +4,7 @@
 <?php
 	/* If not internal, stop loading page */
 	if (!$loggedIn) {
-		header('Location: ../index.php?err=invalid_request')
+		header('Location: ../index.php?err=invalid_request');
 		exit();
 	}
 

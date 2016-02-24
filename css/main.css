@@ -101,3 +101,17 @@ table.highlighted-rows > tbody > tr:hover{
 #login-container input[type=submit]{
 	width: 100%;
 }
+
+.form-container{
+	background-color: #F5F5F5;
+	border-radius: 4px;
+	box-shadow: 0px 0px 3px #888888;
+	padding: 2px 10px;
+}
+
+.container hr{
+	margin-top: 4px;
+	margin-bottom: 12px;
+	border-width: 1px;
+	border-color: #BBBBBB;
+}
