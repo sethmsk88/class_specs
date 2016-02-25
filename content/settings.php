@@ -1,10 +1,8 @@
 <?php
-/*define("APP_PATH", "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/");
-
-// Must be logged in to access this page
-if (!isset($loggedIn) || $loggedIn == false) {
-	header('Location: ' . APP_PATH);
-}*/
+/***  TEST LOGGED IN  ***/
+if (!isset($loggedIn) || !$loggedIn) {
+	exit;
+}
 ?>
 
 <script src="./scripts/settings.js"></script> 

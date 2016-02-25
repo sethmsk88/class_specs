@@ -1,4 +1,10 @@
 <?php
+	/***  CHECK IF PAGE WAS POSTED TO  ***/
+	if (!isset($_SERVER["REQUEST_METHOD"]) ||
+		$_SERVER["REQUEST_METHOD"] != "POST") {
+		exit;
+	}
+
 	/*
 		Delete row from class_specs_rec_competencies table, where
 		ClassSpec_ID = (param_classSpecID) AND

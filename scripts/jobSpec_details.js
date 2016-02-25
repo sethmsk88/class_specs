@@ -43,12 +43,24 @@ function yesDeleteClassSpec(jobCode) {
 
 $(document).ready(function() {
 
+	/* Event handler for the editJobSpec-form submit action */
+	$('#editJobSpec-form').on('submit', function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			type: 'post',
+			url: './content/act_jobSpec_edit.php',
+			data: $('#editJobSpec-form').serialize(),
+			success: function(response) {
+				$('#ajax_response_submit').html(response);
+			}
+		});
+	});
+
 	// Attach event handler to competency select box
 	$('#competency_1').on('change', duplicateCompObj);
 
-	/*
-		Attach event handlers to all competency delete buttons
-	*/
+	/* Attach event handlers to all competency delete buttons */
 	$('.del-comp').on('click', function() {
 
 		var classSpecID = $('input[name="classSpecID"]').val();
@@ -78,9 +90,7 @@ $(document).ready(function() {
 	});
 
 
-	/*
-		Attach event handlers to all competency edit buttons
-	*/
+	/* Attach event handlers to all competency edit buttons */
 	$('.edit-comp').on('click', function() {
 		// Show overlay
 		$('#overlay').show();
@@ -152,18 +162,13 @@ $(document).ready(function() {
 	});
 
 
-	/*
-		Attach event handler to delete class spec button
-	*/
+	/* Attach event handler to delete class spec button */
 	$('#deleteClassSpec').on('click', confirmDeleteClassSpec);
 
 
-	/*
-		Attach event handler to "Go Back to Homepage" button
-	*/
+	/* Attach event handler to "Go Back to Homepage" button */
 	$('#back-btn').click(function() {
 		// Redirect to Homepage
 		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
 	});
-
 });

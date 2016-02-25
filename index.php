@@ -44,8 +44,10 @@
     <![endif]-->
 
     <?php
+        // Start session or regenerate session id
         sec_session_start();
 
+        // Check to see if User is logged in
         $loggedIn = login_check($conn);
     ?>
 

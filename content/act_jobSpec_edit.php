@@ -1,4 +1,10 @@
 <?php
+	/***  CHECK IF PAGE WAS POSTED TO  ***/
+	if (!isset($_SERVER["REQUEST_METHOD"]) ||
+		$_SERVER["REQUEST_METHOD"] != "POST") {
+		exit;
+	}
+
 	// Include my database info
     require "../../shared/dbInfo.php";
 
@@ -281,7 +287,6 @@
 	else {
 		echo '<span class="notice">Error: Job Code (' . $param_str_JobCode . ') already exists in table!</span>';
 	}
-
 
 	// Close DB connection
 	mysqli_close($conn);

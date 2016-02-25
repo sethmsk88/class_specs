@@ -1,15 +1,16 @@
+<?php
+/***  TEST LOGGED IN  ***/
+if (!isset($loggedIn) || !$loggedIn) {
+	exit;
+}
+?>
+
 <link href="./css/jobSpec_add.css" rel="stylesheet">
 <script src="./scripts/jobSpec_add.js"></script>
 
 <?php
-	/* If not internal, stop loading page */
-	if (!$loggedIn) {
-		header('Location: ../index.php?err=invalid_request');
-		exit();
-	}
-
-	//Connect to DB
-	$conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
+//Connect to DB
+$conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
 ?>
 
 <div id="overlay" style="display:none;"></div>

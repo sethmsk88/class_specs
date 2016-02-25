@@ -1,3 +1,10 @@
+<?php
+/***  MAKE SURE PAGE WAS ACCESSED THROUGH INDEX.PHP  ***/
+if (!isset($loggedIn)) {
+	exit;
+}
+?>
+
 <link href="./css/jobSpec_details.css" rel="stylesheet">
 <script src="./scripts/jobSpec_details.js"></script>
 
@@ -1118,6 +1125,3 @@
 		</div>
 	</form>
 </div>
-
-
-
