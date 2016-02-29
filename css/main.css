@@ -55,13 +55,13 @@ table.highlighted-rows > tbody > tr:hover{
 }
 
 .modalForm{
-	border:1px solid #AAAAAA;
-	border-radius:5px;
+	/*border:1px solid #AAAAAA;*/
+	border-radius:4px;
 	padding:10px 10px 8px 10px;
 	background-color:#EFEFEF;
 	line-height:3em;
-	position:absolute;
-	display:none;
+	/* position:absolute; */
+	/*display:block;*/
 	z-index:1001;
 }
 
@@ -114,4 +114,17 @@ table.highlighted-rows > tbody > tr:hover{
 	margin-bottom: 12px;
 	border-width: 1px;
 	border-color: #BBBBBB;
+}
+
+
+/** CSS to make dropdown look correct in nav-bar **/
+.navbar-nav > li > .dropdown > a {
+	padding: 15px;
+	color: #fff;
+	display: block;
+}
+.nav .open > a, .nav .open > a:focus,
+.nav .open > a:hover {
+    background-color: #b1441d;
+    text-decoration: none;
 }

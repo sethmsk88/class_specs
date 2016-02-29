@@ -149,7 +149,15 @@
                     </li>
                     <?php } else { ?>
                     <li>
-                        <a id="login-link" href="#">Log in</a>
+                        <!-- <a id="login-link" href="#">Log in</a> -->
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
+                            <ul class="dropdown-menu" style="padding:0px;">
+                                <li>
+                                    <?php include_once './includes/inc_login_form.php'; ?>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <?php } ?>
                 </ul>
@@ -252,7 +260,7 @@
 
 
         // Include login form
-        include_once './includes/inc_login_form.php';
+        //include_once './includes/inc_login_form.php';
     ?>
 
   </body>
