@@ -907,7 +907,13 @@ if (!isset($loggedIn)) {
 	<div class="row">
 		<div class="col-lg-12">
 			<span class="myLabel">Approximate Number of People in Classification:</span>
-			<?php echo $emps_result->num_rows; ?>
+			<?php
+				echo $emps_result->num_rows . '&nbsp;&nbsp;';
+				if ($emps_result->num_rows)
+					echo '<span class="bg-success text-success" style="padding:0 3px;">Active</span>';
+				else
+					echo '<span class="bg-danger text-danger" style="padding:0 3px;">Inactive</span>';
+			?>
 		</div>
 	</div>
 
