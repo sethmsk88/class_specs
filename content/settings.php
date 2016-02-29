@@ -38,6 +38,12 @@ if (!isset($loggedIn) || !$loggedIn) {
 			action="">
 
 			<div class="row">
+				<div class="col-lg-6">
+					<span class="bg-danger text-danger">* Password must contain one number, one lowercase and one uppercase letter</span>
+				</div>
+			</div>
+
+			<div class="row">
 				<div class="form-group">
 					<label for="oldPassword" class="control-label col-lg-2">Old Password</label>
 					<div class="col-lg-4">
