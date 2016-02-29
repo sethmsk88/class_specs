@@ -2,6 +2,10 @@ $(document).ready(function() {
 	/* Handle login submit action */
 	$('#login-form').submit(function(e) {
 		e.preventDefault();
+
+		$('#login-submit-btn').hide();
+		$('#loggingIn-btn').fadeIn(200);
+
 		$form = $(this);
 
 		formhash($form);
@@ -13,26 +17,31 @@ $(document).ready(function() {
 			data: $form.serialize(),
 			success: function(response) {
 
-				// Clear all text and password inputs in login-form
-				$form.children('input[type="text"]').each(function() {
-					$(this).val('');
-				});
+				/* IF LOGIN WAS SUCCESSFUL */
+				if (response == 1) {
+					location.reload();
+				}
+				else {
+					$('#loggingIn-btn').hide();
+					$('#login-failure-btn').fadeIn().focus();
+				}
+				
+				// Clear password inputs in form
 				$form.children('input[type="password"]').each(function() {
 					$(this).val('');
-				});
-				
-				location.reload();
-
-				// Hide form
-				$('#login-container').slideUp();
-
-				// Hide overlay
-				$('#overlay').hide();
-
-				// Update nav-link with username and Log out link
+				});				
 			}
 		});
 	});
+
+	/*
+		When a login message loses focus, hide it
+		and show login-submit button.
+	*/
+	$('.login-msg').blur(function() {
+		$(this).hide();
+		$('#login-submit-btn').fadeIn();
+	})
 });
 
 /*
@@ -42,6 +51,10 @@ $(document).ready(function() {
 function formhash(form) {
 
 	var hashedPassword = hex_sha512($('#password').val());
+
+	// Check to see if input p exists
+	// If it doesn't exist, create it,
+	// otherwise, just assign hashedPassword as its value
 
 	/* Append hidden input field to login form */
 	$("<input>")

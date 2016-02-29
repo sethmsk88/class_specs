@@ -98,8 +98,13 @@ table.highlighted-rows > tbody > tr:hover{
 	margin-bottom: 10px;
 }
 
-#login-container input[type=submit]{
+#login-container input[type=submit],
+#login-container button{
 	width: 100%;
+}
+
+.login-msg:focus{
+	outline: none;
 }
 
 .form-container{

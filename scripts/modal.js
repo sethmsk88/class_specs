@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
 	/* Attach onClick handler to Login button */
-	$('#login-link').click(function() {
+	/*$('#login-link').click(function() {
 		// show overlay
 		$('#overlay').show();
 
@@ -20,13 +20,13 @@ $(document).ready(function() {
 
 		// Show the new form using the slideDown function
 		$modal.slideDown();
-	});
+	});*/
 
 
 	/* Prepare overlay for modals */
-	$overlay = $('<div id="overlay"></div>');
+	/*$overlay = $('<div id="overlay"></div>');
 	$overlay.hide();
-	$('body').append($overlay);
+	$('body').append($overlay);*/
 
 
 	/*
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		When it is clicked, close the modal that is currently open,
 		and hide the overlay.
 	*/
-	$('#overlay').click(function(){
+	/*$('#overlay').click(function(){
 
 		// Select all divs with class modal that are currently visible
 		$('.modalForm:visible').each(function(){
@@ -49,5 +49,5 @@ $(document).ready(function() {
 				$('#overlay').hide();
 			});
 		});
-	});
+	});*/
 });

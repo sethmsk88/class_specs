@@ -149,7 +149,6 @@
                     </li>
                     <?php } else { ?>
                     <li>
-                        <!-- <a id="login-link" href="#">Log in</a> -->
                         <div class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Log in</a>
                             <ul class="dropdown-menu" style="padding:0px;">
@@ -257,11 +256,6 @@
 		else{
 			echo '<h2>404 Error</h2>Page does not exist';
 		}
-
-
-        // Include login form
-        //include_once './includes/inc_login_form.php';
     ?>
-
   </body>
 </html>

@@ -18,21 +18,9 @@ if (isset($_POST['username'], $_POST['p'])) {
 	else {
 		echo 0;
 	}
-
-/*	if (login($email, $password, $conn) == true) {
-		// Login success
-		//header('Location: ' . APP_PATH . '?page=protected_page');
-		return 
-	}
-	else {
-		// Login failed
-		header('Location: ../index.php?error=1');
-		exit();
-	}*/
 }
 else {
 	// The correct POST variables were not sent to this page
 	header('Location: ../index.php?err=invalid_request');
 }
-
 ?>
