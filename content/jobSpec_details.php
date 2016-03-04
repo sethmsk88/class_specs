@@ -233,13 +233,6 @@ if (!isset($loggedIn)) {
 <br />
 
 <?php
-	if (isset($_GET['edit'])) {
-		$loggedIn = true;
-	}
-	else {
-		$loggedIn = false;
-	}
-
 	if ($loggedIn) {
 ?>
 <div class="container default-style">
@@ -1093,6 +1086,7 @@ if (!isset($loggedIn)) {
 	}
 ?>
 
+<?php if ($loggedIn) { ?>
 <!-- Edit Competency Form (absolutely positioned) -->
 <div
 	id="editComp-container"
@@ -1131,3 +1125,4 @@ if (!isset($loggedIn)) {
 		</div>
 	</form>
 </div>
+<?php } ?>
