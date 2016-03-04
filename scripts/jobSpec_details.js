@@ -43,6 +43,11 @@ function yesDeleteClassSpec(jobCode) {
 
 $(document).ready(function() {
 
+	// Prepare overlay for modals
+	$overlay = $('<div id="overlay"></div>');
+	$overlay.hide();
+	$('body').append($overlay);
+
 	/* Event handler for the editJobSpec-form submit action */
 	$('#editJobSpec-form').on('submit', function(e) {
 		e.preventDefault();
@@ -55,6 +60,25 @@ $(document).ready(function() {
 				$('#ajax_response_submit').html(response);
 			}
 		});
+	});
+
+	/*
+		Attach event handler to the overlay.
+		When it is clicked, close the modal that is currently open,
+		and hide the overlay.
+	*/
+	$('#overlay').click(function(){
+
+		// Select all divs with class modal that are currently visible
+		$('.modalForm:visible').each(function(){
+
+			// Hide modal
+			$(this).slideUp(function(){
+				// Hide overlay
+				$('#overlay').hide();
+			});
+		});
+
 	});
 
 	// Attach event handler to competency select box

@@ -60,7 +60,8 @@ table.highlighted-rows > tbody > tr:hover{
 	padding:10px 10px 8px 10px;
 	background-color:#EFEFEF;
 	line-height:3em;
-	/* position:absolute; */
+	position:absolute;
+	display: none;
 	/*display:block;*/
 	z-index:1001;
 }
