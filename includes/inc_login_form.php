@@ -1,7 +1,7 @@
 <!-- Login Form (absolutely positioned) -->
 <div
 	id="login-container"
-	class="modalForm">
+	class="loginForm">
 
 	<form
 		name="login-form"
