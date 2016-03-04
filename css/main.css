@@ -55,13 +55,12 @@ table.highlighted-rows > tbody > tr:hover{
 }
 
 .modalForm{
-	/*border:1px solid #AAAAAA;*/
 	border-radius:4px;
 	padding:10px 10px 8px 10px;
 	background-color:#EFEFEF;
 	line-height:3em;
-	/* position:absolute; */
-	/*display:block;*/
+	position:absolute;
+	display:none;
 	z-index:1001;
 }
 
