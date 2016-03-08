@@ -12,10 +12,10 @@
 
 		<input
 			type="text"
-			name="username"
-			id="username"
+			name="email"
+			id="email"
 			class="form-control"
-			placeholder="Username">
+			placeholder="FAMU Email">
 
 		<input
 			type="password"

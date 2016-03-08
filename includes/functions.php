@@ -174,27 +174,27 @@ function sec_session_start() {
 	session_regenerate_id(true);
 }
 
-function login($username, $password, $conn) {
+function login($email, $password, $conn) {
 
 	sec_session_start();
 
 	/* Get user record with matching email */
 	$sel_user_sql = "
-		SELECT id, email, password
+		SELECT id, password, firstName, lastName
 		FROM secure_login.users
-		WHERE username = ?
+		WHERE email = ?
 		LIMIT 1";
 
 	if ($stmt = $conn->prepare($sel_user_sql)) {
-		$stmt->bind_param("s", $username);
+		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$stmt->store_result();
 
 		// Get variables from result
-		$stmt->bind_result($user_id, $email, $db_password);
+		$stmt->bind_result($user_id, $db_password, $firstName, $lastName);
 		$stmt->fetch();
 
-		// If username exists in users table
+		// If email address exists in users table
 		if ($stmt->num_rows == 1) {
 
 			/*
@@ -221,10 +221,12 @@ function login($username, $password, $conn) {
 					$user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
                     
-                    // XSS protection as we might print this value
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username);
+                    // XSS protection as we might print these values
+                    $firstName = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $firstName);
+                    $lastName = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $firstName);
 
-					$_SESSION['username'] = $username;
+					$_SESSION['firstName'] = $firstName;
+					$_SESSION['lastName'] = $lastName;
 					$_SESSION['login_string'] = hash('sha512', $password . $user_browser);
 
 					// Login successful
@@ -288,11 +290,13 @@ function login_check($conn) {
 
 	// Check if all session variables are set
 	if (isset($_SESSION['user_id'],
-			$_SESSION['username'],
+			$_SESSION['firstName'],
+			$_SESSION['lastName'],
 			$_SESSION['login_string'])) {
 
 		$user_id = $_SESSION['user_id'];
-		$username = $_SESSION['username'];
+		$firstName = $_SESSION['firstName'];
+		$lastName = $_SESSION['lastName'];
 		$login_string = $_SESSION['login_string'];
 
 		// Get the user-agent string of the user
@@ -354,6 +358,4 @@ function esc_url($url) {
     	return $url;
     }
 }
-
-
 ?>
