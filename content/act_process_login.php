@@ -8,11 +8,11 @@ if (!isset($_SERVER["REQUEST_METHOD"]) ||
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
 require_once '../includes/functions.php';
 
-if (isset($_POST['username'], $_POST['p'])) {
-	$username = $_POST['username'];
+if (isset($_POST['email'], $_POST['p'])) {
+	$email = $_POST['email'];
 	$password = $_POST['p']; // hashed password
 
-	if (login($username, $password, $conn) == true) {
+	if (login($email, $password, $conn) == true) {
 		echo 1;
 	}
 	else {
