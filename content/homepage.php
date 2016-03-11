@@ -1,3 +1,9 @@
+<?php
+	// Require page to be loaded through index
+	if (!isset($loggedIn)) {
+		header("Location: ../index.php");
+	}
+?>
 <link href="./css/homepage.css" rel="stylesheet">
 
 <?php

@@ -1,6 +1,13 @@
 <?php
+
+// Require page to be loaded through index
+if (!isset($loggedIn)) {
+	header("Location: ../index.php");
+}
+
 /***  TEST LOGGED IN  ***/
-if (!isset($loggedIn) || !$loggedIn) {
+if (!$loggedIn) {
+	echo '<span class="text-danger">Must be logged in to access this page</span>';
 	exit;
 }
 ?>
