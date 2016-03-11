@@ -196,7 +196,9 @@
 				<li class="active tab_title"><a data-toggle="tab" href="#ap">A&amp;P</a></li>
 				<li class="tab_title"><a data-toggle="tab" href="#usps">USPS</a></li>
 				<li class="tab_title"><a data-toggle="tab" href="#exec">Exec</a></li>
+				<?php if ($loggedIn) { ?>
 				<li class="tab_title"><a data-toggle="tab" href="#fac">Faculty</a></li>
+				<?php } ?>
 			</ul>
 
 			<div class="tab-content myTabs">
