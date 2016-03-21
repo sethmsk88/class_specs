@@ -233,7 +233,7 @@
 <br />
 
 <?php
-	if ($loggedIn) {
+	if ($loggedIn && isset($_GET['edit'])) {
 ?>
 <div class="container default-style">
 	<?php
