@@ -54,35 +54,9 @@
 						class='clickable'
 						onclick='window.location.assign("<?php echo $jobSpecURL; ?>");'
 						>
-						<td><?php echo $row['JobCode']; ?></td>
-						<td>
-							<?php
-								/*
-								 *	Use the Job Title that was entered through
-								 *	the Class Specs Manager if one exists.
-								 */
-								if ($row['JobTitle_alt'] != '') {
-									echo $row['JobTitle_alt'];
-								}
-								else {
-									echo $row['JobTitle'];
-								}
-							?>
-						</td>
-						<td>
-							<?php
-								/*
-								 *	Use the Job Family that was entered through
-								 *	the Class Specs Manager if one exists.
-								 */
-								if ($row['JobFamilyID'] !== NULL) {
-									echo $row['JobFamily_long_alt'];
-								}
-								else {
-									echo $row['JobFamily_long'];
-								}
-							?>
-						</td>
+						<td><?= $row['JobCode'] ?></td>
+						<td><?= $row['JobTitle'] ?></td>
+						<td><?= $row['JobFamily_long'] ?></td>
 					</tr>
 					<?php
 				}
@@ -103,26 +77,17 @@
 	/************************************************&*****/
 	function getClassSpecs($payPlan, &$conn) {
 		$sel_classSpecs_sql = "
-			SELECT p.JobCode,
-				p.JobTitle,
+			SELECT c.JobCode,
+				c.JobTitle,
 				c.ID classID,
-				j1.JobFamily_long,
-				c.JobTitle JobTitle_alt,
-				c.JobFamilyID,
-				j2.JobFamily_long JobFamily_long_alt
-			FROM pay_levels p
-			LEFT JOIN job_families j1
-				ON p.JobFamily = j1.JobFamily_short
-			LEFT JOIN (
-				SELECT *
-				FROM class_specs
-				WHERE Active = 1) c
-				ON p.JobCode = c.JobCode
-			LEFT JOIN job_families j2
-				ON c.JobFamilyID = j2.ID
-			WHERE p.PayPlan = '$payPlan' AND
-				p.Active = 1
-			ORDER BY p.JobCode ASC
+				j.JobFamily_long,
+				c.JobFamilyID
+			FROM class_specs c
+			LEFT JOIN job_families j
+				ON c.JobFamilyID = j.ID
+			WHERE c.PayPlan = '$payPlan' AND
+				c.Active = 1
+			ORDER BY c.JobCode ASC
 		";
 
 		if (!($sel_classSpecs_result = $conn->query($sel_classSpecs_sql))){
@@ -140,10 +105,10 @@
 		echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
 	}
 
-	$sel_classSpec_ap_result = getClassSpecs('A&P', $conn);
-	$sel_classSpec_usps_result = getClassSpecs('USPS', $conn);
-	$sel_classSpec_exec_result = getClassSpecs('EXC', $conn);
-	$sel_classSpec_fac_result = getClassSpecs('Faculty', $conn);
+	$sel_classSpec_ap_result = getClassSpecs('ap', $conn);
+	$sel_classSpec_usps_result = getClassSpecs('usps', $conn);
+	$sel_classSpec_exec_result = getClassSpecs('exec', $conn);
+	$sel_classSpec_fac_result = getClassSpecs('fac', $conn);
 
 	/*
 		If JobCode get variable exists, get the associated job title
