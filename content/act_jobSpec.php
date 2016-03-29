@@ -5,6 +5,24 @@
 		exit;
 	}
 
+	// Make sure required fields have been posted
+	$errMsg = "";
+	if ($_POST['jobCode'] == '')
+		$errMsg .= "Job Code is required<br>";
+	if ($_POST['jobTitle'] == '')
+		$errMsg .= "Job Title is required<br>";
+	if ($_POST['jobFamily'] == '')
+		$errMsg .= "Job Family is required<br>";
+	if ($_POST['payPlan'] == '')
+		$errMsg .= "Pay Plan is required<br>";
+
+	// If Required Fields Were Not All Posted
+	if (strlen($errMsg) > 0) {
+		// display error message and exit
+		echo '<span class="text-danger">' . $errMsg . '</span>';
+		exit;
+	}
+	
 	// Include my database info
     include "../../shared/dbInfo.php";
 

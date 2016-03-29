@@ -28,7 +28,7 @@ if (!isset($loggedIn)) {
 	$select_classSpec_sql = "
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
-		JOIN pay_levels AS p
+		LEFT JOIN pay_levels AS p
 			ON c.JobCode = p.JobCode
 		LEFT JOIN eeo_codes AS eeo
 			ON c.EEO_Code_ID = eeo.EEO_Code_ID
@@ -233,7 +233,7 @@ if (!isset($loggedIn)) {
 <br />
 
 <?php
-	if ($loggedIn) {
+	if ($loggedIn && isset($_GET['edit'])) {
 ?>
 <div class="container default-style">
 	<?php
@@ -833,6 +833,13 @@ if (!isset($loggedIn)) {
 		</div>
 	</div>
 
+	<?php
+		/*
+			Make sure class spec has a pay level assigned to it
+			in the pay_levels table before running this query
+		*/
+		if ($payLevel_row['PayLevel'] !== null) {
+	?>
 	<div class="row">
 		<div class="col-lg-12">
 			<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
@@ -853,14 +860,6 @@ if (!isset($loggedIn)) {
 		</div>
 	</div>
 
-
-	<?php
-		/*
-			Make sure class spec has a pay level assigned to it
-			in the pay_levels table before running this query
-		*/
-		if ($payLevel_row['PayLevel'] !== null) {
-	?>
 	<div class="row">
 		<div class="col-lg-3">
 			<span class="myLabel">Pay Level:</span>
