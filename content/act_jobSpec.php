@@ -5,6 +5,8 @@
 		exit;
 	}
 
+	require_once '../includes/functions.php';
+
 	// Make sure required fields have been posted
 	$errMsg = "";
 	if ($_POST['jobCode'] == '')
@@ -228,10 +230,71 @@
 				}
 			}
 		}
-
 		$stmt->close();
-	}
 
-	// Close DB connection
-	mysqli_close($conn);
+		// Check to see if Job Code exists in Pay Levels table
+		$sel_payLevel_sql = "
+			SELECT *
+			FROM hrodt.pay_levels
+			WHERE JobCode = ?
+		";
+
+		if ($stmt = $conn->prepare($sel_payLevel_sql)) {
+			$stmt->bind_param("s", $param_str_JobCode);
+			$stmt->execute();
+			$stmt->store_result();
+
+			// If Job Code doesn't exist in pay_levels table
+			if ($stmt->num_rows == 0) {
+
+				// Get short form of Job Family
+				$sel_jobFamily_sql = "
+					SELECT JobFamily_short
+					FROM hrodt.job_families
+					WHERE ID = ?
+				";
+				$stmt = $conn->prepare($sel_jobFamily_sql);
+				$stmt->bind_param("i", $param_int_JobFamilyID);
+				$stmt->execute();
+				$stmt->store_result();
+				$stmt->bind_result($param_str_JobFamily);
+				$stmt->fetch();
+
+				$param_str_OldPayGrade = $param_int_OldPayGrade;
+
+				// convert pay plan to format used in pay_levels table
+				$param_str_PayPlan = convertPayPlan($param_str_PayPlan, "pay_levels");
+
+				// convert FLSA to format used in pay_levels table
+				$param_str_FLSA = convertFLSA($param_int_FLSA, "symbolic");
+
+				$param_int_IPEDS_SOCs = $_POST['ipedsCode'];
+
+				$ins_payLevel_sql = "
+					INSERT INTO hrodt.pay_levels (
+						JobCode,
+						JobTitle,
+						FLSA,
+						JobFamily,
+						OldPayGrade,
+						PayPlan,
+						IPEDS_SOCs)
+					VALUES (?,?,?,?,?,?,?)
+				";
+
+				// Insert into pay_levels table
+				if ($stmt = $conn->prepare($ins_payLevel_sql)) {
+					$stmt->bind_param("ssssssi",
+						$param_str_JobCode,
+						$param_str_JobTitle,
+						$param_str_FLSA,
+						$param_str_JobFamily,
+						$param_int_OldPayGrade,
+						$param_str_PayPlan,
+						$param_int_IPEDS_SOCs);
+					$stmt->execute();
+				}
+			}
+		}
+	}
 ?>
