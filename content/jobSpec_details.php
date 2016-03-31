@@ -362,7 +362,7 @@
 		</div>
 
 		<!-- Pay Level -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="form-group">
 				<label for="payLevel" class="control-label col-lg-2">Pay Level:</label>
 				<div class="col-lg-4">
@@ -373,6 +373,7 @@
 						>
 						<option value=""></option>
 						<?php
+						/*
 							while ($row = $qry_payLevelNums->fetch_assoc()) {
 								if ($row['PayLevel'] == $payLevel_row['PayLevel']) {
 									$optionSelected = 'selected="selected"';
@@ -380,14 +381,15 @@
 								else {
 									$optionSelected = '';
 								}
-
+		
 								echo '<option value="' . $row['PayLevel'] . '" ' . $optionSelected . '>' . $row['PayLevel'] . '</option>';
 							}
+						*/
 						?>
 					</select>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- Old Paygrade -->
 		<div class="row">
