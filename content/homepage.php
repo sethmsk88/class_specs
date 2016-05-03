@@ -210,6 +210,7 @@
 				<!--~~~~~~~~~~~~~-->
 				<!-- Faculty Tab -->
 				<!--~~~~~~~~~~~~~-->
+				<?php if ($loggedIn) { ?>
 				<div id="fac" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">
@@ -217,6 +218,7 @@
 						</div>
 					</div>
 				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
