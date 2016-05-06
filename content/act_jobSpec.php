@@ -78,63 +78,52 @@
 		***/
 		if ($_POST['jobFamily'] != '') {
 			$param_int_JobFamilyID = $_POST['jobFamily'];
-		}
-		else {
+		} else {
 			$param_int_JobFamilyID = NULL;
 		}
 		if (trim($_POST['oldPaygrade']) != '') {
 			$param_int_OldPayGrade = trim($_POST['oldPaygrade']);
-		}
-		else {
+		} else {
 			$param_int_OldPayGrade = NULL;
-		}
-		if ($_POST['eeoCode'] != '') {
+		} if ($_POST['eeoCode'] != '') {
 			$param_int_EEO_Code_ID = $_POST['eeoCode'];
-		}
-		else {
+		} else {
 			$param_int_EEO_Code_ID = NULL;
-		}
-		if ($_POST['cbuCode'] != '') {
+		} if ($_POST['cbuCode'] != '') {
 			$param_int_CBU_Code_ID = $_POST['cbuCode'];
-		}
-		else {
+		} else {
 			$param_int_CBU_Code_ID = NULL;
-		}
-		if ($_POST['flsa'] != '') {
+		} if ($_POST['flsa'] != '') {
 			$param_int_FLSA = $_POST['flsa'];
-		}
-		else {
+		} else {
 			$param_int_FLSA = NULL;
 		}
 		if ($_POST['backgroundCheck'] != '') {
 			$param_int_BackgroundCheck = $_POST['backgroundCheck'];
-		}
-		else {
+		} else {
 			$param_int_BackgroundCheck = NULL;
-		}
-		if ($_POST['physical'] != '') {
+		} if ($_POST['physical'] != '') {
 			$param_int_Physical = $_POST['physical'];
-		}
-		else {
+		} else {
 			$param_int_Physical = NULL;
-		}
-		if ($_POST['childCareSecurityCheck'] != '') {
+		} if ($_POST['childCareSecurityCheck'] != '') {
 			$param_int_ChildCareSecurityCheck = $_POST['childCareSecurityCheck'];
-		}
-		else {
+		} else {
 			$param_int_ChildCareSecurityCheck = NULL;
-		}
-		if ($_POST['financialDisclosure'] != '') {
+		} if ($_POST['financialDisclosure'] != '') {
 			$param_int_FinancialDisclosure = $_POST['financialDisclosure'];
-		}
-		else {
+		} else {
 			$param_int_FinancialDisclosure = NULL;
 		}
 		if ($_POST['confidentialityStmt'] != '') {
 			$param_int_ConfidentialityStmt = $_POST['confidentialityStmt'];
-		}
-		else {
+		} else {
 			$param_int_ConfidentialityStmt = NULL;
+		}
+		if ($_POST['ipedsCode'] != '') {
+			$param_int_IPEDS_SOCs = $_POST['ipedsCode'];
+		} else {
+			$param_int_IPEDS_SOCs = NULL;
 		}
 
 		$insert_classSpec_sql = "
@@ -230,6 +219,66 @@
 		}
 
 		$stmt->close();
+
+		// Does Job Code exist in pay_levels table?
+		$sel_payLevel_sql = "
+			SELECT *
+			FROM hrodt.pay_levels
+			WHERE JobCode = ? AND Active = 1
+		";
+		if (!$stmt = $conn->prepare($sel_payLevel_sql)){
+			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		} else if (!$stmt->bind_param("s", $param_str_JobCode)) {
+			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
+		} else if (!$stmt->execute()) {
+			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+		}
+		$stmt->store_result();
+
+		// If Job Code does not exist in pay_levels table, insert it
+		if ($stmt->num_rows == 0) {
+			
+			// Convert FLSA
+			if ($param_int_FLSA == 0) {
+				$param_str_FLSA = "N";
+			} else {
+				$param_str_FLSA = "X";
+			}
+
+			// Get Job Family short form
+			$sel_jobFamily_sql = "
+				SELECT *
+				FROM hrodt.job_families
+				WHERE ID = ?
+			";
+			if (!$stmt = $conn->prepare($sel_jobFamily_sql)){
+				echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+			} else if (!$stmt->bind_param("i", $param_int_JobFamilyID)) {
+				echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
+			} else if (!$stmt->execute()) {
+				echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+			}
+			$jobFamily_result = $stmt->get_result();
+			$jobFamily_row = $jobFamily_result->fetch_assoc();
+			$param_str_JobFamily_short = $jobFamily_row["JobFamily_short"];
+
+			$ins_payLevel_sql = "
+				INSERT INTO hrodt.pay_levels (JobCode, JobTitle, FLSA, OldPayGrade,
+					JobFamily, PayPlan, IPEDS_SOCs)
+				VALUES (?,?,?,?,?,?,?)
+			";
+
+			if (!$stmt = $conn->prepare($ins_payLevel_sql)){
+				echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+			} else if (!$stmt->bind_param("sssissi",
+				$param_str_JobCode, $param_str_JobTitle, $param_str_FLSA,
+				$param_int_OldPayGrade, $param_str_JobFamily_short, $param_str_PayPlan,
+				$param_int_IPEDS_SOCs)) {
+				echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
+			} else if (!$stmt->execute()) {
+				echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
+			}
+		}
 	}
 
 	// Close DB connection
