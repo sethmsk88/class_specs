@@ -80,63 +80,52 @@
 		***/
 		if ($_POST['jobFamily'] != '') {
 			$param_int_JobFamilyID = $_POST['jobFamily'];
-		}
-		else {
+		} else {
 			$param_int_JobFamilyID = NULL;
 		}
 		if (trim($_POST['oldPaygrade']) != '') {
 			$param_int_OldPayGrade = trim($_POST['oldPaygrade']);
-		}
-		else {
+		} else {
 			$param_int_OldPayGrade = NULL;
-		}
-		if ($_POST['eeoCode'] != '') {
+		} if ($_POST['eeoCode'] != '') {
 			$param_int_EEO_Code_ID = $_POST['eeoCode'];
-		}
-		else {
+		} else {
 			$param_int_EEO_Code_ID = NULL;
-		}
-		if ($_POST['cbuCode'] != '') {
+		} if ($_POST['cbuCode'] != '') {
 			$param_int_CBU_Code_ID = $_POST['cbuCode'];
-		}
-		else {
+		} else {
 			$param_int_CBU_Code_ID = NULL;
-		}
-		if ($_POST['flsa'] != '') {
+		} if ($_POST['flsa'] != '') {
 			$param_int_FLSA = $_POST['flsa'];
-		}
-		else {
+		} else {
 			$param_int_FLSA = NULL;
 		}
 		if ($_POST['backgroundCheck'] != '') {
 			$param_int_BackgroundCheck = $_POST['backgroundCheck'];
-		}
-		else {
+		} else {
 			$param_int_BackgroundCheck = NULL;
-		}
-		if ($_POST['physical'] != '') {
+		} if ($_POST['physical'] != '') {
 			$param_int_Physical = $_POST['physical'];
-		}
-		else {
+		} else {
 			$param_int_Physical = NULL;
-		}
-		if ($_POST['childCareSecurityCheck'] != '') {
+		} if ($_POST['childCareSecurityCheck'] != '') {
 			$param_int_ChildCareSecurityCheck = $_POST['childCareSecurityCheck'];
-		}
-		else {
+		} else {
 			$param_int_ChildCareSecurityCheck = NULL;
-		}
-		if ($_POST['financialDisclosure'] != '') {
+		} if ($_POST['financialDisclosure'] != '') {
 			$param_int_FinancialDisclosure = $_POST['financialDisclosure'];
-		}
-		else {
+		} else {
 			$param_int_FinancialDisclosure = NULL;
 		}
 		if ($_POST['confidentialityStmt'] != '') {
 			$param_int_ConfidentialityStmt = $_POST['confidentialityStmt'];
-		}
-		else {
+		} else {
 			$param_int_ConfidentialityStmt = NULL;
+		}
+		if ($_POST['ipedsCode'] != '') {
+			$param_int_IPEDS_SOCs = $_POST['ipedsCode'];
+		} else {
+			$param_int_IPEDS_SOCs = NULL;
 		}
 
 		$insert_classSpec_sql = "
