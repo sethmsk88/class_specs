@@ -948,7 +948,10 @@ if (!isset($loggedIn)) {
 			<span class="myLabel">This position is FLSA:</span>
 			<?php //echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
 			<?= getFLSA($conn, $classSpec_row['JobCode'], $classSpec_row['PayPlan'], $classSpec_row['FLSA']) ?>
+		</div>
 
+		<div class="col-lg-12 note">
+			Status shown effective December 1, 2016
 		</div>
 	</div>
 
