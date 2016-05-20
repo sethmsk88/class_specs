@@ -226,6 +226,15 @@
 		$payLevelRange_row = $qry_payLevelRange->fetch_assoc();
 	}
 
+	// Get date of most recent TMS upload
+	$sel_TMSDate_sql = "
+		SELECT *
+		FROM hrodt.tms_upload_history
+		ORDER BY UploadDate DESC
+	";
+	$qry_TMSDate = $conn->query($sel_TMSDate_sql);
+	$TMSDate_row = $qry_TMSDate->fetch_assoc();
+	$TMSDate = $TMSDate_row["UploadDate"];
 ?>
 
 <div id="overlay" style="display:none;"></div>
@@ -909,6 +918,10 @@
 					echo '<span class="bg-danger text-danger" style="padding:0 3px;">Inactive</span>';
 			?>
 		</div>
+
+		<div class="col-lg-12 note">
+			Please Note: Approximate # of people in classification is based on the most recent TMS, which was uploaded on <?= date('n/j/Y', strtotime($TMSDate)) ?>.
+		</div>
 	</div>
 
 	<div class="row">
@@ -935,7 +948,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<span class="myLabel">This position is FLSA:</span>
-			<?php echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
+			<?php //echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
+			<?= getFLSA($conn, $classSpec_row['JobCode'], $classSpec_row['PayPlan'], $classSpec_row['FLSA']) ?>
+
 		</div>
 	</div>
 
@@ -1079,8 +1094,6 @@
 
 <!-- Footer -->
 <?php
-	mysqli_close($conn);
-
 	/** Spacing for bottom of page **/
 	for ($i=0; $i<20; $i++){
 		echo '<br />';

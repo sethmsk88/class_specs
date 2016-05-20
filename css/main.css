@@ -156,3 +156,8 @@ table.highlighted-rows > tbody > tr:hover{
     background-color: #b1441d;
     text-decoration: none;
 }
+
+.note{
+	color:#FF1919;
+	font-style:italic;
+}
