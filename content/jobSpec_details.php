@@ -946,7 +946,9 @@ if (!isset($loggedIn)) {
 	<div class="row">
 		<div class="col-lg-12">
 			<span class="myLabel">This position is FLSA:</span>
-			<?php echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
+			<?php //echo convertFLSA($classSpec_row['FLSA'], 'string'); ?>
+			<?= getFLSA($conn, $classSpec_row['JobCode'], $classSpec_row['PayPlan'], $classSpec_row['FLSA']) ?>
+
 		</div>
 	</div>
 
@@ -1090,8 +1092,6 @@ if (!isset($loggedIn)) {
 
 <!-- Footer -->
 <?php
-	mysqli_close($conn);
-
 	/** Spacing for bottom of page **/
 	for ($i=0; $i<20; $i++){
 		echo '<br />';
