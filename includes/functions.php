@@ -283,7 +283,7 @@ function login($email, $password, $conn) {
                     
                     // XSS protection as we might print these values
                     $firstName = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $firstName);
-                    $lastName = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $firstName);
+                    $lastName = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $lastName);
 
 					$_SESSION['firstName'] = $firstName;
 					$_SESSION['lastName'] = $lastName;
@@ -418,4 +418,17 @@ function esc_url($url) {
     	return $url;
     }
 }
+
+/**
+ *	Convert a string representation of money into a float
+ *	representation. Remove all characters except decimals
+ *	and integers.
+ *	
+ *	@param money 	String representation of money
+ *	@return Float representation of money
+ */
+function parseMoney($money) {
+	return preg_replace("/[^0-9.]/", "", $money);
+}
+
 ?>

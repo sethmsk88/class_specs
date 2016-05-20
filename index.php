@@ -108,11 +108,11 @@
                     </li>
 
                     <?php
-                    if ($loggedIn) {
+                        if ($loggedIn) {
                     ?>
                     <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
                     <?php
-                    }
+                        }
                     ?>
 
                     <?php
@@ -134,7 +134,15 @@
                     <?php
                             }
                         }
+
+                        if ($loggedIn) {
                     ?>
+                    <li><a id="navLink-threshold" href="?page=flsa_threshold">FLSA Threshold</a></li>
+                    <?php
+                        }
+                    ?>
+
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($loggedIn) { ?>
