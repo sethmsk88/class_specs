@@ -854,9 +854,9 @@ if (!isset($loggedIn)) {
 			<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
 			<?php
 			if ($loggedIn) {
-				echo '$' . number_format($payLevel_row['MinSal'], 2, '.', ',') . ' - ';
-				if ($payLevel_row['MaxSal'] >= 0) {
-					echo '$' . number_format($payLevel_row['MaxSal'], 2, '.', ',');
+				echo '$' . number_format($payLevel_row['MinSalAdjusted'], 2, '.', ',') . ' - ';
+				if ($payLevel_row['MaxSalAdjusted'] >= 0) {
+					echo '$' . number_format($payLevel_row['MaxSalAdjusted'], 2, '.', ',');
 				}
 				else {
 					echo 'No Max';
