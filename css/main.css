@@ -131,7 +131,6 @@ table.highlighted-rows > tbody > tr:hover{
 	border-color: #BBBBBB;
 }
 
-
 /** CSS to make dropdown look correct in nav-bar **/
 .navbar-nav > li > .dropdown > a {
 	padding: 15px;
