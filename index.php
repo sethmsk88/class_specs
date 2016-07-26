@@ -147,7 +147,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($loggedIn) { ?>
                     <li class="dropdown" style="cursor:pointer;">
-                        <a herf="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['firstName']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['firstName']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a id="settings-link" href="?page=settings">Settings</a>
