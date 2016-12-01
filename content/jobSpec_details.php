@@ -533,7 +533,7 @@ if (!isset($loggedIn)) {
 		<!-- Description -->
 		<div class="row">
 			<div class="form-group">
-				<label for="posDescr" class="control-label col-lg-2">Position Description:</label>
+				<label for="posDescr" class="control-label col-lg-2">Description:</label>
 				<div class="col-lg-8">
 					<textarea
 						name="posDescr"
@@ -967,7 +967,7 @@ if (!isset($loggedIn)) {
 			<table class="table table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th>Position Description</th>
+						<th>Description</th>
 					</tr>
 				</thead>
 				<tbody>
