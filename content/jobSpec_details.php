@@ -36,7 +36,7 @@
 	function prepare_text_textarea($text)
 	{
 		global $conn;
-		return $conn->escape_string(str_replace("\r\n",'&#13;&#10;', trim($text)));
+		return stripslashes(str_replace("\r\n",'&#13;&#10;', trim($text)));
 	}
 
 
