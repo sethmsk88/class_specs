@@ -25,6 +25,14 @@ if (!isset($loggedIn)) {
 		exit();
 	}
 
+
+	// Replace line feed character with breakline tag and strip slashes from escaped characters
+	function prepare_text($text)
+	{
+		return stripslashes(str_replace("&#13;&#10;", "<br>", $text));
+	}
+
+
 	$select_classSpec_sql = "
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
@@ -539,7 +547,7 @@ if (!isset($loggedIn)) {
 						name="posDescr"
 						id="posDescr"
 						class="form-control"
-						><?php echo stripslashes($classSpec_row['PositionDescr']); ?></textarea>
+						><?php echo prepare_text($classSpec_row['PositionDescr']); ?></textarea>
 				</div>
 			</div>
 		</div>
@@ -553,7 +561,7 @@ if (!isset($loggedIn)) {
 						name="eduExp"
 						id="eduExp"
 						class="form-control"
-						><?php echo stripslashes($classSpec_row['EducationExp']); ?></textarea>
+						><?php echo prepare_text($classSpec_row['EducationExp']); ?></textarea>
 				</div>
 			</div>
 		</div>
@@ -577,7 +585,7 @@ if (!isset($loggedIn)) {
 								while ($row = $competencies_result->fetch_assoc()) {
 							?>
 							<tr>
-								<td><?php echo stripslashes($row['Descr']); ?></td>
+								<td><?php echo prepare_text($row['Descr']); ?></td>
 								<td>
 									<button
 										id="<?php echo $row['Competency_ID']; ?>"
@@ -817,7 +825,7 @@ if (!isset($loggedIn)) {
 		</div>
 		<div class="col-lg-9">
 			<span class="myLabel">Job Title:</span>
-			<?php echo stripslashes($classSpec_row['JobTitle']); ?>
+			<?php echo prepare_text($classSpec_row['JobTitle']); ?>
 		</div>
 	</div>
 
@@ -972,7 +980,7 @@ if (!isset($loggedIn)) {
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo stripslashes($classSpec_row['PositionDescr']); ?></td>
+						<td><?php echo prepare_text($classSpec_row['PositionDescr']); ?></td>
 					</tr>
 				</tbody>
 			</table>
@@ -996,7 +1004,7 @@ if (!isset($loggedIn)) {
 				</thead>
 				<tbody>
 					<tr>
-						<td><?php echo stripslashes($classSpec_row['EducationExp']); ?></td>
+						<td><?php echo prepare_text($classSpec_row['EducationExp']); ?></td>
 					</tr>
 				</tbody>
 			</table>
@@ -1029,7 +1037,7 @@ if (!isset($loggedIn)) {
 					// Create cell for each competency
 					while ($row = $competencies_result->fetch_assoc()) {
 						echo '<tr>';
-						echo '<td>' . stripslashes($row['Descr']) . '</td>';
+						echo '<td>' . prepare_text($row['Descr']) . '</td>';
 						echo '</tr>';
 					}
 					?>
