@@ -32,6 +32,13 @@
 		return stripslashes(str_replace("&#13;&#10;", "<br>", $text));
 	}
 
+	//	This function prepares text to be displayed in a textarea
+	function prepare_text_textarea($text)
+	{
+		global $conn;
+		return $conn->escape_string(str_replace("\r\n",'&#13;&#10;', trim($text)));
+	}
+
 
 	$select_classSpec_sql = "
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
@@ -549,7 +556,7 @@
 						name="posDescr"
 						id="posDescr"
 						class="form-control"
-						><?php echo prepare_text($classSpec_row['PositionDescr']); ?></textarea>
+						><?php echo prepare_text_textarea($classSpec_row['PositionDescr']); ?></textarea>
 				</div>
 			</div>
 		</div>
@@ -563,7 +570,7 @@
 						name="eduExp"
 						id="eduExp"
 						class="form-control"
-						><?php echo prepare_text($classSpec_row['EducationExp']); ?></textarea>
+						><?php echo prepare_text_textarea($classSpec_row['EducationExp']); ?></textarea>
 				</div>
 			</div>
 		</div>

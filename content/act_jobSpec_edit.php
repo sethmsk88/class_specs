@@ -17,7 +17,7 @@
 		exit();
 	}
 
-	//	This function prepares text for database insertion
+	//	This function prepares text to be displayed in a textarea
 	function prepare_text_textarea($text)
 	{
 		global $conn;
