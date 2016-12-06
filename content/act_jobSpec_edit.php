@@ -17,18 +17,44 @@
 		exit();
 	}
 
+	//	This function prepares text for database insertion
+	function prepare_text($text)
+	{
+		global $conn;
+		return $conn->escape_string(str_replace("\r\n",'&#13;&#10;', trim($text)));
+	}
+
 	/***
 		Make updates in class_specs table
 	***/
 	/***
 		Prepare sql stmt params
 	***/
-	$param_str_JobCode = $conn->escape_string(trim($_POST['jobCode']));
-	$param_str_JobTitle = $conn->escape_string(trim($_POST['jobTitle']));
-	$param_str_PayPlan = $conn->escape_string(trim($_POST['payPlan']));
-	$param_str_CUPA_HR = $conn->escape_string(trim($_POST['cupaHR']));
-	$param_str_PositionDescr = $conn->escape_string(trim($_POST['posDescr']));
-	$param_str_EducationExp = $conn->escape_string(trim($_POST['eduExp']));
+	$param_str_JobCode = prepare_text($_POST['jobCode']);
+	$param_str_JobTitle = prepare_text($_POST['jobTitle']);
+	$param_str_PayPlan = prepare_text($_POST['payPlan']);
+	$param_str_CUPA_HR = prepare_text($_POST['cupaHR']);
+	$param_str_PositionDescr = prepare_text($_POST['posDescr']);
+	$param_str_EducationExp = prepare_text($_POST['eduExp']);
+
+	// Check for max length errors
+	$errors = "";
+	if (strlen($param_str_JobCode) > 8)
+		$errors .= "Job Code is too long<br>";
+	if (strlen($param_str_JobTitle) > 128)
+		$errors .= "Job Title is too long<br>";
+	if (strlen($param_str_CUPA_HR) > 32)
+		$errors .= "CUPA-HR # is too long<br>";
+	if (strlen($param_str_PositionDescr) > 8000)
+		$errors .= "Description is too long<br>";
+	if (strlen($param_str_EducationExp) > 4000)
+		$errors .= "Education/Experience is too long<br>";
+
+	// Display max length errors and exit
+	if (strlen($errors) > 0) {
+		echo '<span class="notice">Update Failed!<br>' . $errors . '</span>';
+		exit;
+	}
 
 	/***
 		If blank, insert NULL for these fields
