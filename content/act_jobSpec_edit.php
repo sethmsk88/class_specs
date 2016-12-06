@@ -18,7 +18,7 @@
 	}
 
 	//	This function prepares text for database insertion
-	function prepare_text($text)
+	function prepare_text_textarea($text)
 	{
 		global $conn;
 		return $conn->escape_string(str_replace("\r\n",'&#13;&#10;', trim($text)));
@@ -30,12 +30,12 @@
 	/***
 		Prepare sql stmt params
 	***/
-	$param_str_JobCode = prepare_text($_POST['jobCode']);
-	$param_str_JobTitle = prepare_text($_POST['jobTitle']);
-	$param_str_PayPlan = prepare_text($_POST['payPlan']);
-	$param_str_CUPA_HR = prepare_text($_POST['cupaHR']);
-	$param_str_PositionDescr = prepare_text($_POST['posDescr']);
-	$param_str_EducationExp = prepare_text($_POST['eduExp']);
+	$param_str_JobCode = prepare_text_textarea($_POST['jobCode']);
+	$param_str_JobTitle = prepare_text_textarea($_POST['jobTitle']);
+	$param_str_PayPlan = prepare_text_textarea($_POST['payPlan']);
+	$param_str_CUPA_HR = prepare_text_textarea($_POST['cupaHR']);
+	$param_str_PositionDescr = prepare_text_textarea($_POST['posDescr']);
+	$param_str_EducationExp = prepare_text_textarea($_POST['eduExp']);
 
 	// Check for max length errors
 	$errors = "";
