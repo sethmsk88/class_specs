@@ -302,7 +302,7 @@ if (!isset($loggedIn)) {
 		<!-- Job Code -->
 		<div class="row">
 			<div class="form-group">
-				<label for="jobCode" class="control-label col-lg-2">Job Code:</label>
+				<label for="jobCode" class="control-label col-lg-2">Classification Code:</label>
 				<div class="col-lg-4">
 					<input
 						id="jobCode"
@@ -319,7 +319,7 @@ if (!isset($loggedIn)) {
 		<!-- Job Title -->
 		<div class="row">
 			<div class="form-group">
-				<label for="jobTitle" class="control-label col-lg-2">Job Title:</label>
+				<label for="jobTitle" class="control-label col-lg-2">Classification Title:</label>
 				<div class="col-lg-4">
 					<input
 						id="jobTitle"
@@ -335,7 +335,7 @@ if (!isset($loggedIn)) {
 		<!-- Job Family -->
 		<div class="row">
 			<div class="form-group">
-				<label for="jobFamily" class="control-label col-lg-2">Job Family:</label>
+				<label for="jobFamily" class="control-label col-lg-2">Classification Family:</label>
 				<div class="col-lg-4">
 					<select
 						name="jobFamily"
@@ -462,7 +462,7 @@ if (!isset($loggedIn)) {
 		<!-- IPEDS Code -->
 		<div class="row">
 			<div class="form-group">
-				<label for="jobTitle" class="control-label col-lg-2">IPEDS Code:</label>
+				<label for="ipedsCode" class="control-label col-lg-2">IPEDS Code:</label>
 				<div class="col-lg-4">
 					<input
 						id="ipedsCode"
@@ -827,18 +827,18 @@ if (!isset($loggedIn)) {
 
 	<div class="row">
 		<div class="col-lg-3">
-			<span class="myLabel">Job Code:</span>
+			<span class="myLabel">Classification Code:</span>
 			<?php echo $classSpec_row['JobCode']; ?>
 		</div>
 		<div class="col-lg-9">
-			<span class="myLabel">Job Title:</span>
+			<span class="myLabel">Classification Title:</span>
 			<?php echo prepare_text($classSpec_row['JobTitle']); ?>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
-			<span class="myLabel">Job Family:</span>
+			<span class="myLabel">Classification Family:</span>
 			<?php echo $jobFamily_row['JobFamily_long']; ?>
 		</div>
 	</div>

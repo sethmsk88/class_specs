@@ -8,11 +8,11 @@
 	// Make sure required fields have been posted
 	$errMsg = "";
 	if ($_POST['jobCode'] == '')
-		$errMsg .= "Job Code is required<br>";
+		$errMsg .= "Classification Code is required<br>";
 	if ($_POST['jobTitle'] == '')
-		$errMsg .= "Job Title is required<br>";
+		$errMsg .= "Classification Title is required<br>";
 	if ($_POST['jobFamily'] == '')
-		$errMsg .= "Job Family is required<br>";
+		$errMsg .= "Classification Family is required<br>";
 	if ($_POST['payPlan'] == '')
 		$errMsg .= "Pay Plan is required<br>";
 
@@ -61,7 +61,7 @@
 	*/
 	if ($classSpec_result->num_rows > 0) {
 		// Alert user
-		echo '<span class="notice">Error: Job Code (' . $param_str_JobCode . ') already exists in table!</span>';
+		echo '<span class="notice">Error: Classification Code (' . $param_str_JobCode . ') already exists in table!</span>';
 	}
 	else {
 		/***
@@ -180,7 +180,7 @@
 			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
 		else{
-			echo 'Class Spec has been added (Job Code: ' . $param_str_JobCode . ')';
+			echo 'Class Spec has been added (Classification Code: ' . $param_str_JobCode . ')';
 		}
 		
 		$stmt->close();

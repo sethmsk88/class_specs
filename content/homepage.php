@@ -11,9 +11,9 @@
 		echo '<table id="' . $tableId . '" class="table table-striped highlighted-rows">';
 			echo '<thead>';
 				echo '<tr>';
-					echo '<th>Job Code</th>';
-					echo '<th>Job Title</th>';
-					echo '<th>Job Family</th>';
+					echo '<th>Classification Code</th>';
+					echo '<th>Classification Title</th>';
+					echo '<th>Classification Family</th>';
 				echo '</tr>';
 			echo '</thead>';
 			echo '<tbody>';
