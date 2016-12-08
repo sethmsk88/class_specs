@@ -110,7 +110,7 @@
                     <?php
                         if ($loggedIn) {
                     ?>
-                    <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Job Spec</a></li>
+                    <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Class Spec</a></li>
                     <?php
                         }
                     ?>
@@ -122,12 +122,12 @@
                         if (isset($_GET['page'])) {
                             if (strpos($_GET['page'], "jobSpec_details") !== false) {
                     ?>
-                                <li><a id="navLink-details" href="?page=jobSpec_details">Job Spec Details</a></li>
+                                <li><a id="navLink-details" href="?page=jobSpec_details">Class Spec Details</a></li>
 
                                 <?php
                                 if ($loggedIn) {
                                 ?>
-                                <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Job Spec</a></li>
+                                <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Class Spec</a></li>
                                 <?php
                                 }
                                 ?>

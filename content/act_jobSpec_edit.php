@@ -40,9 +40,9 @@
 	// Check for max length errors
 	$errors = "";
 	if (strlen($param_str_JobCode) > 8)
-		$errors .= "Job Code is too long<br>";
+		$errors .= "Classification Code is too long<br>";
 	if (strlen($param_str_JobTitle) > 128)
-		$errors .= "Job Title is too long<br>";
+		$errors .= "Classification Title is too long<br>";
 	if (strlen($param_str_CUPA_HR) > 32)
 		$errors .= "CUPA-HR # is too long<br>";
 	if (strlen($param_str_PositionDescr) > 8000)
@@ -311,7 +311,7 @@
 		$stmt->close();
 	} // End Not Duplicate Job Code
 	else {
-		echo '<span class="notice">Error: Job Code (' . $param_str_JobCode . ') already exists in table!</span>';
+		echo '<span class="notice">Error: Classification Code (' . $param_str_JobCode . ') already exists in table!</span>';
 	}
 
 	// Close DB connection

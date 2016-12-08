@@ -100,7 +100,7 @@ $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $d
 			<div class="row">
 				<div class="col-lg-6">
 					<span class="notice">
-						Job Code <b><?php echo $_GET['jc']; ?></b> has not yet been entered into the database.<br />
+						Classification Code <b><?php echo $_GET['jc']; ?></b> has not yet been entered into the database.<br />
 						Please fill in the remaining fields below. Then click the <i>Submit</i> button.
 					</span>
 				</div>
@@ -121,7 +121,7 @@ $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $d
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="jobCode">Job Code:</label>
+					<label for="jobCode">Classification Code:</label>
 					<input
 						type="text"
 						name="jobCode"
@@ -134,7 +134,7 @@ $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $d
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="jobTitle">Job Title:</label>
+					<label for="jobTitle">Classification Title:</label>
 					<input
 						type="text"
 						name="jobTitle"
@@ -158,7 +158,7 @@ $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $d
 						$qry_jobFamilies = $conn->query($sql);
 					?>
 
-					<label for="jobFamily">Job Family:</label>
+					<label for="jobFamily">Classification Family:</label>
 					<select
 						name="jobFamily"
 						id="jobFamily"
