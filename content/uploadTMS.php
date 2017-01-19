@@ -10,7 +10,7 @@
 
 <?php
 	// Open DB connection
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php');
 
 	// Get upload history
 	$sel_upload_history = "
@@ -101,3 +101,4 @@
 	</div>
 <!-- $fileID, $uploadDate, $fileName, $uploaderName -->
 </div>
+

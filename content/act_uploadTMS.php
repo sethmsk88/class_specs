@@ -2,7 +2,11 @@
 /* If FormData was posted to this page */
 if (isset($_FILES['fileToUpload'])) {
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php');
+	require_once("../includes/functions.php");
+
+	// Start session or regenerate session id
+    sec_session_start();
 
 	$uploads_dir = '../uploads/';
 
@@ -17,9 +21,7 @@ if (isset($_FILES['fileToUpload'])) {
 	$fileName_exploded = explode('.', $fileName);
 	$fileExt = strtolower(end($fileName_exploded));
 	
-	// Append timestamp to filename
-	$timeStamp = date("YmdHis"); // 1/2/2016 1:05:12pm = 20160102130512
-	$fileName = $timeStamp . '_' . $fileName_exploded[0] . '.' . $fileExt;
+	$fileName = make_unique_filename($fileName_exploded[0] . '.' . $fileExt, 'uploads/');
 
 	// Check to see if extension is valid
 	$extensions = array("csv");
@@ -365,12 +367,12 @@ if (isset($_FILES['fileToUpload'])) {
 
 			// Insert History
 			$insert_uploadHistory_sql = "
-				INSERT INTO hrodt.tms_upload_history (UploadDate, NumUniqueEmps, FileName)
-				VALUES (NOW(),?,?)
+				INSERT INTO hrodt.tms_upload_history (UploadDate, NumUniqueEmps, FileName, UploaderID)
+				VALUES (NOW(),?,?,?)
 			";
 			if (!$stmt = $conn->prepare($insert_uploadHistory_sql)) {
 				echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error . '<br />';
-			} else if (!$stmt->bind_param("is", $numRows, $fileName)) {
+			} else if (!$stmt->bind_param("isi", $numRows, $fileName, $_SESSION['user_id'])) {
 				echo 'Binding parameters failed (' . $stmt->errno . ') ' . $stmt->error . '<br />';
 			} else if (!$stmt->execute()) {
 				echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error . '<br />';
