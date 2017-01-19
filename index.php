@@ -268,5 +268,8 @@
 			echo '<h2>404 Error</h2>Page does not exist';
 		}
     ?>
+
+    <!-- Footer -->
+    <?php include "../templates/footer_1.php"; ?>
   </body>
 </html>
