@@ -431,4 +431,49 @@ function parseMoney($money) {
 	return preg_replace("/[^0-9.]/", "", $money);
 }
 
+// Increment the number on the end of the filename
+function increment_fileNumber($fileName)
+{		
+	// Split string by '.'
+	$fileName_exploded = explode('.', $fileName);
+
+	// Pop the file extension off the end
+	$extension = array_pop($fileName_exploded);
+
+	// Join array into string using '.' as a separator
+	$fileName = implode('.', $fileName_exploded);
+
+	// Split the string by '_'
+	$fileName_exploded = explode('_', $fileName);
+
+	// Remove the number that was previously appended to the filename
+	$prevNumber = array_pop($fileName_exploded);
+
+	// Add a new number to the filename
+	array_push($fileName_exploded, ++$prevNumber);
+
+	// Join array into string using '_' as a separator
+	$fileName = implode('_', $fileName_exploded) . '.' . $extension;
+
+	return $fileName;
+}
+
+// Return a filename that does not already exist in the uploads directory
+function make_unique_filename($fileName, $uploadsDir)
+{
+	if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/bootstrap/apps/class_specs/" . $uploadsDir . $fileName)) {
+		$fileName_exploded = explode('.', $fileName);
+		$extension = array_pop($fileName_exploded);
+		$fileName_exploded[0] .= '_1'; // Append number to filename
+		array_push($fileName_exploded, $extension);
+		$fileName = implode('.', $fileName_exploded);
+
+		// Make sure filename is unique
+		while (file_exists($_SERVER['DOCUMENT_ROOT'] . "/bootstrap/apps/class_specs/" . $uploadsDir . $fileName)) {
+			$fileName = increment_fileNumber($fileName);
+		}
+	}
+	return $fileName;
+}
+
 ?>

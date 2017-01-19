@@ -138,6 +138,7 @@
                         if ($loggedIn) {
                     ?>
                     <li><a id="navLink-threshold" href="?page=flsa_threshold">FLSA Threshold</a></li>
+                    <li><a id="navLink-upload" href="?page=uploadTMS">Upload TMS</a></li>
                     <?php
                         }
                     ?>
