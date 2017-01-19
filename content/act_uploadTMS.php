@@ -495,10 +495,14 @@ if (isset($_FILES['fileToUpload'])) {
 					echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error . '<br />';
 				}
 
+				/*********
+					This is not working on production server due to permissions issues
+				*********/
 				// Delete oldest file from server directory
-				if (!unlink($uploads_dir . $fileName)){
+				/*if (!unlink($uploads_dir . $fileName)){
 					echo '<div class="alert alert-danger">Error deleting the oldest uploaded file in the uploads directory.</div>';
-				}
+				}*/
+				
 			} // End if max num uploaded files exceeded
 		} // End if no columns are missing
 	} // End insert CSV rows into table
