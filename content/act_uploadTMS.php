@@ -182,8 +182,6 @@ if (isset($_FILES['fileToUpload'])) {
 		$column_errors = array();
 		$column_warnings = array();
 
-		if ($col_idx_EFFDT === false)
-			array_push($column_errors, "EFFDT");
 		if ($col_idx_EMPLID === false)
 			array_push($column_errors, "EMPLID");
 		if ($col_idx_PAYGROUP === false)
@@ -211,6 +209,8 @@ if (isset($_FILES['fileToUpload'])) {
 		if ($col_idx_TENURE_STATUS === false)
 			array_push($column_errors, "TENURE_STATUS");
 
+		if ($col_idx_EFFDT === false)
+			array_push($column_warnings, "EFFDT");
 		if ($col_idx_EMPL_RCD === false)
 			array_push($column_warnings, "EMPL_RCD");
 		if ($col_idx_NAME === false)
