@@ -51,13 +51,12 @@
 
 
 		/*
-			Delete(mark inactive) the class spec with the lowest ID number.
+			Delete the class spec with the lowest ID number.
 			The lowest ID is the first row in the previous query result.
 		*/
 		$param_int_ID = $sel_classSpec_row['ID'];
 		$del_classSpec_sql = "
-			UPDATE class_specs
-			SET Active = 0
+			DELETE FROM class_specs
 			WHERE ID = ?
 		";
 		if (!$stmt = $conn->prepare($del_classSpec_sql)){

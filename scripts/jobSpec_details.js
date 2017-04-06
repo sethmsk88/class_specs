@@ -2,7 +2,7 @@ function confirmDeleteClassSpec() {
 	var jobCode = $(this).attr('jobCode');
 
 	$('<div></div>').appendTo('body')
-		.html('<div>Are you sure you want to delete this Class Spec?<h6></div>')
+		.html('<div>Are you sure you want to delete this Class Spec? This action is not reversable.<h6></div>')
 		.dialog({
 			modal: true,
 			title: 'Delete Class Spec',
