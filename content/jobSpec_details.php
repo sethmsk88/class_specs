@@ -39,7 +39,6 @@
 		return stripslashes(str_replace("\r\n",'&#13;&#10;', trim($text)));
 	}
 
-
 	$select_classSpec_sql = "
 		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
 		FROM class_specs AS c
@@ -49,8 +48,8 @@
 			ON c.EEO_Code_ID = eeo.EEO_Code_ID
 		LEFT JOIN cbu_codes AS cbu
 			ON c.CBU_Code_ID = cbu.CBU_Code_ID
-		WHERE c.JobCode = ? AND
-			c.Active = 1
+		WHERE c.JobCode = ?
+		LIMIT 1
 	";
 	
 	// Prepare SQL statement
@@ -812,7 +811,30 @@
 		<?php
 		if ($loggedIn) {
 		?>
-		<div class="col-lg-offset-8 col-lg-2">
+		<div class="col-lg-offset-6 col-lg-2">
+			<?php if ($classSpec_row['Active'] === 1) { ?>
+				<button
+					id="changeStatus"
+					jobCode="<?php echo $classSpec_row['JobCode']; ?>"
+					type="button"
+					class="btn btn-warning"
+					data-status="<?= $classSpec_row['Active'] ?>"
+					>
+					Deactivate Class Spec
+				</button>
+			<?php } else if ($classSpec_row['Active'] === 0) { ?>
+				<button
+					id="changeStatus"
+					jobCode="<?php echo $classSpec_row['JobCode']; ?>"
+					type="button"
+					class="btn btn-success"
+					data-status="<?= $classSpec_row['Active'] ?>"
+					>
+					Activate Class Spec
+				</button>
+			<?php } ?>
+		</div>
+		<div class="col-lg-2">
 			<button
 				id="deleteClassSpec"
 				jobCode="<?php echo $classSpec_row['JobCode']; ?>"
@@ -826,6 +848,14 @@
 		}
 		?>
 	</div>
+
+	<?php if ($classSpec_row['Active'] === 0) { ?>
+		<div class="row">
+			<div class="col-lg-12">
+				<span class="h3 bg-danger text-danger">Notice! This Class Spec Has Been Deactivated</span>
+			</div>
+		</div>
+	<?php } ?>
 
 	<div class="row">
 		<div class="col-lg-3">

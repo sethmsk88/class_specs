@@ -45,6 +45,14 @@
 					}
 					?>
 
+					<?php
+						// Give deactivated class specs a red background
+						if ($row['Active'] == 0)
+							$deactivatedClass = "bg-danger";
+						else
+							$deactivatedClass = "";
+					?>
+
 					<!--
 						Using an inline onclick attribute instead of an event handler,
 						because the event handlers were not working properly with
@@ -54,9 +62,9 @@
 						class='clickable'
 						onclick='window.location.assign("<?php echo $jobSpecURL; ?>");'
 						>
-						<td><?= $row['JobCode'] ?></td>
-						<td><?= $row['JobTitle'] ?></td>
-						<td><?= $row['JobFamily_long'] ?></td>
+						<td class="<?= $deactivatedClass ?>"><?= $row['JobCode'] ?></td>
+						<td class="<?= $deactivatedClass ?>"><?= $row['JobTitle'] ?></td>
+						<td class="<?= $deactivatedClass ?>"><?= $row['JobFamily_long'] ?></td>
 					</tr>
 					<?php
 				}
@@ -75,20 +83,38 @@
 	/*	  conn is a reference to a DB connection.         */
 	/* Return: Query object containing query result       */
 	/************************************************&*****/
-	function getClassSpecs($payPlan, &$conn) {
-		$sel_classSpecs_sql = "
-			SELECT c.JobCode,
-				c.JobTitle,
-				c.ID classID,
-				j.JobFamily_long,
-				c.JobFamilyID
-			FROM class_specs c
-			LEFT JOIN job_families j
-				ON c.JobFamilyID = j.ID
-			WHERE c.PayPlan = '$payPlan' AND
-				c.Active = 1
-			ORDER BY c.JobCode ASC
-		";
+	function getClassSpecs($payPlan, &$conn, $loggedIn) {
+
+		if ($loggedIn) {
+			$sel_classSpecs_sql = "
+				SELECT c.JobCode,
+					c.JobTitle,
+					c.ID classID,
+					j.JobFamily_long,
+					c.JobFamilyID,
+					c.Active
+				FROM class_specs c
+				LEFT JOIN job_families j
+					ON c.JobFamilyID = j.ID
+				WHERE c.PayPlan = '$payPlan'
+				ORDER BY c.JobCode ASC
+			";
+		} else {
+			$sel_classSpecs_sql = "
+				SELECT c.JobCode,
+					c.JobTitle,
+					c.ID classID,
+					j.JobFamily_long,
+					c.JobFamilyID,
+					c.Active
+				FROM class_specs c
+				LEFT JOIN job_families j
+					ON c.JobFamilyID = j.ID
+				WHERE c.PayPlan = '$payPlan' AND
+					c.Active = 1
+				ORDER BY c.JobCode ASC
+			";
+		}
 
 		if (!($sel_classSpecs_result = $conn->query($sel_classSpecs_sql))){
 			echo "Query failed: (" . $conn->errno . ") " . $conn->error;
@@ -105,10 +131,10 @@
 		echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
 	}
 
-	$sel_classSpec_ap_result = getClassSpecs('ap', $conn);
-	$sel_classSpec_usps_result = getClassSpecs('usps', $conn);
-	$sel_classSpec_exec_result = getClassSpecs('exec', $conn);
-	$sel_classSpec_fac_result = getClassSpecs('fac', $conn);
+	$sel_classSpec_ap_result = getClassSpecs('ap', $conn, $loggedIn);
+	$sel_classSpec_usps_result = getClassSpecs('usps', $conn, $loggedIn);
+	$sel_classSpec_exec_result = getClassSpecs('exec', $conn, $loggedIn);
+	$sel_classSpec_fac_result = getClassSpecs('fac', $conn, $loggedIn);
 
 	/*
 		If JobCode get variable exists, get the associated job title
@@ -139,9 +165,8 @@
 <div class="container">
 
 	<?php
-		/*
-			If Class Spec was just deleted
-		*/
+/*
+		// If Class Spec was just deleted
 		if (isset($_GET['jc'])) {
 	?>
 	<div class="row">
@@ -157,6 +182,7 @@
 	</div>
 	<?php
 		}
+*/
 	?>
 
 	<div class"row">

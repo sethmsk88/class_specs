@@ -41,6 +41,55 @@ function yesDeleteClassSpec(jobCode) {
 	});
 }
 
+function confirmChangeStatus() {
+	var jobCode = $(this).attr('jobCode');
+	var status = $(this).attr('data-status');
+
+	if (status == 0)
+		actionWord = 'Activate';
+	else
+		actionWord = 'Deactivate';
+
+	$('<div></div>').appendTo('body')
+		.html('<div>Are you sure you want to '+ actionWord +' this Class Spec?</div>')
+		.dialog({
+			modal: true,
+			title:  actionWord + ' Class Spec',
+			zIndex: 10000,
+			autoOpen: true,
+			width: 'auto',
+			resizable: 'false',
+			buttons: {
+				Yes: function() {
+					yesChangeStatus(jobCode, status);
+					$(this).dialog('close');
+				},
+				No: function() {
+					$(this).dialog('close');
+				}
+			}
+		})
+}
+
+function yesChangeStatus(jobCode, status) {
+	/*
+		Make AJAX request to deactivate/activate the oldest class spec
+		entry in the class_specs table with this job code.
+	*/
+	$.ajax({
+		type: 'post',
+		url: './content/act_jobSpec_statusChange.php',
+		data: {
+			'jobCode': jobCode,
+			'status': status
+		},
+		success: function(response) {
+			// Redirect to Homepage
+			window.location.replace('?page=homepage' + response);
+		}
+	});
+}
+
 $(document).ready(function() {
 
 	// Prepare overlay for modals
@@ -210,6 +259,8 @@ $(document).ready(function() {
 
 	/* Attach event handler to delete class spec button */
 	$('#deleteClassSpec').on('click', confirmDeleteClassSpec);
+
+	$('#changeStatus').on('click', confirmChangeStatus);
 
 
 	/* Attach event handler to "Go Back to Homepage" button */
