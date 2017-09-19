@@ -13,8 +13,8 @@
     <title><?php echo $APP_appName; ?></title>
 
     <!-- Linked stylesheets -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="/bootstrap/scripts/DataTables-1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
     <link href="../css/master.css" rel="stylesheet">
@@ -54,7 +54,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Included Scripts -->
     <script src="./scripts/main.js"></script>
@@ -67,7 +67,7 @@
     <script src="/bootstrap/js/jquery.simplemodal-1.4.4.js"></script>
     <script src="/bootstrap/js/jquery.lettering.js"></script>
     <script src="/bootstrap/js/jquery.textillate.js"></script>
-    <script src="/bootstrap/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="/bootstrap/js/JavaScriptSpellCheck/include.js"></script>
 
   </head>
