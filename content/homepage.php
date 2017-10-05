@@ -39,9 +39,12 @@
 							'&pp=' . $payPlan;
 					}
 					else {
-						$jobSpecURL = '?page=jobSpec_details&jc=' .
-							$row['JobCode'] .
-							'&pp=' . $payPlan;
+						$jobSpecURL = "?page=jobSpec_details&jc={$row['JobCode']}&pp={$payPlan}";
+
+						// if dept id is NOT null, add it to the URL as a GET var
+						if (!is_null($row['DeptID'])) {
+							$jobSpecURL .= "&deptid={$row['DeptID']}";
+						}
 					}
 					?>
 
@@ -92,7 +95,8 @@
 					c.ID classID,
 					j.JobFamily_long,
 					c.JobFamilyID,
-					c.Active
+					c.Active,
+					c.DeptID
 				FROM class_specs c
 				LEFT JOIN job_families j
 					ON c.JobFamilyID = j.ID
@@ -106,7 +110,8 @@
 					c.ID classID,
 					j.JobFamily_long,
 					c.JobFamilyID,
-					c.Active
+					c.Active,
+					c.DeptID
 				FROM class_specs c
 				LEFT JOIN job_families j
 					ON c.JobFamilyID = j.ID
