@@ -49,28 +49,18 @@
 		LEFT JOIN cbu_codes AS cbu
 			ON c.CBU_Code_ID = cbu.CBU_Code_ID
 		WHERE c.JobCode = ?
-		LIMIT 1
 	";
-	
-	// Prepare SQL statement
-	if (!$stmt = $conn->prepare($select_classSpec_sql)){
-		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+	// If Job Code uses a department specification
+	if (isset($_GET['deptid'])) {
+		$select_classSpec_sql .= " AND c.DeptID = ?";
+		$stmt = $conn->prepare($select_classSpec_sql);
+		$stmt->bind_param('si', $param_JobCode, $_GET['deptid']);
+	} else {
+		$stmt = $conn->prepare($select_classSpec_sql);
+		$stmt->bind_param('s', $param_JobCode);
 	}
-
-	// Bind parameters
-	if (!$stmt->bind_param('s', $param_JobCode)){
-		echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
-	}
-
-	// Execute prepared statement
-	if (!$stmt->execute()){
-		echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
-	}
-
-	// Get query result
+	$stmt->execute();
 	$classSpecs_result = $stmt->get_result();
-
-	// Close statement
 	$stmt->close();
 
 	// Get first row from result
@@ -135,15 +125,16 @@
 		FROM all_active_fac_staff
 		WHERE JobCode = ?
 	";
-	if (!$stmt = $conn->prepare($select_emps_sql)){
-		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+	// If Job Code uses a department specification
+	if (isset($_GET['deptid'])) {
+		$select_emps_sql .= " AND DeptID = ?";
+		$stmt = $conn->prepare($select_emps_sql);
+		$stmt->bind_param('si', $param_JobCode, $_GET['deptid']);
+	} else {
+		$stmt = $conn->prepare($select_emps_sql);
+		$stmt->bind_param('s', $param_JobCode);
 	}
-	if (!$stmt->bind_param('s', $param_JobCode)){
-		echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
-	}
-	if (!$stmt->execute()){
-		echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
-	}
+	$stmt->execute();
 	$emps_result = $stmt->get_result();
 	$stmt->close();
 
