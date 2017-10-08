@@ -33,8 +33,7 @@
 		$sel_classSpec_sql = "
 			SELECT ID
 			FROM class_specs
-			WHERE JobCode = ? AND
-				Active = 1
+			WHERE JobCode = ?
 		";
 		// If class spec is specified by dept id
 		if (strlen($_POST['deptID']) > 0) {
