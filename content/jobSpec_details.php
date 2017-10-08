@@ -791,7 +791,7 @@
 				type="button"
 				class="btn btn-primary"
 				style="margin-bottom:20px;"
-				payPlan="<?php echo $_GET['pp']; ?>"
+				payPlan="<?= $_GET['pp'] ?>"
 				>
 				<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
 			</button>
@@ -807,7 +807,8 @@
 			<?php if ($classSpec_row['Active'] === 1) { ?>
 				<button
 					id="changeStatus"
-					jobCode="<?php echo $classSpec_row['JobCode']; ?>"
+					jobCode="<?= $classSpec_row['JobCode'] ?>"
+					deptid="<?= $classSpec_row['DeptID'] ?>"
 					type="button"
 					class="btn btn-warning"
 					data-status="<?= $classSpec_row['Active'] ?>"
@@ -817,7 +818,8 @@
 			<?php } else if ($classSpec_row['Active'] === 0) { ?>
 				<button
 					id="changeStatus"
-					jobCode="<?php echo $classSpec_row['JobCode']; ?>"
+					jobCode="<?= $classSpec_row['JobCode'] ?>"
+					deptid="<?= $classSpec_row['DeptID'] ?>"
 					type="button"
 					class="btn btn-success"
 					data-status="<?= $classSpec_row['Active'] ?>"
@@ -829,7 +831,8 @@
 		<div class="col-lg-2">
 			<button
 				id="deleteClassSpec"
-				jobCode="<?php echo $classSpec_row['JobCode']; ?>"
+				jobCode="<?= $classSpec_row['JobCode'] ?>"
+				deptid="<?= $classSpec_row['DeptID'] ?>"
 				type="button"
 				class="btn btn-danger"
 				>

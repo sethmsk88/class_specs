@@ -29,26 +29,28 @@
 			oldest class spec ID.
 		*/
 		$param_str_jobCode = $_POST['jobCode'];
+
 		$sel_classSpec_sql = "
 			SELECT ID
 			FROM class_specs
 			WHERE JobCode = ? AND
-			Active = 1
-			ORDER BY ID ASC
+				Active = 1
 		";
-		if (!$stmt = $conn->prepare($sel_classSpec_sql)) {
-			echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
+		// If class spec is specified by dept id
+		if (strlen($_POST['deptID']) > 0) {
+			$sel_classSpec_sql .= " AND DeptID = ?";
+			$sel_classSpec_sql .= " ORDER BY ID ASC";
+			$stmt = $conn->prepare($sel_classSpec_sql);
+			$stmt->bind_param("si", $param_str_jobCode, $_POST['deptID']);
+		} else {
+			$sel_classSpec_sql .= " ORDER BY ID ASC";
+			$stmt = $conn->prepare($sel_classSpec_sql);
+			$stmt->bind_param("s", $param_str_jobCode);
 		}
-		if (!$stmt->bind_param("s", $param_str_jobCode)) {
-			echo 'Binding parameters failed: (' . $stmt->error . ') ' . $stmt->error;
-		}
-		if (!$stmt->execute()) {
-			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
-		}
+		$stmt->execute();
 		$sel_classSpec_result = $stmt->get_result();
 		$stmt->close();
 		$sel_classSpec_row = $sel_classSpec_result->fetch_assoc();
-
 
 		/*
 			Delete the class spec with the lowest ID number.
@@ -89,10 +91,12 @@
 			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
 		$stmt->close();
-
 		$conn->close();
 
 		// Response
-		echo '&jc=' . $param_str_jobCode;
+		echo "&jc={$param_str_jobCode}";
+		if (strlen($_POST['deptID']) > 0) {
+			echo "&deptid={$_POST['deptID']}";
+		}
 	}
 ?>

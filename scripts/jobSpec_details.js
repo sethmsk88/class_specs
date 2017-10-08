@@ -1,5 +1,6 @@
 function confirmDeleteClassSpec() {
 	var jobCode = $(this).attr('jobCode');
+	var deptID = $(this).attr('deptid');
 
 	$('<div></div>').appendTo('body')
 		.html('<div>Are you sure you want to delete this Class Spec? This action is not reversable.<h6></div>')
@@ -12,7 +13,7 @@ function confirmDeleteClassSpec() {
 			resizable: 'false',
 			buttons: {
 				Yes: function() {
-					yesDeleteClassSpec(jobCode);
+					yesDeleteClassSpec(jobCode, deptID);
 					$(this).dialog('close');
 				},
 				No: function() {
@@ -22,7 +23,7 @@ function confirmDeleteClassSpec() {
 		})
 }
 
-function yesDeleteClassSpec(jobCode) {
+function yesDeleteClassSpec(jobCode, deptID) {
 	/*
 		Make AJAX request to delete the oldest class spec
 		entry in the class_specs table with this job code.
@@ -32,7 +33,8 @@ function yesDeleteClassSpec(jobCode) {
 		type: 'post',
 		url: './content/act_jobSpec_del.php',
 		data: {
-			'jobCode': jobCode
+			'jobCode': jobCode,
+			'deptID': deptID
 		},
 		success: function(response) {
 			// Redirect to Homepage
@@ -43,6 +45,7 @@ function yesDeleteClassSpec(jobCode) {
 
 function confirmChangeStatus() {
 	var jobCode = $(this).attr('jobCode');
+	var deptID = $(this).attr('deptid');
 	var status = $(this).attr('data-status');
 
 	if (status == 0)
@@ -61,17 +64,17 @@ function confirmChangeStatus() {
 			resizable: 'false',
 			buttons: {
 				Yes: function() {
-					yesChangeStatus(jobCode, status);
+					yesChangeStatus(jobCode, deptID, status);
 					$(this).dialog('close');
 				},
 				No: function() {
 					$(this).dialog('close');
 				}
 			}
-		})
+		});
 }
 
-function yesChangeStatus(jobCode, status) {
+function yesChangeStatus(jobCode, deptID, status) {
 	/*
 		Make AJAX request to deactivate/activate the oldest class spec
 		entry in the class_specs table with this job code.
@@ -81,6 +84,7 @@ function yesChangeStatus(jobCode, status) {
 		url: './content/act_jobSpec_statusChange.php',
 		data: {
 			'jobCode': jobCode,
+			'deptID': deptID,
 			'status': status
 		},
 		success: function(response) {

@@ -30,14 +30,23 @@
 			oldest class spec ID.
 		*/
 		$param_str_jobCode = $_POST['jobCode'];
+
 		$sel_classSpec_sql = "
 			SELECT ID
 			FROM class_specs
 			WHERE JobCode = ?
-			ORDER BY ID ASC
 		";
-		$stmt = $conn->prepare($sel_classSpec_sql);
-		$stmt->bind_param("s", $param_str_jobCode);
+		// If class spec is specified by dept id
+		if (strlen($_POST['deptID']) > 0) {
+			$sel_classSpec_sql .= " AND DeptID = ?";
+			$sel_classSpec_sql .= " ORDER BY ID ASC";
+			$stmt = $conn->prepare($sel_classSpec_sql);
+			$stmt->bind_param("si", $param_str_jobCode, $_POST['deptID']);
+		} else {
+			$sel_classSpec_sql .= " ORDER BY ID ASC";
+			$stmt = $conn->prepare($sel_classSpec_sql);
+			$stmt->bind_param("s", $param_str_jobCode);
+		}
 		$stmt->execute();
 		$sel_classSpec_result = $stmt->get_result();
 		$stmt->close();
@@ -80,6 +89,9 @@
 		$conn->close();
 
 		// Response
-		echo '&jc=' . $param_str_jobCode . '&status=' . $newStatus;
+		echo "&jc={$param_str_jobCode}&status={$newStatus}";
+		if (strlen($_POST['deptID']) > 0) {
+			echo "&deptid={$_POST['deptID']}";
+		}
 	}
 ?>
