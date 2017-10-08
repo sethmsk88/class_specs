@@ -40,7 +40,7 @@
 	}
 
 	$select_classSpec_sql = "
-		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr
+		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr, d.letter
 		FROM class_specs AS c
 		LEFT JOIN pay_levels AS p
 			ON c.JobCode = p.JobCode
@@ -48,6 +48,8 @@
 			ON c.EEO_Code_ID = eeo.EEO_Code_ID
 		LEFT JOIN cbu_codes AS cbu
 			ON c.CBU_Code_ID = cbu.CBU_Code_ID
+		LEFT JOIN departments AS d
+			ON d.id = c.DeptID
 		WHERE c.JobCode = ?
 	";
 	// If Job Code uses a department specification
@@ -299,12 +301,11 @@
 						name="jobCode"
 						type="text"
 						class="form-control editable"
-						value="<?php echo $classSpec_row['JobCode']; ?>"
+						value="<?= $classSpec_row['JobCode'] . $classSpec_row['letter'] ?>"
 						>
 				</div>
 			</div>
 		</div>
-
 
 		<!-- Job Title -->
 		<div class="row">
@@ -851,7 +852,7 @@
 	<div class="row">
 		<div class="col-lg-3">
 			<span class="myLabel">Classification Code:</span>
-			<?php echo $classSpec_row['JobCode']; ?>
+			<?= $classSpec_row['JobCode'] . $classSpec_row['letter'] ?>
 		</div>
 		<div class="col-lg-9">
 			<span class="myLabel">Classification Title:</span>

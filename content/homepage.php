@@ -28,7 +28,6 @@
 
 				// For each row in query result
 				while ($row = $qry_result->fetch_assoc()){
-
 					/*
 						If JobCode has an entry in the class_specs table,
 						link to details page, otherwise, link to add page
@@ -65,7 +64,7 @@
 						class='clickable'
 						onclick='window.location.assign("<?php echo $jobSpecURL; ?>");'
 						>
-						<td class="<?= $deactivatedClass ?>"><?= $row['JobCode'] ?></td>
+						<td class="<?= $deactivatedClass ?>"><?= $row['JobCode'] . $row['letter'] ?></td>
 						<td class="<?= $deactivatedClass ?>"><?= $row['JobTitle'] ?></td>
 						<td class="<?= $deactivatedClass ?>"><?= $row['JobFamily_long'] ?></td>
 					</tr>
@@ -88,38 +87,27 @@
 	/************************************************&*****/
 	function getClassSpecs($payPlan, &$conn, $loggedIn) {
 
-		if ($loggedIn) {
-			$sel_classSpecs_sql = "
-				SELECT c.JobCode,
-					c.JobTitle,
-					c.ID classID,
-					j.JobFamily_long,
-					c.JobFamilyID,
-					c.Active,
-					c.DeptID
-				FROM class_specs c
-				LEFT JOIN job_families j
-					ON c.JobFamilyID = j.ID
-				WHERE c.PayPlan = '$payPlan'
-				ORDER BY c.JobCode ASC
-			";
-		} else {
-			$sel_classSpecs_sql = "
-				SELECT c.JobCode,
-					c.JobTitle,
-					c.ID classID,
-					j.JobFamily_long,
-					c.JobFamilyID,
-					c.Active,
-					c.DeptID
-				FROM class_specs c
-				LEFT JOIN job_families j
-					ON c.JobFamilyID = j.ID
-				WHERE c.PayPlan = '$payPlan' AND
-					c.Active = 1
-				ORDER BY c.JobCode ASC
-			";
+		$sel_classSpecs_sql = "
+			SELECT c.JobCode,
+				c.JobTitle,
+				c.ID classID,
+				j.JobFamily_long,
+				c.JobFamilyID,
+				c.Active,
+				c.DeptID,
+				d.letter
+			FROM class_specs c
+			LEFT JOIN job_families j
+				ON c.JobFamilyID = j.ID
+			LEFT JOIN hrodt.departments d
+				ON d.id = c.DeptID
+			WHERE c.PayPlan = '$payPlan'
+		";
+		// If not logged in, only show active class specs
+		if (!$loggedIn) {
+			$sel_classSpecs_sql .= " AND c.Active = 1";
 		}
+		$sel_classSpecs_sql .= " ORDER BY c.JobCode ASC";
 
 		if (!($sel_classSpecs_result = $conn->query($sel_classSpecs_sql))){
 			echo "Query failed: (" . $conn->errno . ") " . $conn->error;
