@@ -222,13 +222,17 @@
             </script>
 
             <script>
-                /*
-                    If current page is jobSpec_details page,
-                    modify navbar links to include Job Code.
-                */
+                // If current page is jobSpec_details page
                 if ($.urlParam('page') == 'jobSpec_details') {
+                    // modify navbar links to include Job Code
                     $('#navLink-details').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc'));
                     $('#navLink-detailsEdit').attr('href', '?page=jobSpec_details&jc=' + $.urlParam('jc') + '&edit=1');
+
+                    // modify navbar links to include deptid
+                    if ($.urlParam('deptid') !== null) {
+                        $('#navLink-details').attr('href', $('#navLink-details').attr('href') + '&deptid=' + $.urlParam('deptid'));
+                        $('#navLink-detailsEdit').attr('href', $('#navLink-detailsEdit').attr('href') + '&deptid=' + $.urlParam('deptid'));
+                    }
                 }
 
                 /*
