@@ -280,4 +280,12 @@ $(document).ready(function() {
 		$('#deptId option[dept-id="'+ deptIdSelected +'"]').prop("selected", true);
 		$('#deptLetter').val(deptLetter);
 	});
+
+	$('#assignDept').change(function() {
+		if ($(this).prop('checked')) {
+			$('#deptInputs').show();
+		} else {
+			$('#deptInputs').hide();
+		}
+	});
 });

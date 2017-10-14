@@ -323,8 +323,23 @@
 			</div>
 		</div>
 
-		<!--  Department IDs -->
+		<?php
+			// If department id is specified in URL show department inputs
+			if (isset($_GET['deptid'])) {
+				$showDept = true;
+			} else {
+				$showDept = false;
+			} 
+		?>
+
 		<div class="row">
+			<div class="col-lg-offset-2 checkbox">
+				<label><input id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+			</div>
+		</div>
+
+		<!--  Department IDs -->
+		<div id="deptInputs" class="row" <?= $showDept ? '' : 'hidden' ?>>
 			<div class="form-group">
 				<label class="control-label col-lg-2" for="deptId">Department:</label>
 				<div class="col-lg-2">
