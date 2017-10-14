@@ -242,6 +242,22 @@
 	$qry_TMSDate = $conn->query($sel_TMSDate_sql);
 	$TMSDate_row = $qry_TMSDate->fetch_assoc();
 	$TMSDate = $TMSDate_row["UploadDate"];
+
+	// Get all departments
+	$qry_deptIds = $conn->query("
+		SELECT *
+		FROM hrodt.departments
+		ORDER BY id
+	");
+	$deptLetter = ""; // dept letter for deptLetter input
+	// Insert results as objects into an array
+	while ($dept = $qry_deptIds->fetch_object()) {
+		$depts[] = $dept;
+
+		if (isset($_GET['deptid']) && ($_GET['deptid'] == $dept->id)) {
+			$deptLetter = $dept->letter;
+		}
+	}
 ?>
 
 <div id="overlay" style="display:none;"></div>
@@ -301,8 +317,44 @@
 						name="jobCode"
 						type="text"
 						class="form-control editable"
-						value="<?= $classSpec_row['JobCode'] . $classSpec_row['letter'] ?>"
+						value="<?= $classSpec_row['JobCode'] ?>"
 						>
+				</div>
+			</div>
+		</div>
+
+		<!--  Department IDs -->
+		<div class="row">
+			<div class="form-group">
+				<label class="control-label col-lg-2" for="deptId">Department:</label>
+				<div class="col-lg-2">
+					<select name="deptId" id="deptId" class="form-control department dept-id">
+						<option>ID</option>
+						<?php
+						foreach ($depts as $dept) {
+							echo "<option dept-id='{$dept->id}' dept-letter='{$dept->letter}' ";
+							if (isset($_GET['deptid']) && $_GET['deptid'] == $dept->id)
+								echo 'selected="selected" ';
+							echo ">{$dept->id}</option>";
+						}
+						?>
+					</select>
+				</div>
+				<div class="col-lg-3">
+					<select name="deptName" id="deptName" class="form-control department dept-name">
+						<option>Name</option>
+						<?php
+						foreach ($depts as $dept) {
+							echo "<option dept-id='{$dept->id}' dept-letter='{$dept->letter}' ";
+							if (isset($_GET['deptid']) && $_GET['deptid'] == $dept->id)
+								echo 'selected="selected" ';
+							echo ">{$dept->name}</option>";
+						}
+						?>
+					</select>
+				</div>
+				<div class="col-lg-1">
+					<input name="deptLetter" id="deptLetter" class="form-control" placeholder="Letter" maxlength="4" value="<?= $deptLetter ?>">
 				</div>
 			</div>
 		</div>

@@ -266,10 +266,18 @@ $(document).ready(function() {
 
 	$('#changeStatus').on('click', confirmChangeStatus);
 
-
 	/* Attach event handler to "Go Back to Homepage" button */
 	$('#back-btn').click(function() {
 		// Redirect to Homepage
 		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
+	});
+
+	// Bind department input fields together
+	$('select.department').change(function() {
+		var deptIdSelected = $(this).children(':selected').attr('dept-id');
+		var deptLetter = $(this).children(':selected').attr('dept-letter');
+		$('#deptName option[dept-id="'+ deptIdSelected +'"]').prop("selected", true);
+		$('#deptId option[dept-id="'+ deptIdSelected +'"]').prop("selected", true);
+		$('#deptLetter').val(deptLetter);
 	});
 });
