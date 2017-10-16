@@ -50,6 +50,11 @@
 	if (strlen($param_str_EducationExp) > 4000)
 		$errors .= "Education/Experience is too long<br>";
 
+	// Make sure class spec job code is numeric only
+	if (!ctype_digit(trim($_POST['jobCode']))) {
+		$errors .= "Classification Code cannot contain non-numeric characters. To add letters to the end of a code, use the \"Assign Department to Classification Code\" checkbox.<br>";
+	}
+
 	// Display max length errors and exit
 	if (strlen($errors) > 0) {
 		echo '<span class="notice">Update Failed!<br>' . $errors . '</span>';
