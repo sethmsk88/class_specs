@@ -334,7 +334,7 @@
 
 		<div class="row">
 			<div class="col-lg-offset-2 checkbox">
-				<label><input id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+				<label><input name="assignDept" id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
 			</div>
 		</div>
 

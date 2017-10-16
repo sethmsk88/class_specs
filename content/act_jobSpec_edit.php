@@ -132,6 +132,12 @@
 		$param_int_ConfidentialityStmt = NULL;
 	}
 
+	// if a department is being assigned to a class spec
+	if (isset($_POST['assignDept']) && $_POST['assignDept'] === 'on') {
+		$param_int_DeptID = (isset($_POST['deptId']) && $_POST['deptId'] !== '') ? $_POST['deptId'] : NULL;
+	} else {
+		$param_int_DeptID = NULL;
+	}
 
 	/*
 		Check to see if Job Code already exists in class_specs table
@@ -168,8 +174,7 @@
 			$duplicateJobCode = true;
 		}
 	}
-
-
+	
 	/*
 		If there aren't any duplicate Job Codes, then execution
 		continues as normal.
@@ -192,7 +197,8 @@
 				Physical = ?,
 				ChildCareSecurityCheck = ?,
 				FinancialDisclosure = ?,
-				ConfidentialityStmt = ?
+				ConfidentialityStmt = ?,
+				DeptID = ?
 			WHERE ID = ?
 		";
 
@@ -202,7 +208,7 @@
 		}
 
 		// Bind parameters
-		if (!$stmt->bind_param("sssiiisiissiiiiii",
+		if (!$stmt->bind_param("sssiiisiissiiiiiii",
 			$param_str_JobCode,
 			$param_str_JobTitle,
 			$param_str_PayPlan,
@@ -219,6 +225,7 @@
 			$param_int_ChildCareSecurityCheck,
 			$param_int_FinancialDisclosure,
 			$param_int_ConfidentialityStmt,
+			$param_int_DeptID,
 			$param_int_ID)){
 			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
@@ -232,6 +239,19 @@
 		}
 		
 		$stmt->close();
+
+		// Update departments table if necessary
+		if (isset($_POST['assignDept']) && $_POST['assignDept'] === 'on') {
+			$param_str_letter = isset($_POST['deptLetter']) ? $_POST['deptLetter'] : NULL;
+
+			$stmt = $conn->prepare("
+				UPDATE hrodt.departments
+				SET letter = ?
+				WHERE id = ?
+			");
+			$stmt->bind_param("si", $param_str_letter, $param_int_DeptID);
+			$stmt->execute();
+		}
 
 		/*
 			Update fields that also appear in pay_levels table
