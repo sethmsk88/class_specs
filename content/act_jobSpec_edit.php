@@ -151,15 +151,18 @@
 		Code that is already in the table. This is NOT allowed.
 	*/
 	$select_classSpec_sql = "
-		SELECT *
-		FROM class_specs
-		WHERE JobCode = ? AND
-			Active = 1
+		SELECT c.*
+		FROM hrodt.class_specs c
+		JOIN hrodt.departments d
+			ON d.id = c.DeptID
+		WHERE c.JobCode = ?
+			AND c.Active = 1
+			AND c.DeptID = ?
 	";
 	if (!$stmt = $conn->prepare($select_classSpec_sql)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 	}
-	if (!$stmt->bind_param("s", $param_str_JobCode)) {
+	if (!$stmt->bind_param("si", $param_str_JobCode, $param_int_DeptID)) {
 		echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
 	}
 	if (!$stmt->execute()) {
@@ -336,7 +339,9 @@
 		$stmt->close();
 	} // End Not Duplicate Job Code
 	else {
-		echo '<span class="notice">Error: Classification Code (' . $param_str_JobCode . ') already exists in table!</span>';
+		echo "<span class='notice'>Error: Classification Code ({$param_str_JobCode}";
+		echo isset($_POST['deptLetter']) ? $_POST['deptLetter'] : '';  
+		echo ") already exists!</span>";
 	}
 
 	// Close DB connection
