@@ -845,8 +845,8 @@
 ?>
 <div class="container default-style">
 
-	<div class="row">
-		<div class="col-lg-2">
+	<div class="row" style="margin-bottom:20px;">
+		<div class="col-lg-2 col-md-3">
 		<?php
 			/*
 				If URL var pp exists, create a Back button
@@ -856,10 +856,8 @@
 			<button
 				id="back-btn"
 				type="button"
-				class="btn btn-primary"
-				style="margin-bottom:20px;"
-				payPlan="<?= $_GET['pp'] ?>"
-				>
+				class="btn btn-primary actionBtn"
+				payPlan="<?= $_GET['pp'] ?>">
 				<span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true" style="padding-right:10px;"></span>Back to Homepage
 			</button>
 		<?php
@@ -870,39 +868,33 @@
 		<?php
 		if ($loggedIn) {
 		?>
-		<div class="col-lg-offset-6 col-lg-2">
-			<?php if ($classSpec_row['Active'] === 1) { ?>
-				<button
-					id="changeStatus"
-					jobCode="<?= $classSpec_row['JobCode'] ?>"
-					deptid="<?= $classSpec_row['DeptID'] ?>"
-					type="button"
-					class="btn btn-warning"
-					data-status="<?= $classSpec_row['Active'] ?>"
-					>
-					Deactivate Class Spec
-				</button>
-			<?php } else if ($classSpec_row['Active'] === 0) { ?>
-				<button
-					id="changeStatus"
-					jobCode="<?= $classSpec_row['JobCode'] ?>"
-					deptid="<?= $classSpec_row['DeptID'] ?>"
-					type="button"
-					class="btn btn-success"
-					data-status="<?= $classSpec_row['Active'] ?>"
-					>
-					Activate Class Spec
-				</button>
-			<?php } ?>
+		<div class="col-lg-offset-6 col-lg-2 col-md-offset-3 col-md-3">
+			<?php
+				if ($classSpec_row['Active'] === 1) {
+					$btnColorClass = "btn-warning";
+					$btnMsg = "Deactive Class Spec";
+				} else if ($classSpec_row['Active'] === 0) {
+					$btnColorClass = "btn-success";
+					$btnMsg = "Activate Class Spec";
+				}
+			?>
+			<button
+				id="changeStatus"
+				jobCode="<?= $classSpec_row['JobCode'] ?>"
+				deptid="<?= $classSpec_row['DeptID'] ?>"
+				type="button"
+				class="btn actionBtn <?= $btnColorClass ?>"
+				data-status="<?= $classSpec_row['Active'] ?>">
+				<?= $btnMsg ?>
+			</button>
 		</div>
-		<div class="col-lg-2">
+		<div class="col-lg-2 col-md-3">
 			<button
 				id="deleteClassSpec"
 				jobCode="<?= $classSpec_row['JobCode'] ?>"
 				deptid="<?= $classSpec_row['DeptID'] ?>"
 				type="button"
-				class="btn btn-danger"
-				>
+				class="btn btn-danger actionBtn">
 				Delete Class Spec
 			</button>
 		</div>

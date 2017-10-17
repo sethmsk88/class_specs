@@ -51,3 +51,8 @@ ul.list-competencies{
 #otherReq-table > tbody > tr > td:first-child{
 	padding-right: 1em;
 }
+
+.actionBtn {
+	width: 100%;
+	margin: 4px 0;
+}
