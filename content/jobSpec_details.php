@@ -40,7 +40,7 @@
 	}
 
 	$select_classSpec_sql = "
-		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr, d.letter
+		SELECT c.*, p.IPEDS_SOCs AS IPEDS_Code, p.Contract, eeo.EEO_Code_Descr, cbu.CBU_Code_Descr, d.letter, d.name DeptName
 		FROM class_specs AS c
 		LEFT JOIN pay_levels AS p
 			ON c.JobCode = p.JobCode
@@ -936,6 +936,15 @@
 			<?php echo $jobFamily_row['JobFamily_long']; ?>
 		</div>
 	</div>
+
+	<?php if (!is_null($classSpec_row['DeptID'])) { ?>
+		<div class="row">
+			<div class="col-lg-12">
+				<span class="myLabel">Department Specification:</span>
+				<?= $classSpec_row['DeptID'] ?> - <?= $classSpec_row['DeptName'] ?>
+			</div>
+		</div>
+	<?php } ?>
 
 	<div class="row">
 		<div class="col-lg-12">
