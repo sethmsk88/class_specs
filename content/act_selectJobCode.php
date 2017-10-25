@@ -31,12 +31,14 @@
 	/*
 		Prepare SQL statement
 	*/
-	$select_payLevel_sql = "
-		SELECT *
-		FROM pay_levels
-		WHERE JobCode = ?
+	$select_classSpec_sql = "
+		SELECT c.*, jf.JobFamily_short JobFamily
+		FROM hrodt.class_specs c
+		JOIN hrodt.job_families jf
+			ON c.JobFamilyID = jf.ID
+		WHERE c.JobCode = ?;
 	";
-	if (!$stmt = $conn->prepare($select_payLevel_sql)) {
+	if (!$stmt = $conn->prepare($select_classSpec_sql)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 	}
 
@@ -54,16 +56,16 @@
 		echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
 	}
 	
-	$payLevel_result = $stmt->get_result();
-	$payLevel_row = $payLevel_result->fetch_assoc();
+	$classSpec_result = $stmt->get_result();
+	$classSpec_row = $classSpec_result->fetch_assoc();
 
 	$stmt->close(); // Close statment
 
 	/*
-		If no results from payLevel table, echo json_encode(null);
+		If no results from classSpec table, echo json_encode(null);
 		else, get JobFamilyID and continue.
 	*/
-	if ($payLevel_result->num_rows > 0) {
+	if ($classSpec_result->num_rows > 0) {
 
 		/*
 			Get Job Family ID
@@ -71,22 +73,16 @@
 		$select_jobFamilyID_sql = "
 			SELECT ID AS JobFamilyID
 			FROM job_families
-			WHERE JobFamily_short = '" . $payLevel_row['JobFamily'] . "'
+			WHERE JobFamily_short = '" . $classSpec_row['JobFamily'] . "'
 		";
 		$qry_jobFamilyID = $conn->query($select_jobFamilyID_sql);
 		$jobFamily_row = $qry_jobFamilyID->fetch_assoc();
 
 		// Add JobFamilyID to associative array
-		$payLevel_row['JobFamilyID'] = $jobFamily_row['JobFamilyID'];
+		$classSpec_row['JobFamilyID'] = $jobFamily_row['JobFamilyID'];
 
-		// Convert PayPlan to format used in jobSpec_details.php
-		$payLevel_row['PayPlan'] = convertPayPlan($payLevel_row['PayPlan'], 'class_specs');
-		
-		// Convert FLSA Status to format used in jobSpec_details.php
-		$payLevel_row['FLSA'] = convertFLSA($payLevel_row['FLSA'], 'numeric');
-
-		// Convert payLevel_row associative array to json object
-		echo json_encode($payLevel_row);
+		// Convert classSpec_row associative array to json object
+		echo json_encode($classSpec_row);
 	}
 	// Else, the JobCode was not found in the pay_levels table
 	else {
