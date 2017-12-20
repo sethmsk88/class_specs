@@ -1,1 +1,3 @@
 uploads/*
+composer.phar
+/vendor/

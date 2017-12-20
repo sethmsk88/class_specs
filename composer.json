@@ -1,0 +1,12 @@
+{
+    "name": "skerr/class_specs",
+    "require": {
+        "phpoffice/phpexcel": "^1.8"
+    },
+    "authors": [
+        {
+            "name": "Seth Kerr",
+            "email": "sethmsk88@yahoo.com"
+        }
+    ]
+}
