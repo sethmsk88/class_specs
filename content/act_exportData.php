@@ -28,35 +28,33 @@ $objPHPExcel->getDefaultStyle()
 // Add column headers
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Class Code')
-            ->setCellValue('B1', 'CUPA Code');
+            ->setCellValue('B1', 'CUPA Code')
+            ->setCellValue('C1', 'Class Title');
 
 // Get all class specs and cupa codes
 $stmt = $conn->prepare("
-	select JobCode, CUPA_HR
-	from hrodt.class_specs
+	select c.JobCode, c.JobTitle, c.CUPA_HR, d.letter
+	from hrodt.class_specs c
+	left join hrodt.departments d
+		on d.id = c.DeptID
 	where Active = 1
 	order by JobCode
 ");
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($classCode, $cupaCode);
+$stmt->bind_result($classCode, $classTitle, $cupaCode, $deptLetter);
 
 $row = 2;
 while ($stmt->fetch()) {
 	$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A'.$row, $classCode)
-				->setCellValue('B'.$row, $cupaCode);
+				->setCellValue('A'.$row, $classCode . $deptLetter)
+				->setCellValue('B'.$row, $cupaCode)
+				->setCellValue('C'.$row, $classTitle);
 	$row++;
 }
 
-
-
-
-
-
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
 $objPHPExcel->setActiveSheetIndex(0);
-
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
