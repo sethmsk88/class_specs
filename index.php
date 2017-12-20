@@ -143,7 +143,7 @@
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Export</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a id="export-class-cupa-link" href="">Export Class/CUPA Codes</a>
+                                <a id="export-class-cupa-link" href="<?= $APP_appPath ?>/content/act_exportData.php">Export Class/CUPA Codes</a>
                             </li>
                         </ul>
                     </li>
