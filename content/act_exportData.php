@@ -14,7 +14,7 @@ $objPHPExcel = new PHPExcel();
 // Set document properties
 $objPHPExcel->getProperties()->setCreator("HRODT Class Specs App")
 							 ->setLastModifiedBy("")
-							 ->setTitle("Class CUPA Codes")
+							 ->setTitle("Data Export")
 							 ->setSubject("")
 							 ->setDescription("")
 							 ->setKeywords("office 2007 openxml php")
@@ -25,15 +25,20 @@ $objPHPExcel->getDefaultStyle()
 			->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
 
 
+$dataFields = array_keys($_POST); // Get posted data fields
+$letters = range('A', 'Z'); // Create array of letters from 'A' to 'Z'
+
 // Add column headers
-$objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', 'Class Code')
-            ->setCellValue('B1', 'CUPA Code')
-            ->setCellValue('C1', 'Class Title');
+foreach ($dataFields as $dataField) {
+	$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue(current($letters) . '1', $dataField);
+    next($letters); // Move letters array pointer to next letter
+}
+reset($letters); // Move letters array pointer back to the first letters
 
 // Get all class specs and cupa codes
 $stmt = $conn->prepare("
-	select c.JobCode, c.JobTitle, c.CUPA_HR, d.letter
+	select c.*, d.letter
 	from hrodt.class_specs c
 	left join hrodt.departments d
 		on d.id = c.DeptID
@@ -41,16 +46,27 @@ $stmt = $conn->prepare("
 	order by JobCode
 ");
 $stmt->execute();
-$stmt->store_result();
-$stmt->bind_result($classCode, $classTitle, $cupaCode, $deptLetter);
+$result = $stmt->get_result();
 
-$row = 2;
-while ($stmt->fetch()) {
-	$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A'.$row, $classCode . $deptLetter)
-				->setCellValue('B'.$row, $cupaCode)
-				->setCellValue('C'.$row, $classTitle);
-	$row++;
+$row_i = 2;
+while ($row = $result->fetch_assoc()) {
+
+	// Add data for each column in this row
+	foreach ($dataFields as $dataField) {
+		$data = $row[$dataField];
+
+		// Add department letter to Job Code
+		if ($dataField == 'JobCode') {
+			$data .= $row['letter'];
+		}
+
+		$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue(current($letters) . $row_i, $data);
+
+		next($letters); // Move letters array pointer to next letter
+	}
+	reset($letters); // Move letters array pointer back to the first letter
+	$row_i++;
 }
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
