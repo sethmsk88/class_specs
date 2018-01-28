@@ -156,27 +156,52 @@
 ?>	
 
 <div class="container">
-
+	<!-- Password changed Message -->
+	<!-- Message displayed when password has been changed -->
 	<?php
-/*
-		// If Class Spec was just deleted
-		if (isset($_GET['jc'])) {
+		// If a password reset email was successful
+		if (isset($_GET['pwreset']) && $_GET['pwreset'] === 'true') {
 	?>
-	<div class="row">
+	<div class="row" style="margin-bottom:16px">
 		<div class="col-xs-12">
-			<div class="deleted">
-				<p>
-				<?php
-				echo 'Class Spec (' . $_GET['jc'] . ' - ' . $sel_jobTitle_row['JobTitle'] . ') has been deleted';
-				?>
-				</p>
-			</div>
+			<span class="bg-success text-success">
+				Your password has been changed. Please login with using your new password.
+			</span>
 		</div>
 	</div>
 	<?php
 		}
-*/
 	?>
+	<!-- End Password Changed Message -->
+
+	<!-- Password Reset Message -->
+	<!-- Message displayed when a password reset was requested -->
+	<?php
+		// If a password reset email was successfully sent
+		if (isset($_GET['emailsent']) && $_GET['emailsent'] === 'true') {
+	?>
+	<div class="row" style="margin-bottom:16px">
+		<div class="col-xs-12">
+			<span class="bg-success text-success">
+				You have been sent an email with a Reset Password link. Please click the link in the email to change your password.<br><b>Note: <i>If you do not receive an email in the next few minutes, please check your spam or junk email folder.</i></b>
+			</span>
+		</div>
+	</div>
+	<?php
+		// Else, if password reset email did not send successfully
+		} elseif (isset($_GET['emailsent']) && $_GET['emailsent'] !== 'true') {
+	?>
+	<div class="row" style="margin-bottom:16px">
+		<div class="col-xs-12">
+			<span class="bg-danger text-danger">
+				<b>Error!</b> Password could not be reset. Please contact your administrator.
+			</span>
+		</div>
+	</div>
+	<?php
+		}
+	?>
+	<!-- End Password Reset Message -->
 
 	<div class"row">
 		<div class="col-xs-9">

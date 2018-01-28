@@ -43,5 +43,7 @@
 			style="display:none;">
 			Login Failure
 		</button>
+
+		<a href="?page=forgotPw">Forgot password?</a>
 	</form>
 </div>
