@@ -74,14 +74,19 @@ try {
 // Send temporary password to user's email address
 $mail = new PHPMailer(true);
 try {
-    // $mail->SMTPDebug = 1; // set debugging to errors mode
+    $mail->SMTPDebug = 2; // set debugging to errors mode
     $mail->isSMTP(); // enable SMTP
-    $mail->Host = 'smtp.gmail.com'; // gmail
-    $mail->Port = 465; // gmail
+    // $mail->Host = 'smtp.gmail.com'; // gmail
+    $mail->Host = 'smtp.office365.com';
+    // $mail->Port = 465; // gmail
+    $mail->Port = 587;
     $mail->SMTPAuth = true; // authentication enabled
-    $mail->SMTPSecure = 'ssl'; // secure transfer enabled
-    $mail->Username = 'famutraining@gmail.com';
-    $mail->Password = 'tfolkoimlxvnjjpi'; // app password from famutraining@gmail.com account
+    // $mail->SMTPSecure = 'ssl'; // secure transfer enabled
+    $mail->SMTPSecure = 'TLS';
+    // $mail->Username = 'famutraining@gmail.com';
+    $mail->Username = 'famutraining@famu.edu'
+    // $mail->Password = 'tfolkoimlxvnjjpi'; // app password from famutraining@gmail.com account
+    $mail->Password = 'Tr@!n!ng';
     $mail->setFrom('hrodt-noreply@famu.edu', 'HR/ODT Apps');
     $mail->addReplyTo('hrodt-noreply@famu.edu', 'HR/ODT Apps');
     $mail->addAddress($_POST['email']);
@@ -114,6 +119,7 @@ try {
     // echo 'Mailer error: ' . $e->getMessage();
     $redirectUrl .= "&emailsent=false";
 }
+exit; // debugging
 ?>
 
 Redirecting...
