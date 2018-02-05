@@ -84,7 +84,7 @@ try {
     // $mail->SMTPSecure = 'ssl'; // secure transfer enabled
     $mail->SMTPSecure = 'TLS';
     // $mail->Username = 'famutraining@gmail.com';
-    $mail->Username = 'famutraining@famu.edu'
+    $mail->Username = 'famutraining@famu.edu';
     // $mail->Password = 'tfolkoimlxvnjjpi'; // app password from famutraining@gmail.com account
     $mail->Password = 'Tr@!n!ng';
     $mail->setFrom('hrodt-noreply@famu.edu', 'HR/ODT Apps');
