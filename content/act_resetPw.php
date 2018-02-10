@@ -82,8 +82,8 @@ try {
     $mail->SMTPSecure = 'TLS';
     $mail->Username = 'famutraining@famu.edu';
     $mail->Password = 'Tr@!n!ng';
-    $mail->setFrom('hrodt-noreply@famu.edu', 'HR/ODT Apps');
-    $mail->addReplyTo('hrodt-noreply@famu.edu', 'HR/ODT Apps');
+    $mail->setFrom('famutraining@famu.edu', 'HR/ODT Apps');
+    $mail->addReplyTo('famutraining@famu.edu', 'HR/ODT Apps');
     $mail->addAddress($_POST['email']);
     $mail->isHTML(true);
 
