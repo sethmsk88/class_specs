@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
-// require_once '../includes/functions.php';
 
 // This is the page we will return to after the password has been changed
 $redirectUrl = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/index.php?page=homepage";

@@ -3,7 +3,7 @@ $(function() {
 	$('#changePassword-form').submit(function(e) {
 		var form = $(this);
 
-		var newPassword = form.find('#hashedNewPassword').val();
+		var newPassword = form.find('#newPassword').val();
 		var confirmPassword = form.find('#confirmPassword').val();
 		
 		var errors = [];
