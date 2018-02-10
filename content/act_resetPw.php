@@ -74,7 +74,7 @@ try {
 // Send temporary password to user's email address
 $mail = new PHPMailer(true);
 try {
-    $mail->SMTPDebug = 2; // set debugging to errors mode
+    // $mail->SMTPDebug = 2; // set debugging to errors mode
     $mail->isSMTP(); // enable SMTP
     // $mail->Host = 'smtp.gmail.com'; // gmail
     $mail->Host = 'smtp.office365.com';
@@ -115,11 +115,8 @@ try {
 
     $redirectUrl .= "&emailsent=true";
 } catch (Exception $e) {
-    // echo 'Message failed to send<br>';
-    // echo 'Mailer error: ' . $e->getMessage();
     $redirectUrl .= "&emailsent=false";
 }
-exit; // debugging
 ?>
 
 Redirecting...
