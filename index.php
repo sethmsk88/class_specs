@@ -57,9 +57,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Included Scripts -->
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/modal.js"></script>
-    <script src="./scripts/login.js"></script>
+    <script src="./scripts/main.js?v=1"></script>
+    <script src="./scripts/modal.js?v=1"></script>
+    <script src="./scripts/login.js?v=1"></script>
     <script src="/bootstrap/js/money_formatting.js"></script>
     <script src="/bootstrap/js/median.js"></script>
     <script src="/bootstrap/scripts/DataTables-1.10.7/media/js/jquery.datatables.js"></script>

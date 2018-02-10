@@ -13,7 +13,7 @@ if (!$loggedIn) {
 ?>
 
 <link href="./css/jobSpec_add.css" rel="stylesheet">
-<script src="./scripts/jobSpec_add.js"></script>
+<script src="./scripts/jobSpec_add.js?v=1"></script>
 
 <?php
 //Connect to DB

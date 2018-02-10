@@ -5,7 +5,7 @@
 	}
 ?>
 
-<script src="./scripts/uploadTMS.js"></script>
+<script src="./scripts/uploadTMS.js?v=1"></script>
 <link href="./css/uploadTMS.css" rel="stylesheet">
 
 <?php

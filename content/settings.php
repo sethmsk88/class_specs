@@ -11,7 +11,7 @@ if (!$loggedIn) {
 }
 ?>
 
-<script src="./scripts/settings.js"></script> 
+<script src="./scripts/settings.js?v=1"></script> 
 
 <style type="text/css" rel="stylesheet">
 	.row{

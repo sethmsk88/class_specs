@@ -1,4 +1,4 @@
-<script src="./scripts/changePw.js"></script>
+<script src="./scripts/changePw.js?v=1"></script>
 
 <?php
 // Require page to be loaded through index

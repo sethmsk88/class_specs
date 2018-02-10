@@ -6,7 +6,7 @@
 ?>
 
 <link href="./css/jobSpec_details.css" rel="stylesheet">
-<script src="./scripts/jobSpec_details.js"></script>
+<script src="./scripts/jobSpec_details.js?v=1"></script>
 
 <?php
 	// If Job Code GET variable is not set, redirect to homepage.
