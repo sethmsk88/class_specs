@@ -872,7 +872,7 @@
 			<?php
 				if ($classSpec_row['Active'] === 1) {
 					$btnColorClass = "btn-warning";
-					$btnMsg = "Deactive Class Spec";
+					$btnMsg = "Deactivate Class Spec";
 				} else if ($classSpec_row['Active'] === 0) {
 					$btnColorClass = "btn-success";
 					$btnMsg = "Activate Class Spec";
