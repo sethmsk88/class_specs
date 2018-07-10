@@ -333,8 +333,10 @@
 		?>
 
 		<div class="row">
-			<div class="col-lg-offset-2 checkbox">
-				<label><input name="assignDept" id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+			<div class="form-group">
+				<div class="col-lg-offset-2 checkbox">
+					<label><input name="assignDept" id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+				</div>
 			</div>
 		</div>
 
@@ -344,7 +346,7 @@
 				<label class="control-label col-lg-2" for="deptId">Department:</label>
 				<div class="col-lg-2">
 					<select name="deptId" id="deptId" class="form-control department dept-id">
-						<option>ID</option>
+						<option>Dept ID</option>
 						<?php
 						foreach ($depts as $dept) {
 							echo "<option dept-id='{$dept->id}' dept-letter='{$dept->letter}' ";

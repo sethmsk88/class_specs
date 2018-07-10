@@ -1,4 +1,6 @@
 <?php
+    require __DIR__ . '/vendor/autoload.php';
+    
     $APP_appName = "Class Spec Manager";
     $APP_appPath = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/";
     $APP_homepage = "homepage";

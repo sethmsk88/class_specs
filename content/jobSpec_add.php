@@ -18,44 +18,20 @@ if (!$loggedIn) {
 <?php
 //Connect to DB
 $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $dbInfo['dbName']);
+
+// Get all departments
+$qry_deptIds = $conn->query("
+	SELECT *
+	FROM hrodt.departments
+	ORDER BY id
+");
+
+$depts = $qry_deptIds->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div id="overlay" style="display:none;"></div>
 
 <div class="container">
-
-<!-- Testing textillate triggers --><!--
-	<div class="row">
-		<div class="col-lg-6">
-			<button
-				id="in-button"
-				type="button"
-				class="btn btn-primary"
-				>
-				In
-			</button>
-			<button
-				id="out-button"
-				type="button"
-				class="btn btn-primary"
-				>
-				Out		
-			</button>
-			<div
-				id="in-out-2"
-				class="animatedText"
-				>
-				Testing Line 2
-			</div>
-			<div
-				id="in-out"
-				class="animatedText"
-				>
-				Testing
-			</div>
-		</div>
-	</div>
--->
 
 	<?php
 		/*
@@ -119,18 +95,68 @@ $conn = mysqli_connect($dbInfo['dbIP'], $dbInfo['user'], $dbInfo['password'], $d
 		>
 
 		<div class="row">
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label for="jobCode">Classification Code:</label>
-					<input
-						type="text"
-						name="jobCode"
-						id="jobCode"
-						class="form-control"
-						>
+			<div class="col-lg-6 form-group">
+				<label for="jobCode">Classification Code:</label>
+				<input type="text"
+					name="jobCode"
+					id="jobCode"
+					class="form-control">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6 form-group checkbox">
+				<label class="control-label"><input name="assignDept" id="assignDept" type="checkbox">Assign Department to Classification Code</label>
+			</div>
+		</div>
+
+		<!--  Department IDs -->
+		<div id="deptInputs" class="row hidden">
+			<div class="col-lg-12 form-group">
+				<label for="deptId">Department:</label>
+				
+				<div class="row">
+					<div class="col-lg-2">
+						<select name="deptId" id="deptId" class="form-control department dept-id">
+							<option>Dept ID</option>
+							<?php
+							foreach ($depts as $dept) {
+								echo "<option dept-id='". $dept['id'] ."' dept-letter='". $dept['letter'] ."'>". $dept['id'] ."</option>";
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<select name="deptName" id="deptName" class="form-control department dept-name">
+							<option>Name</option>
+							<?php
+							foreach ($depts as $dept) {
+								echo "<option dept-id='". $dept['id'] ."' dept-letter='". $dept['letter'] ."'>". $dept['name'] ."</option>";
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-lg-1">
+						<input name="deptLetter"
+							id="deptLetter"
+							class="form-control"
+							placeholder="Letter"
+							maxlength="4">
+					</div>
 				</div>
 			</div>
 		</div>
+
+
+
+
+
+
+
+
+
+
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">

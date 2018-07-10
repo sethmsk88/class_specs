@@ -24,6 +24,13 @@
 		echo '<span class="text-danger">' . $errMsg . '</span>';
 		exit;
 	}
+
+	// if a department is being assigned to a class spec
+	if (isset($_POST['assignDept']) && $_POST['assignDept'] === 'on') {
+		$param_int_DeptID = (isset($_POST['deptId']) && $_POST['deptId'] !== '') ? $_POST['deptId'] : NULL;
+	} else {
+		$param_int_DeptID = NULL;
+	}
 	
 	// Include my database info
     include "../../shared/dbInfo.php";
@@ -40,15 +47,18 @@
 	*/
 	$param_str_JobCode = $conn->escape_string(trim($_POST['jobCode']));
 	$select_classSpec_sql = "
-		SELECT *
-		FROM class_specs
-		WHERE JobCode = ? AND
-			Active = 1
+		SELECT c.*
+		FROM hrodt.class_specs c
+		JOIN hrodt.departments d
+			ON d.id = c.DeptID
+		WHERE c.JobCode = ?
+			AND c.DeptID = ?
+			AND c.Active = 1
 	";
 	if (!$stmt = $conn->prepare($select_classSpec_sql)) {
 		echo 'Prepare failed: (' . $conn->errno . ') ' . $conn->error;
 	}
-	if (!$stmt->bind_param("s", $param_str_JobCode)) {
+	if (!$stmt->bind_param("si", $param_str_JobCode, $param_int_DeptID)) {
 		echo 'Binding params failed: (' . $stmt->errno . ') ' . $stmt->error;
 	}
 	if (!$stmt->execute()) {
@@ -128,6 +138,18 @@
 			$param_int_IPEDS_SOCs = NULL;
 		}
 
+		// Update departments table if necessary
+		$param_str_letter = isset($_POST['deptLetter']) ? $_POST['deptLetter'] : NULL;
+		if (isset($_POST['assignDept']) && $_POST['assignDept'] === 'on') {
+			$stmt = $conn->prepare("
+				UPDATE hrodt.departments
+				SET letter = ?
+				WHERE id = ?
+			");
+			$stmt->bind_param("si", $param_str_letter, $param_int_DeptID);
+			$stmt->execute();
+		}
+
 		$insert_classSpec_sql = "
 			INSERT INTO class_specs (
 				JobCode,
@@ -145,9 +167,10 @@
 				Physical,
 				ChildCareSecurityCheck,
 				FinancialDisclosure,
-				ConfidentialityStmt
+				ConfidentialityStmt,
+				DeptId
 			)
-			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
 		";
 
 		// Prepare SQL statement
@@ -156,7 +179,7 @@
 		}
 
 		// Bind parameters
-		if (!$stmt->bind_param("sssiiisiissiiiii",
+		if (!$stmt->bind_param("sssiiisiissiiiiii",
 			$param_str_JobCode,
 			$param_str_JobTitle,
 			$param_str_PayPlan,
@@ -172,7 +195,8 @@
 			$param_int_Physical,
 			$param_int_ChildCareSecurityCheck,
 			$param_int_FinancialDisclosure,
-			$param_int_ConfidentialityStmt
+			$param_int_ConfidentialityStmt,
+			$param_int_DeptID
 			)){
 			echo 'Binding parameters failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
@@ -182,7 +206,7 @@
 			echo 'Execute failed: (' . $stmt->errno . ') ' . $stmt->error;
 		}
 		else{
-			echo 'Class Spec has been added (Classification Code: ' . $param_str_JobCode . ')';
+			echo 'Class Spec has been added (Classification Code: ' . $param_str_JobCode . $param_str_letter . ')';
 		}
 		
 		$stmt->close();
