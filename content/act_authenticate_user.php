@@ -1,18 +1,14 @@
 <?php
-/***  CHECK IF PAGE WAS POSTED TO  ***/
-if (!isset($_SERVER["REQUEST_METHOD"]) ||
-	$_SERVER["REQUEST_METHOD"] != "POST") {
-	exit;
-}
+// Authenticate user
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
-require_once '../includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';;
 
 if (isset($_POST['email'], $_POST['p'])) {
 	$email = $_POST['email'];
-	$password = $_POST['p']; // hashed password
+	$hashedPassword = $_POST['p'];
 
-	if (login($email, $password, $conn) == true) {
+	if (login($email, $hashedPassword, $conn) == true) {
 		echo 1;
 	}
 	else {
@@ -23,4 +19,7 @@ else {
 	// The correct POST variables were not sent to this page
 	header('Location: ../index.php?err=invalid_request');
 }
+
+
+
 ?>
