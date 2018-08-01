@@ -1,10 +1,4 @@
 <?php
-	/***  CHECK IF PAGE WAS POSTED TO  ***/
-	if (!isset($_SERVER["REQUEST_METHOD"]) ||
-		$_SERVER["REQUEST_METHOD"] != "POST") {
-		exit;
-	}
-
 	require_once '../includes/functions.php';
 
 	// Make sure required fields have been posted
@@ -19,7 +13,7 @@
 		$errMsg .= "Pay Plan is required<br>";
 
 	// If Required Fields Were Not All Posted
-	if (strlen($errMsg) > 0) {
+	if (strlen($errMsg) >0) {
 		// display error message and exit
 		echo '<span class="text-danger">' . $errMsg . '</span>';
 		exit;

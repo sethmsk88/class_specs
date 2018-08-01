@@ -1,10 +1,4 @@
 <?php
-	/***  CHECK IF PAGE WAS POSTED TO  ***/
-	if (!isset($_SERVER["REQUEST_METHOD"]) ||
-		$_SERVER["REQUEST_METHOD"] != "POST") {
-		exit;
-	}
-
 	// Include my database info
     require "../../shared/dbInfo.php";
 

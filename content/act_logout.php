@@ -1,5 +1,5 @@
 <?php
-include_once '../includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';;
 
 sec_session_start();
 

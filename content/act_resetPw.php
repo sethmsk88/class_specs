@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '\..\vendor\autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/class_specs/vendor/autoload.php';
 
 // This is the page we will return to after the email has been sent
 $redirectUrl = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/index.php?page=homepage";

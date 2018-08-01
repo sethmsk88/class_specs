@@ -1,9 +1,13 @@
 <?php
-    require __DIR__ . '/vendor/autoload.php';
-    
-    $APP_appName = "Class Spec Manager";
-    $APP_appPath = "http://" . $_SERVER['HTTP_HOST'] . "/bootstrap/apps/class_specs/";
-    $APP_homepage = "homepage";
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/class_specs/vendor/autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/class_specs/includes/globals.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
+
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/libraries-php/stats.php';
+    require_once "../shared/query_UDFs.php";
+    require_once "./includes/functions.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';;
 ?>
 
 <!DOCTYPE html>
@@ -21,22 +25,7 @@
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
     <link href="../css/master.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
-    <link href="../css/navbar-custom1.css" rel="stylesheet">
-
-    <?php
-        // Included PHP Libraries
-        require_once $_SERVER['DOCUMENT_ROOT'] . '\bootstrap\libraries-php\stats.php';
-
-        // Include functions
-        require_once "../shared/query_UDFs.php";
-        require_once "./includes/functions.php";
-
-        // Include my database info
-        require "../shared/dbInfo.php";
-
-        // Connect to DB
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
-    ?>    
+    <link href="../css/navbar-custom1.css" rel="stylesheet">  
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +39,8 @@
         sec_session_start();
 
         // Check to see if User is logged in
-        $loggedIn = login_check($conn);
+        $loginArray = login_check(APP_ID, $conn);
+        extract($loginArray); // Convert array values into local variables $ACCESS_LEVEL and $LOGGED_IN
     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -110,7 +100,7 @@
                     </li>
 
                     <?php
-                        if ($loggedIn) {
+                        if ($LOGGED_IN) {
                     ?>
                     <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Class Spec</a></li>
                     <?php
@@ -127,7 +117,7 @@
                                 <li><a id="navLink-details" href="?page=jobSpec_details">Class Spec Details</a></li>
 
                                 <?php
-                                if ($loggedIn) {
+                                if ($LOGGED_IN) {
                                 ?>
                                 <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Class Spec</a></li>
                                 <?php
@@ -137,7 +127,7 @@
                             }
                         }
 
-                        if ($loggedIn) {
+                        if ($LOGGED_IN) {
                     ?>
                     <li><a id="navLink-threshold" href="?page=flsa_threshold">FLSA Threshold</a></li>
                     <li><a id="navLink-upload" href="?page=uploadTMS">Upload TMS</a></li>
@@ -149,7 +139,7 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ($loggedIn) { ?>
+                    <?php if ($LOGGED_IN) { ?>
                     <li class="dropdown" style="cursor:pointer;">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['firstName']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
                         <ul class="dropdown-menu">

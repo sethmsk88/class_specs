@@ -1,10 +1,4 @@
 <?php
-	/***  CHECK IF PAGE WAS POSTED TO  ***/
-	if (!isset($_SERVER["REQUEST_METHOD"]) ||
-		$_SERVER["REQUEST_METHOD"] != "POST") {
-		exit;
-	}
-
 	/*
 		Deactivate or Re-activate Class Spec in class_specs table based
 		on status parameter.

@@ -1,10 +1,4 @@
 <?php
-	/***  CHECK IF PAGE WAS POSTED TO  ***/
-	if (!isset($_SERVER["REQUEST_METHOD"]) ||
-		$_SERVER["REQUEST_METHOD"] != "POST") {
-		exit;
-	}
-
 	/*
 		Delete Class Spec from class_specs table.
 		If there is more than one entry for a single class spec, the oldest
