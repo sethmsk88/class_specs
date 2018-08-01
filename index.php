@@ -6,7 +6,6 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/libraries-php/stats.php';
     require_once "../shared/query_UDFs.php";
     require_once "./includes/functions.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
     require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';;
 ?>
 
