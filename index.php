@@ -38,8 +38,7 @@
         sec_session_start();
 
         // Check to see if User is logged in
-        $loginArray = login_check(APP_ID, $conn);
-        extract($loginArray); // Convert array values into local variables $ACCESS_LEVEL and $LOGGED_IN
+        login_check(APP_ID, $conn); // This function will set login variables as globals
     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -99,7 +98,7 @@
                     </li>
 
                     <?php
-                        if ($LOGGED_IN) {
+                        if ($GLOBALS['LOGGED_IN']) {
                     ?>
                     <li><a id="navLink-addSpec" href="?page=jobSpec_add">Add Class Spec</a></li>
                     <?php
@@ -116,7 +115,7 @@
                                 <li><a id="navLink-details" href="?page=jobSpec_details">Class Spec Details</a></li>
 
                                 <?php
-                                if ($LOGGED_IN) {
+                                if ($GLOBALS['LOGGED_IN']) {
                                 ?>
                                 <li><a id="navLink-detailsEdit" href="?page=jobSpec_details">Edit Class Spec</a></li>
                                 <?php
@@ -126,7 +125,7 @@
                             }
                         }
 
-                        if ($LOGGED_IN) {
+                        if ($GLOBALS['LOGGED_IN']) {
                     ?>
                     <li><a id="navLink-threshold" href="?page=flsa_threshold">FLSA Threshold</a></li>
                     <li><a id="navLink-upload" href="?page=uploadTMS">Upload TMS</a></li>
@@ -138,7 +137,7 @@
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <?php if ($LOGGED_IN) { ?>
+                    <?php if ($GLOBALS['LOGGED_IN']) { ?>
                     <li class="dropdown" style="cursor:pointer;">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user" style="margin-right:8px;"></span><?php echo $_SESSION['firstName']; ?> <span class="glyphicon glyphicon-triangle-bottom" style="margin-left:4px;"></span></a>
                         <ul class="dropdown-menu">
