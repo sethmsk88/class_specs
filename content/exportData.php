@@ -19,7 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php'
 		<h3>Export Data to Excel Spreadsheet</h3>
 	</div>
 
-	<form action="<?= $GLOBALS['APP_PATH'] ?>/content/act_exportData.php" method="post">
+	<form action="<?= $GLOBALS['APP_PATH_URL'] ?>/content/act_exportData.php" method="post">
 		<div class="row">
 			Please select the data fields you would like to export
 		</div>

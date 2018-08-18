@@ -52,7 +52,7 @@ try {
 			id="changePassword-form"
 			role="form"
 			method="post"
-			action="<?= $GLOBALS['APP_PATH'] ?>content/act_changePassword.php">
+			action="<?= $GLOBALS['APP_PATH_URL'] ?>content/act_changePassword.php">
 
 			<div class="row" style="margin-bottom:12px">
 				<div class="col-lg-6">
