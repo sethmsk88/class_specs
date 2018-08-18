@@ -16,12 +16,12 @@
 	$param_int_user_id = $_SESSION['user_id'];
 
 	if (!$stmt = $conn->prepare($insert_threshold_sql)) {
-		header('Location: ' . $APP_appPath . '?page=flsa_threshold&failure=1');
+		header('Location: ' . $GLOBALS['APP_PATH'] . '?page=flsa_threshold&failure=1');
 	} else if (!$stmt->bind_param('di', $param_double_threshold, $param_int_user_id)) {
-		header('Location: ' . $APP_appPath . '?page=flsa_threshold&failure=1');
+		header('Location: ' . $GLOBALS['APP_PATH'] . '?page=flsa_threshold&failure=1');
 	} else if (!$stmt->execute()) {
-		header('Location: ' . $APP_appPath . '?page=flsa_threshold&failure=1');
+		header('Location: ' . $GLOBALS['APP_PATH'] . '?page=flsa_threshold&failure=1');
 	} else {
-		header('Location: ' . $APP_appPath . '?page=flsa_threshold&success=1');
+		header('Location: ' . $GLOBALS['APP_PATH'] . '?page=flsa_threshold&success=1');
 	}
 ?>

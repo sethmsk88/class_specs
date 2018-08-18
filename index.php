@@ -6,7 +6,7 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/libraries-php/stats.php';
     require_once "../shared/query_UDFs.php";
     require_once "./includes/functions.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';;
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/login_functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $APP_appName; ?></title>
+    <title><?= $GLOBALS['APP_NAME']; ?></title>
 
     <!-- Linked stylesheets -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <link href="/bootstrap/css/animate.min.css" rel="stylesheet">
     <link href="../css/master.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
-    <link href="../css/navbar-custom1.css" rel="stylesheet">  
+    <link href="../css/navbar-custom1.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +38,7 @@
         sec_session_start();
 
         // Check to see if User is logged in
-        login_check(APP_ID, $conn); // This function will set login variables as globals
+        login_check($GLOBALS['APP_ID'], $conn); // This function will set login variables as globals
     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -88,13 +88,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><?php echo $APP_appName; ?></a>
+                <a class="navbar-brand" href="#"><?php echo $GLOBALS['APP_NAME']; ?></a>
             </div>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <!-- Nav links -->
                 <ul class="nav navbar-nav">
                     <li id="homepage-link">
-                        <?php echo '<a id="navLink-homepage" href="./?page=' . $APP_homepage . '">Homepage</a>'; ?>
+                        <?php echo '<a id="navLink-homepage" href="./?page=' . $GLOBALS['APP_HOMEPAGE'] . '">Homepage</a>'; ?>
                     </li>
 
                     <?php
@@ -145,7 +145,11 @@
                                 <a id="settings-link" href="?page=settings">Settings</a>
                             </li>
                             <li>
-                                <a id="logout-link" href="./content/act_logout.php"> Log out</a>
+                                <?php
+                                    $redirectUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                                    $logoutUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/bootstrap/apps/shared/act_logout.php?redirect=' . $redirectUrl;
+                                ?>
+                                <a id="logout-link" href="<?= $logoutUrl ?>"> Log out</a>
                             </li>
                         </ul>
                     </li>
@@ -253,7 +257,7 @@
             $filePath = './content/' . $_GET["page"] . '.php';
         }
         else{
-            $filePath = './content/' . $APP_homepage . '.php';
+            $filePath = './content/' . $GLOBALS['APP_HOMEPAGE'] . '.php';
         }
 
     	if (file_exists($filePath)){
