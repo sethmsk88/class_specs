@@ -81,7 +81,7 @@ try {
     $mail->SMTPAuth = true; // authentication enabled
     $mail->SMTPSecure = 'TLS';
     $mail->Username = 'famutraining@famu.edu';
-    $mail->Password = 'Tr@!n!ng';
+    $mail->Password = 'F@WN-2018';
     $mail->setFrom('famutraining@famu.edu', 'HR/ODT Apps');
     $mail->addReplyTo('famutraining@famu.edu', 'HR/ODT Apps');
     $mail->addAddress($_POST['email']);

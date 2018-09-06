@@ -355,7 +355,7 @@
 						?>
 					</select>
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-4">
 					<select name="deptName" id="deptName" class="form-control department dept-name">
 						<option>Name</option>
 						<?php
