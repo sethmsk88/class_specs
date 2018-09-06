@@ -4,20 +4,78 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d70e361ba51a07dadd5dcfb404b1e7c0",
+    "content-hash": "36ba6e1ddc05975bbd462331e81e7b41",
     "packages": [
         {
-            "name": "phpmailer/phpmailer",
-            "version": "v6.0.3",
+            "name": "kint-php/kint",
+            "version": "2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6"
+                "url": "https://github.com/kint-php/kint.git",
+                "reference": "b091715eadaf6e1a7ef927f3e81d1004611d2aea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
-                "reference": "44d49bab5ab1fef721d3ee07e75dc0865ddf4cc6",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/b091715eadaf6e1a7ef927f3e81d1004611d2aea",
+                "reference": "b091715eadaf6e1a7ef927f3e81d1004611d2aea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "^4.0",
+                "symfony/finder": "^2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "init.php"
+                ],
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
+                },
+                {
+                    "name": "Jonathan Vollebregt",
+                    "homepage": "https://github.com/jnvsor"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/kint-php/kint/graphs/contributors"
+                }
+            ],
+            "description": "Kint - debugging tool for PHP developers",
+            "homepage": "https://kint-php.github.io/kint/",
+            "keywords": [
+                "debug",
+                "kint",
+                "php"
+            ],
+            "time": "2017-09-06T17:46:03+00:00"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v6.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/cb3ea134d4d3729e7857737d5f320cce9caf4d32",
+                "reference": "cb3ea134d4d3729e7857737d5f320cce9caf4d32",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +128,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2018-01-05T13:19:58+00:00"
+            "time": "2018-03-27T13:49:45+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -127,6 +185,7 @@
                 "xls",
                 "xlsx"
             ],
+            "abandoned": "phpoffice/phpspreadsheet",
             "time": "2015-05-01T07:00:55+00:00"
         }
     ],

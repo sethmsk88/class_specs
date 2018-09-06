@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '\..\vendor\autoload.php';
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/class_specs/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/class_specs/includes/globals.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php';
 
 /** Error reporting */

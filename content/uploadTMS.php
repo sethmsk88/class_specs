@@ -1,6 +1,6 @@
 <?php
 	/***  TEST LOGGED IN  ***/
-	if (!isset($loggedIn) || !$loggedIn) {
+	if (!isset($LOGGED_IN) || !$LOGGED_IN) {
 		exit;
 	}
 ?>

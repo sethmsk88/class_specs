@@ -2,7 +2,8 @@
     "name": "skerr/class_specs",
     "require": {
         "phpoffice/phpexcel": "^1.8",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "kint-php/kint": "^2.2"
     },
     "authors": [
         {

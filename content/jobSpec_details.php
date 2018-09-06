@@ -1,6 +1,6 @@
 <?php
 	// Require page to be loaded through index
-	if (!isset($loggedIn)) {
+	if (!isset($LOGGED_IN)) {
 		header("Location: ../index.php");
 	}
 ?>
@@ -265,7 +265,7 @@
 <br />
 
 <?php
-	if ($loggedIn && isset($_GET['edit'])) {
+	if ($LOGGED_IN && isset($_GET['edit'])) {
 ?>
 <div class="container default-style">
 	<?php
@@ -333,8 +333,10 @@
 		?>
 
 		<div class="row">
-			<div class="col-lg-offset-2 checkbox">
-				<label><input name="assignDept" id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+			<div class="form-group">
+				<div class="col-lg-offset-2 checkbox">
+					<label><input name="assignDept" id="assignDept" type="checkbox" <?= $showDept ? 'checked="checked"' : '' ?>>Assign Department to Classification Code</label>
+				</div>
 			</div>
 		</div>
 
@@ -344,7 +346,7 @@
 				<label class="control-label col-lg-2" for="deptId">Department:</label>
 				<div class="col-lg-2">
 					<select name="deptId" id="deptId" class="form-control department dept-id">
-						<option>ID</option>
+						<option>Dept ID</option>
 						<?php
 						foreach ($depts as $dept) {
 							echo "<option dept-id='{$dept->id}' dept-letter='{$dept->letter}' ";
@@ -866,13 +868,13 @@
 		</div>
 
 		<?php
-		if ($loggedIn) {
+		if ($LOGGED_IN) {
 		?>
 		<div class="col-lg-offset-6 col-lg-2 col-md-offset-3 col-md-3">
 			<?php
 				if ($classSpec_row['Active'] === 1) {
 					$btnColorClass = "btn-warning";
-					$btnMsg = "Deactive Class Spec";
+					$btnMsg = "Deactivate Class Spec";
 				} else if ($classSpec_row['Active'] === 0) {
 					$btnColorClass = "btn-success";
 					$btnMsg = "Activate Class Spec";
@@ -963,7 +965,7 @@
 		<div class="col-lg-12">
 			<span class="myLabel">Recommended Competitive Pay Range for Postings:</span>
 			<?php
-			if ($loggedIn) {
+			if ($LOGGED_IN) {
 				echo '$' . number_format($payLevel_row['MinSalAdjusted'], 2, '.', ',') . ' - ';
 				if ($payLevel_row['MaxSalAdjusted'] >= 0) {
 					echo '$' . number_format($payLevel_row['MaxSalAdjusted'], 2, '.', ',');
@@ -983,7 +985,7 @@
 		<div class="col-lg-3">
 			<span class="myLabel">Pay Level:</span>
 			<?php
-			if ($loggedIn) {
+			if ($LOGGED_IN) {
 				echo $payLevel_row['PayLevel'];
 			}
 			?>
@@ -991,7 +993,7 @@
 		<div class="col-lg-9">
 			<span class="myLabel">Pay Level Range:</span>
 			<?php
-			if ($loggedIn) {
+			if ($LOGGED_IN) {
 				echo '$' . number_format($payLevelRange_row['PayLevelMin'], 2, '.', ',') . ' - ';
 				if ($payLevelRange_row['PayLevelMax'] >= 0) {
 					echo '$' . number_format($payLevelRange_row['PayLevelMax'], 2, '.', ',');
@@ -1211,7 +1213,7 @@
 	}
 ?>
 
-<?php if ($loggedIn) { ?>
+<?php if ($LOGGED_IN) { ?>
 <!-- Edit Competency Form (absolutely positioned) -->
 <div
 	id="editComp-container"

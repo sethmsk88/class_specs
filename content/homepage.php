@@ -1,6 +1,6 @@
 <?php
 	// Require page to be loaded through index
-	if (!isset($loggedIn)) {
+	if (!isset($GLOBALS['LOGGED_IN'])) {
 		header("Location: ../index.php");
 	}
 ?>
@@ -85,7 +85,7 @@
 	/*	  conn is a reference to a DB connection.         */
 	/* Return: Query object containing query result       */
 	/************************************************&*****/
-	function getClassSpecs($payPlan, &$conn, $loggedIn) {
+	function getClassSpecs($payPlan, &$conn) {
 
 		$sel_classSpecs_sql = "
 			SELECT c.JobCode,
@@ -104,7 +104,7 @@
 			WHERE c.PayPlan = '$payPlan'
 		";
 		// If not logged in, only show active class specs
-		if (!$loggedIn) {
+		if (!$GLOBALS['LOGGED_IN'] OR is_null($GLOBALS['ACCESS_LEVEL'])) {
 			$sel_classSpecs_sql .= " AND c.Active = 1";
 		}
 		$sel_classSpecs_sql .= " ORDER BY c.JobCode ASC";
@@ -124,10 +124,10 @@
 		echo "Failed to connect to MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
 	}
 
-	$sel_classSpec_ap_result = getClassSpecs('ap', $conn, $loggedIn);
-	$sel_classSpec_usps_result = getClassSpecs('usps', $conn, $loggedIn);
-	$sel_classSpec_exec_result = getClassSpecs('exec', $conn, $loggedIn);
-	$sel_classSpec_fac_result = getClassSpecs('fac', $conn, $loggedIn);
+	$sel_classSpec_ap_result = getClassSpecs('ap', $conn);
+	$sel_classSpec_usps_result = getClassSpecs('usps', $conn);
+	$sel_classSpec_exec_result = getClassSpecs('exec', $conn);
+	$sel_classSpec_fac_result = getClassSpecs('fac', $conn);
 
 	/*
 		If JobCode get variable exists, get the associated job title
@@ -211,7 +211,7 @@
 				<li class="active tab_title"><a data-toggle="tab" href="#ap">A&amp;P</a></li>
 				<li class="tab_title"><a data-toggle="tab" href="#usps">USPS</a></li>
 				<li class="tab_title"><a data-toggle="tab" href="#exec">Exec</a></li>
-				<?php if ($loggedIn) { ?>
+				<?php if ($GLOBALS['LOGGED_IN'] AND !is_null($GLOBALS['ACCESS_LEVEL'])) { ?>
 				<li class="tab_title"><a data-toggle="tab" href="#fac">Faculty</a></li>
 				<?php } ?>
 			</ul>
@@ -254,7 +254,7 @@
 				<!--~~~~~~~~~~~~~-->
 				<!-- Faculty Tab -->
 				<!--~~~~~~~~~~~~~-->
-				<?php if ($loggedIn) { ?>
+				<?php if ($GLOBALS['LOGGED_IN'] AND !is_null($GLOBALS['ACCESS_LEVEL'])) { ?>
 				<div id="fac" class="tab-pane fade">
 					<div class="row">
 						<div class="col-md-12">

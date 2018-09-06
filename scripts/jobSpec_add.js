@@ -75,42 +75,18 @@ $(document).ready(function() {
 	$('#addJobSpec-form').on('submit', function(e){
 		e.preventDefault();
 
-		var index = 0; // For textillate function call
-
 		$.ajax({
 			type: 'post',
 			url: './content/act_jobSpec.php',
 			data: $('#addJobSpec-form').serialize(),
 			success: function(response){
 				$('#ajax_response_submit').html(response);
-				// TESTING: $animated.textillate('in', index);
 			}
 		});
 	});
 
 	// Attach event handler to competency select box
 	$('#competency_1').on('change', duplicateCompObj);
-
-
-	/** TESTING manual textillate triggering
-	$('#in-button').click(function(){
-		$.ajax({
-			url: './content/ajax_test.php',
-			type: 'GET',
-			success: function(response){
-				$('#in-out').html("response: " + response + "<br />");
-				$animated.textillate('in');
-			}
-		});
-
-		// How do you animate text that comes from AJAX request
-	});
-
-	$('#out-button').click(function(){
-		$animated.textillate('out');
-	});
-	**/
-
 
 	/*
 		Attach event handler to the overlay.
@@ -130,7 +106,6 @@ $(document).ready(function() {
 		});
 
 	});
-
 
 	/*
 		Attach event handler to addNewComp button.
@@ -358,5 +333,24 @@ $(document).ready(function() {
 	$('#back-btn').click(function() {
 		// Redirect to Homepage
 		window.location.assign('?page=homepage&pp=' + $(this).attr('payPlan'));
+	});
+
+	// Bind department input fields together
+	$('select.department').change(function() {
+		var deptIdSelected = $(this).children(':selected').attr('dept-id');
+		var deptLetter = $(this).children(':selected').attr('dept-letter');
+		$('#deptName option[dept-id="'+ deptIdSelected +'"]').prop("selected", true);
+		$('#deptId option[dept-id="'+ deptIdSelected +'"]').prop("selected", true);
+		$('#deptLetter').val(deptLetter);
+	});
+
+	// Change event handler for "Assign Department to Classification Code" checkbox
+	$('#assignDept').change(function() {
+		// Show/hide Department designation fields
+		if ($(this).prop('checked')) {
+			$('#deptInputs').toggleClass('hidden');
+		} else {
+			$('#deptInputs').toggleClass('hidden');
+		}
 	});
 });

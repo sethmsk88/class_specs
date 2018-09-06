@@ -1,11 +1,11 @@
 <?php
 // Require page to be loaded through index
-if (!isset($loggedIn)) {
+if (!isset($LOGGED_IN)) {
 	header("Location: ../index.php");
 }
 
 /***  TEST LOGGED IN  ***/
-if (!$loggedIn) {
+if (!$LOGGED_IN) {
 	echo '<span class="text-danger">Must be logged in to access this page</span>';
 	exit;
 }
@@ -19,7 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php'
 		<h3>Export Data to Excel Spreadsheet</h3>
 	</div>
 
-	<form action="<?= $APP_appPath ?>/content/act_exportData.php" method="post">
+	<form action="<?= $GLOBALS['APP_PATH_URL'] ?>/content/act_exportData.php" method="post">
 		<div class="row">
 			Please select the data fields you would like to export
 		</div>

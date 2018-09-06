@@ -1,10 +1,6 @@
 <script src="./scripts/changePw.js?v=1"></script>
 
 <?php
-// Require page to be loaded through index
-/*if (!isset($loggedIn)) {
-	header("Location: ../index.php");
-}*/
 
 // Check to see if password reset link is valid
 try {
@@ -56,7 +52,7 @@ try {
 			id="changePassword-form"
 			role="form"
 			method="post"
-			action="<?= $APP_appPath ?>content/act_changePassword.php">
+			action="<?= $GLOBALS['APP_PATH_URL'] ?>content/act_changePassword.php">
 
 			<div class="row" style="margin-bottom:12px">
 				<div class="col-lg-6">
