@@ -23,9 +23,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap/apps/shared/db_connect.php'
 // Get the user's record from the users table
 try {
 	if (!$stmt = $conn->prepare("
-		select id
-		from secure_login.users
-		where email = ?
+		select UserId
+		from user_management.users
+		where lower(Email) = lower(?)
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}
@@ -53,10 +53,10 @@ $tempPw = GenerateTempPassword();
 $hashedTempPw = hash("sha512", $tempPw);
 try {
 	if (!$stmt = $conn->prepare("
-		update secure_login.users
-		set tempPassword = ?,
-			tempPasswordCreated = NOW()
-		where id = ?
+		update user_management.users
+		set TempPassword = ?,
+			TempPasswordCreated = NOW()
+		where UserId = ?
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}
