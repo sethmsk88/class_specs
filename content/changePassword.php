@@ -8,11 +8,11 @@ try {
 
 	// Temp password can be no more than 1 day old
 	if (!$stmt = $conn->prepare("
-		select firstName, lastName
-		from secure_login.users
-		where id = ?
-			and tempPassword = ?
-			and tempPasswordCreated >= now() - interval 1 day
+		select FirstName, LastName
+		from user_management.users
+		where UserId = ?
+			and TempPassword = ?
+			and TempPasswordCreated >= now() - interval 1 day
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}

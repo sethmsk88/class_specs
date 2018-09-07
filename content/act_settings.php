@@ -18,9 +18,9 @@ if ($LOGGED_IN) {
 		$user_id = $_SESSION['user_id'];
 
 		$sel_user_pw_sql = "
-			SELECT password
-			FROM secure_login.users
-			WHERE id = ?
+			SELECT Password
+			FROM user_management.users
+			WHERE UserId = ?
 		";
 
 		if (!$stmt = $conn->prepare($sel_user_pw_sql)) {
@@ -42,9 +42,9 @@ if ($LOGGED_IN) {
 			if ($db_password == $param_str_oldPassword) {
 
 				$update_user_pw_sql = "
-					UPDATE secure_login.users
-					SET	password = ?
-					WHERE id = ?
+					UPDATE user_management.users
+					SET	Password = ?
+					WHERE UserId = ?
 				";
 
 				if ($stmt = $conn->prepare($update_user_pw_sql)) {
