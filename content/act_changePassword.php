@@ -10,10 +10,10 @@ try {
 	$hashedTempPw = hash("sha512", $_POST['tempPw']);
 
 	if (!$stmt = $conn->prepare("
-		select tempPasswordCreated
-		from secure_login.users
-		where id = ?
-			and tempPassword = ?
+		select TempPasswordCreated
+		from user_management.users
+		where UserId = ?
+			and TempPassword = ?
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}
@@ -39,9 +39,9 @@ try {
 
 	// Update user's password
 	if (!$stmt = $conn->prepare("
-		update secure_login.users
-		set password = ?
-		where id = ?
+		update user_management.users
+		set Password = ?
+		where UserId = ?
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}
@@ -56,9 +56,9 @@ try {
 
 	// Clear the temporary password
 	if (!$stmt = $conn->prepare("
-		update secure_login.users
-		set tempPassword = ''
-		where id = ?
+		update user_management.users
+		set TempPassword = ''
+		where UserId = ?
 	")) {
 		throw new Exception("Error preparing query: ({$conn->errno}) {$conn->error}<br>");
 	}
